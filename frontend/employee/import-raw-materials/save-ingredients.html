@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/import-raw-materials/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Save Ingredients - IMDS-BAKERY</title>
+    <!-- Reuse homepage styles for identical sidebar/header -->
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/import-materials.css?v=20251002h">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar (identical to homepage) -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-href="index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span></button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></button>
+                <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span></button>
+                <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span></button>
+                <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header (identical to homepage) -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👨‍🍳</span>
+                        <h1 class="user-name">Loading...</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date">Loading...</div>
+                        <div class="time">Loading...</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb (house + IMDS-BAKERY + Import Materials + Complete Entry) -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Import Materials" data-vi="Nhập nguyên liệu">Nhập nguyên liệu</span></a>
+                <span> / </span>
+                <a href="save-ingredients.html" class="breadcrumb-link"><span data-en="Complete Entry" data-vi="Hoàn tất nhập kho">Hoàn tất nhập kho</span></a>
+            </div>
+
+            <!-- Page content: Import raw materials (like in image) -->
+            <section class="import-page">
+                <h2 class="page-title"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Nhập nguyên liệu</span></h2>
+
+                <!-- Inventory of ingredients (main table) -->
+                <div class="inventory-panel">
+                    <div class="inventory-header">
+                        <div class="header-left">
+                            <i class="fa-solid fa-list"></i>
+                            <span data-en="Inventory of ingredients" data-vi="Danh sách nguyên liệu">Danh sách nguyên liệu</span>
+                        </div>
+                        <div class="header-controls">
+                            <div class="search-box">
+                                <i class="fa-solid fa-search"></i>
+                                <input type="text" placeholder="Tìm kiếm" data-en="Search" data-vi="Tìm kiếm" id="searchInput">
+                            </div>
+                            <button class="filter-box" id="btnFilter" type="button">
+                                <i class="fa-solid fa-filter"></i><span data-en="Filter" data-vi="Lọc">Lọc</span>
+                            </button>
+
+                            <button class="sort-box" id="btnSort" type="button">
+                                <i class="fa-solid fa-sort"></i><span data-en="Sort" data-vi="Sắp xếp">Sắp xếp</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="inventory-table">
+                        <div class="table-header">
+                            <div class="th batch-code" data-en="Batch code" data-vi="Mã lô">Mã lô</div>
+                            <div class="th product-name" data-en="Product Name" data-vi="Tên sản phẩm">Tên sản phẩm</div>
+                            <div class="th quantity" data-en="Quantity" data-vi="Số lượng">Số lượng</div>
+                            <div class="th unit" data-en="Unit" data-vi="Đơn vị">Đơn vị</div>
+                            <div class="th received-date" data-en="Received date" data-vi="Ngày nhập">Ngày nhập</div>
+                            <div class="th use-by-date" data-en="Use-by date" data-vi="Hạn dùng">Hạn dùng</div>
+                            <div class="th status" data-en="Status" data-vi="Trạng thái">Trạng thái</div>
+                        </div>
+
+                        <div class="table-body" id="inventoryTableBody">
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-01</div>
+                                <div class="td product-name">Wheat Flour</div>
+                                <div class="td quantity">20</div>
+                                <div class="td unit">kg</div>
+                                <div class="td received-date">2025-09-22</div>
+                                <div class="td use-by-date">2026-03-22</div>
+                                <div class="td status"><span class="status-badge normal" data-en="Normal" data-vi="Bình thường">Bình thường</span></div>
+                            </div>
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-01</div>
+                                <div class="td product-name">Fresh Milk</div>
+                                <div class="td quantity">30</div>
+                                <div class="td unit">L</div>
+                                <div class="td received-date">2025-09-24</div>
+                                <div class="td use-by-date">2025-10-01</div>
+                                <div class="td status"><span class="status-badge normal" data-en="Normal" data-vi="Bình thường">Bình thường</span></div>
+                            </div>
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-01</div>
+                                <div class="td product-name">Butter</div>
+                                <div class="td quantity">5</div>
+                                <div class="td unit">kg</div>
+                                <div class="td received-date">2025-09-23</div>
+                                <div class="td use-by-date">2025-11-23</div>
+                                <div class="td status"><span class="status-badge normal" data-en="Normal" data-vi="Bình thường">Bình thường</span></div>
+                            </div>
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-02</div>
+                                <div class="td product-name">Sugar</div>
+                                <div class="td quantity">15</div>
+                                <div class="td unit">kg</div>
+                                <div class="td received-date">2025-09-25</div>
+                                <div class="td use-by-date">2026-09-25</div>
+                                <div class="td status"><span class="status-badge normal" data-en="Normal" data-vi="Bình thường">Bình thường</span></div>
+                            </div>
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-02</div>
+                                <div class="td product-name">Eggs</div>
+                                <div class="td quantity">15</div>
+                                <div class="td unit">pcs</div>
+                                <div class="td received-date">2025-09-24</div>
+                                <div class="td use-by-date">2025-09-30</div>
+                                <div class="td status"><span class="status-badge normal" data-en="Normal" data-vi="Bình thường">Bình thường</span></div>
+                            </div>
+                            <div class="tr">
+                                <div class="td batch-code">L2025-10-03-02</div>
+                                <div class="td product-name">Whipped cream</div>
+                                <div class="td quantity">10</div>
+                                <div class="td unit">L</div>
+                                <div class="td received-date">2025-09-24</div>
+                                <div class="td use-by-date">2025-10-01</div>
+                                <div class="td status"><span class="status-badge normal">Normal</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn-add-ingredients" id="btnAddIngredients">
+                        <i class="fa-solid fa-plus"></i>
+                        <span data-en="Add Ingredients" data-vi="Thêm nguyên liệu">Thêm nguyên liệu</span>
+                    </button>
+                    <div class="right-buttons">
+                        <button type="button" class="btn-export" id="btnExport">
+                            <i class="fa-solid fa-download"></i>
+                            <span data-en="Export" data-vi="Xuất">Xuất</span>
+                        </button>
+                        <button type="button" class="btn-complete" id="btnCompleteEntry">
+                            <i class="fa-solid fa-check"></i>
+                            <span data-en="Completed Warehouse Entry" data-vi="Hoàn tất nhập kho">Hoàn tất nhập kho</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completion Process -->
+                <div class="completion-process">
+                    <div class="process-header">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <span data-en="Completion Process" data-vi="Quy trình hoàn tất">Quy trình hoàn tất</span>
+                    </div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <i class="fa-solid fa-check"></i>
+                            <span data-en="After completion: Data will be transferred to the Check Inventory system" data-vi="Sau khi hoàn tất: Dữ liệu sẽ được chuyển sang hệ thống Kiểm tra kho">Sau khi hoàn tất: Dữ liệu sẽ được chuyển sang hệ thống Kiểm tra kho</span>
+                        </div>
+                        <div class="step">
+                            <i class="fa-solid fa-check"></i>
+                            <span data-en="Inventory tracking: Can be viewed and managed in Check Inventory section" data-vi="Theo dõi tồn kho: Có thể xem và quản lý tại mục Kiểm tra kho">Theo dõi tồn kho: Có thể xem và quản lý tại mục Kiểm tra kho</span>
+                        </div>
+                        <div class="step">
+                            <i class="fa-solid fa-check"></i>
+                            <span data-en="Expiration warning: The system will automatically notify when the material is about to expire." data-vi="Cảnh báo hết hạn: Hệ thống sẽ tự động thông báo khi nguyên liệu sắp hết hạn.">Cảnh báo hết hạn: Hệ thống sẽ tự động thông báo khi nguyên liệu sắp hết hạn.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa-solid fa-circle-check success-icon"></i>
+                <h3 data-en="Ingredient Saved Successfully!" data-vi="Lưu nguyên liệu thành công!">Lưu nguyên liệu thành công!</h3>
+            </div>
+            <div class="modal-body">
+                <p data-en="The ingredient has been added to the inventory system." data-vi="Nguyên liệu đã được thêm vào hệ thống kho.">Nguyên liệu đã được thêm vào hệ thống kho.</p>
+                <div class="ingredient-summary">
+                    <div class="summary-item">
+                        <span class="label" data-en="Product:" data-vi="Sản phẩm:">Sản phẩm:</span>
+                        <span class="value" id="summaryProduct">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label" data-en="Quantity:" data-vi="Số lượng:">Số lượng:</span>
+                        <span class="value" id="summaryQuantity">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label" data-en="Batch Code:" data-vi="Mã lô:">Mã lô:</span>
+                        <span class="value" id="summaryBatch">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn ghost" id="btnAddAnother">
+                    <i class="fa-solid fa-plus"></i>
+                    <span data-en="Add Another" data-vi="Thêm mới">Thêm mới</span>
+                </button>
+                <button class="btn success" id="btnViewInventory">
+                    <i class="fa-solid fa-box"></i>
+                    <span data-en="View Inventory" data-vi="Xem tồn kho">Xem tồn kho</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Service Worker to prevent cache issues -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Unregister old service workers first to prevent reload loop
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+                // Then register new service worker
+                navigator.serviceWorker.register('./sw.js').catch(console.error);
+            });
+        }
+    </script>
+    
+    <script src="assets/js/save-ingredients.js"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+    <script src="../../assets/js/language.js"></script>
+    <script>
+        if (window.GlobalLanguage && GlobalLanguage.initialize) {
+            GlobalLanguage.initialize();
+            try { GlobalLanguage.updateDateTime(); } catch(_){}
+            try { setInterval(function(){ if(window.GlobalLanguage){ GlobalLanguage.updateDateTime(); } }, 60000); } catch(_){}
+        } else {
+            document.addEventListener('DOMContentLoaded', function(){
+                if (window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+                try { if(window.GlobalLanguage){ GlobalLanguage.updateDateTime(); setInterval(function(){ GlobalLanguage.updateDateTime(); }, 60000); } } catch(_){}
+            });
+        }
+    </script>
+
+    <!-- Navigation and Logout Script -->
+    <script>
+        (function () {
+            const sidebar = document.querySelector('.sidebar');
+            if (!sidebar) return;
+
+            // Navigation handling
+            sidebar.addEventListener('click', (e) => {
+                const el = e.target.closest('.menu-item[data-href]');
+                if (!el) return;
+
+                e.preventDefault();
+
+                const href = el.getAttribute('data-href');
+                if (!href) return;
+
+                const abs = new URL(href, window.location).href;
+
+                // UI active state
+                sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+                el.classList.add('active');
+                el.setAttribute('aria-current', 'page');
+
+                // Navigate
+                window.location.assign(abs);
+            });
+
+            // Logout handling
+            const logoutBtn = document.getElementById('btnLogout');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    // Clear all session storage
+                    sessionStorage.removeItem('user_info');
+                    sessionStorage.removeItem('user_token');
+                    sessionStorage.removeItem('auth_token');
+                    
+                    // Clear localStorage credentials if any
+                    localStorage.removeItem('bakery_credentials');
+                    
+                    // Redirect to login page
+                    window.location.href = '../../login/index.html';
+                });
+            }
+
+            // Auto-highlight current page
+            const here = window.location.pathname;
+            sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+                const href = item.getAttribute('data-href');
+                if (!href) return;
+                const resolved = new URL(href, window.location).pathname;
+                if (here === resolved || here.endsWith(resolved)) {
+                    item.classList.add('active');
+                    item.setAttribute('aria-current', 'page');
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
+
+
+
+

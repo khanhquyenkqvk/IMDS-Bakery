@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/admin/batch-management/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Batch Management - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="../assets/js/language.js"></script>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../report/index.html"><i class="fa-solid fa-gauge"></i><span data-en="Report" data-vi="Báo cáo">Báo cáo</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-boxes-stacked"></i><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></button>
+                <button class="menu-item" data-href="../warehouse-data/index.html"><i class="fa-solid fa-warehouse"></i><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></button>
+                <button class="menu-item" data-href="../user-management/index.html"><i class="fa-solid fa-users"></i><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></button>
+                <button class="menu-item" data-href="../smart-suggestion/index.html"><i class="fa-solid fa-lightbulb"></i><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Gợi ý thông minh</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+            </div>
+        </aside>
+
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👤</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></a>
+            </div>
+
+            <!-- Batch Management Section -->
+            <section class="batch-section">
+                <h2 class="page-title"><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></h2>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Total Ingredients" data-vi="Tổng nguyên liệu">Tổng nguyên liệu</h3>
+                            <p class="card-value" id="totalIngredients">0</p>
+                        </div>
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</h3>
+                            <p class="card-value" id="activeCount">0</p>
+                        </div>
+                        <div class="card-icon green">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Nearly Expired" data-vi="Sắp hết hạn">Sắp hết hạn</h3>
+                            <p class="card-value" id="nearlyExpiredCount">0</p>
+                        </div>
+                        <div class="card-icon yellow">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Expired" data-vi="Đã hết hạn">Đã hết hạn</h3>
+                            <p class="card-value" id="expiredCount">0</p>
+                        </div>
+                        <div class="card-icon red">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all">
+                        <span data-en="ALL" data-vi="Tất cả">Tất cả</span>
+                        <span class="tab-count">(0)</span>
+                    </button>
+                    <button class="tab-btn" data-filter="active">
+                        <span data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</span>
+                        <span class="tab-count">(0)</span>
+                    </button>
+                    <button class="tab-btn" data-filter="nearly-expired">
+                        <span data-en="Nearly expired" data-vi="Sắp hết hạn">Sắp hết hạn</span>
+                        <span class="tab-count">(0)</span>
+                    </button>
+                    <button class="tab-btn" data-filter="expired">
+                        <span data-en="Expired" data-vi="Đã hết hạn">Đã hết hạn</span>
+                        <span class="tab-count">(0)</span>
+                    </button>
+                </div>
+
+                <!-- Table Section -->
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><span data-en="Ingredient Batch Data Table (FIFO)" data-vi="Bảng dữ liệu lô nguyên liệu (FIFO)">Bảng dữ liệu lô nguyên liệu (FIFO)</span></h3>
+                        <div class="table-tools">
+                            <input id="batchSearchInput" class="input-field search-input" type="text"
+                                   placeholder="Tìm kiếm lô hoặc nguyên liệu"
+                                   data-en-placeholder="Search lots or ingredients"
+                                   data-vi-placeholder="Tìm kiếm lô hoặc nguyên liệu">
+                            <button class="btn-add-new">
+                                <i class="fa-solid fa-plus"></i>
+                                <span data-en="Add New" data-vi="Thêm mới">Thêm mới</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="batch-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th><span data-en="Batch code" data-vi="Mã lô">Mã lô</span></th>
+                                    <th><span data-en="Products Name" data-vi="Tên sản phẩm">Tên sản phẩm</span></th>
+                                    <th><span data-en="Received date" data-vi="Ngày nhập">Ngày nhập</span></th>
+                                    <th><span data-en="Use-by date" data-vi="Hạn sử dụng">Hạn sử dụng</span></th>
+                                    <th><span data-en="Stock Quantity" data-vi="Số lượng tồn kho">Số lượng tồn kho</span></th>
+                                    <th><span data-en="Status" data-vi="Trạng thái">Trạng thái</span></th>
+                                    <th><span data-en="Action" data-vi="Hành động">Hành động</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="batchTableBody">
+                                <!-- Rows will be rendered by script.js via API -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-pagination" id="batchPagination">
+                        <button class="page-btn" id="batchPagePrev" type="button" data-en="Prev" data-vi="Trước">Trước</button>
+                        <span class="page-info" id="batchPageInfo">1 / 1</span>
+                        <button class="page-btn" id="batchPageNext" type="button" data-en="Next" data-vi="Sau">Sau</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal-overlay hidden">
+        <div class="modal-card detail-modal">
+            <div class="modal-header">
+                <h2 data-en="Raw Material Batch Details" data-vi="Chi tiết lô nguyên liệu thô">Chi tiết lô nguyên liệu thô</h2>
+                <p id="detailSubtitle"
+                   data-en="Full information about lot" data-vi="Thông tin đầy đủ về lô">Thông tin đầy đủ về lô</p>
+
+            </div>
+
+            <div class="modal-body">
+                <!-- Products Name -->
+                <div class="detail-grid">
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Products Name" data-vi="Tên sản phẩm">Tên sản phẩm</div>
+                        <div class="detail-value" id="detailProductName"></div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Batch code" data-vi="Mã lô">Mã lô</div>
+                        <div class="detail-value" id="detailLotCode"></div>
+                    </div>
+                </div>
+
+
+                <!-- Stock / dates -->
+                <div class="detail-grid">
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Stock Quantity" data-vi="Số lượng tồn kho">Số lượng tồn kho</div>
+                        <div class="detail-value" id="detailQuantity"></div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Received date" data-vi="Ngày nhập">Ngày nhập</div>
+                        <div class="detail-value" id="detailManufactureDate"></div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Use-by date" data-vi="Hạn sử dụng">Hạn sử dụng</div>
+                        <div class="detail-value" id="detailExpiryDate"></div>
+                    </div>
+                </div>
+
+                <!-- Status / Remaining -->
+                <div class="detail-grid">
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Status" data-vi="Trạng thái">Trạng thái</div>
+                        <div class="detail-status-wrapper">
+                            <span id="detailStatusBadge"
+                                  class="status-badge status-active">
+                                <span id="detailStatusText"
+                                      data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Remaining" data-vi="Còn lại">Còn lại</div>
+                        <div class="detail-value">
+                            <span id="detailRemainingDays"></span>
+                            <span data-en="days." data-vi="ngày.">ngày.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creator -->
+                <div class="detail-block">
+                    <div class="detail-label"
+                         data-en="Creator" data-vi="Người tạo">Người tạo</div>
+                    <div class="detail-value" id="detailCreator"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-outline" id="detailCloseBtn">
+                    <span data-en="Close" data-vi="Đóng">Đóng</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal-overlay hidden">
+        <div class="modal-card edit-modal">
+            <div class="modal-header">
+                <h2 data-en="Update Raw Material Batch" data-vi="Cập nhật lô nguyên liệu thô">Cập nhật lô nguyên liệu thô</h2>
+                <p data-en="Edit existing raw material batch information" data-vi="Chỉnh sửa thông tin lô nguyên liệu hiện có">Chỉnh sửa thông tin lô nguyên liệu hiện có</p>
+            </div>
+
+            <div class="modal-body">
+                <!-- Product / lot -->
+                <div class="detail-grid">
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Products Name" data-vi="Tên sản phẩm">Tên sản phẩm</div>
+                        <div class="detail-value" id="editProductName"></div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Batch code" data-vi="Mã lô">Mã lô</div>
+                        <div class="detail-value" id="editLotCode"></div>
+                    </div>
+                </div>
+
+                <!-- Editable fields -->
+                <div class="detail-grid">
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Stock Quantity" data-vi="Số lượng tồn kho">Số lượng tồn kho</div>
+                        <input id="editQuantity"
+                               type="number"
+                               step="0.01"
+                               class="input-field">
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Received date" data-vi="Ngày nhập">Ngày nhập</div>
+                        <input id="editManufactureDate"
+                               type="date"
+                               class="input-field">
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-label"
+                             data-en="Use-by date" data-vi="Hạn sử dụng">Hạn sử dụng</div>
+                        <input id="editExpiryDate"
+                               type="date"
+                               class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-outline" id="editCancelBtn">
+                    <span data-en="Cancel" data-vi="Hủy">Hủy</span>
+                </button>
+                <button type="button" class="btn-primary" id="editSaveBtn">
+                    <span data-en="Update" data-vi="Cập nhật">Cập nhật</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Add New Batch Modal -->
+    <div id="addModal" class="modal-overlay hidden">
+        <div class="modal-card edit-modal">
+            <div class="modal-header modal-header-row">
+                <div>
+                    <h2 data-en="Add New Batch of Raw Materials" data-vi="Thêm lô nguyên liệu mới">Thêm lô nguyên liệu mới</h2>
+                    <p data-en="Enter details for new batch of raw materials" data-vi="Nhập thông tin cho lô nguyên liệu mới">Nhập thông tin cho lô nguyên liệu mới</p>
+                </div>
+                <button type="button" id="addCloseIcon" class="modal-close-icon">x</button>
+            </div>
+
+            <div class="modal-body">
+            <!-- Hàng 1: Product + Batch code -->
+            <div class="detail-grid">
+                <div class="detail-block">
+                    <div class="detail-label"
+                        data-en="Product Name" data-vi="Tên nguyên liệu">Tên nguyên liệu</div>
+                    <select id="addIngredientSelect" class="input-field">
+                        <option value=""
+                                data-en="Select ingredients" data-vi="Chọn nguyên liệu">Chọn nguyên liệu</option>
+                    </select>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-label"
+                        data-en="Batch code" data-vi="Mã lô">Mã lô</div>
+                    <input id="addLotCode"
+                        class="input-field"
+                        type="text"
+                        disabled
+                        placeholder="Tự động tạo">
+                </div>
+            </div>
+
+            <!-- Hàng 2: Quantity + Date created -->
+            <div class="detail-grid">
+                <div class="detail-block">
+                    <div class="detail-label"
+                        data-en="Quantity" data-vi="Số lượng">Số lượng</div>
+                    <div class="quantity-wrapper">
+                        <input id="addQuantity"
+                            type="number"
+                            step="1"
+                            class="input-field quantity-input">
+                        <span id="addQuantityUnitLabel" class="unit-label"></span>
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-label"
+                        data-en="Date created" data-vi="Ngày tạo">Ngày tạo</div>
+                    <div class="detail-value" id="addCreatedDate"></div>
+                </div>
+            </div>
+
+            <!-- Hàng 3: Use-by date -->
+            <div class="detail-block">
+                <div class="detail-label"
+                    data-en="Use-by date" data-vi="Hạn sử dụng">Hạn sử dụng</div>
+                <div class="detail-value" id="addExpiryDate"></div>
+            </div>
+        </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn-outline" id="addCancelBtn">
+                    <span data-en="Cancel" data-vi="Hủy">Hủy</span>
+                </button>
+                <button type="button" class="btn-primary" id="addSaveBtn">
+                    <span data-en="Add New" data-vi="Thêm mới">Thêm mới</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Sidebar menu navigation handler
+        document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const href = this.getAttribute('data-href');
+                if (href && href !== '#') {
+                    location.href = href;
+                }
+            });
+        });
+
+        // Logout handler
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                // Clear all session data
+                sessionStorage.removeItem('auth_token');
+                sessionStorage.removeItem('user_info');
+                sessionStorage.removeItem('user_token');
+                sessionStorage.removeItem('user_role');
+                sessionStorage.removeItem('user_role_id');
+                // Clear localStorage credentials
+                localStorage.removeItem('bakery_credentials');
+                // Redirect to login page
+                window.location.href = '../../login/index.html';
+            });
+        }
+
+        // Header date/time update
+        function formatHeaderDate(d) {
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const now = new Date();
+            const elDate = document.getElementById('currentDate');
+            const elTime = document.getElementById('currentTime');
+            if (elDate) elDate.textContent = formatHeaderDate(now);
+            if (elTime) elTime.textContent = formatHeaderTime(now);
+        }
+
+        // Update user info from sessionStorage
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userInfo && userInfo.username && userNameEl) {
+                    userNameEl.textContent = userInfo.username;
+                }
+            } catch (error) {
+                console.log('Could not get user info from sessionStorage');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000); // Update every minute
+            
+            if (window.GlobalLanguage && GlobalLanguage.initialize) {
+                GlobalLanguage.initialize();
+            }
+        });
+    </script>
+</body>
+</html>
+

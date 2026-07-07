@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/homepage/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Employee Home Page</title>
+    <link rel="stylesheet" href="assets/css/employee-home.css?t=1696262700">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Register Service Worker to prevent cache issues -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            // Unregister old service workers first to prevent reload loop
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+                // Then register new service worker
+                navigator.serviceWorker.register('./sw.js').catch(console.error);
+            });
+        }
+    </script>
+    
+    <script defer src="assets/js/employee-home.js?v=20251002e"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span></button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></button>
+                <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span></button>
+                <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span></button>
+                <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👨‍🍳</span>
+                        <h1 class="user-name">Employee</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Thursday, October 30</div>
+                        <div class="time" id="currentTime">09:00 AM</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">1</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+            </div>
+
+            <!-- Urgent Notice -->
+            <section class="urgent" id="urgent"> 
+                <div class="urgent-title"><i class="fa-solid fa-triangle-exclamation"></i><span data-en="Urgent notice" data-vi="Thông báo khẩn">Thông báo khẩn</span></div>
+                <div class="urgent-body" id="urgentBody">
+                    <div class="urgent-grid">
+                        <div class="urgent-card urgent-red">
+                            <div class="urgent-icon"><i class="fa-regular fa-clock"></i></div>
+                            <div class="urgent-content">
+                                <h3 data-en="Expiring soon" data-vi="Sắp hết hạn">Sắp hết hạn</h3>
+                                <div class="urgent-item">
+                                    <p class="name">Strawberries - Batch STR-2025-001</p>
+                                    <p class="meta" data-en="Expired 3 days ago (2025-10-27)" data-vi="Hết hạn 3 ngày trước (2025-10-27)">Hết hạn 3 ngày trước (2025-10-27)</p>
+                                </div>
+                                <span class="tag" data-en="Urgent" data-vi="Khẩn">Khẩn</span>
+                            </div>
+                        </div>
+                        <div class="urgent-card urgent-yellow">
+                            <div class="urgent-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="urgent-content">
+                                <h3 data-en="Early warning" data-vi="Cảnh báo sớm">Cảnh báo sớm</h3>
+                                <div class="urgent-item">
+                                    <p class="name" data-en="No early warnings" data-vi="Không có cảnh báo sớm">Không có cảnh báo sớm</p>
+                                    <p class="meta" data-en="Monitor stock regularly" data-vi="Theo dõi kho thường xuyên">Theo dõi kho thường xuyên</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard content -->
+            <main class="dash">
+                <div class="dash-inner">
+                    <div class="dash-sep dash-sep-v-top"></div>
+                    <div class="dash-sep dash-sep-v-bottom"></div>
+                    <div class="dash-sep dash-sep-h-left"></div>
+                    <div class="dash-sep dash-sep-h-right"></div>
+                    <div class="dash-grid">
+                        <!-- Left column -->
+                        <div class="col">
+                            <section class="card h-64 clickable-card" id="todaysMenu" data-href="../today-menu/today-menu.html">
+                                <div class="card-title"><i class="fa-solid fa-bars"></i><span data-en="Today's Menu and Missions" data-vi="Thực đơn và nhiệm vụ hôm nay">Thực đơn và nhiệm vụ hôm nay</span></div>
+                                <div class="card-body">
+                                    <div class="list">
+                                        <div class="row"><span class="primary" data-en="Sponge cake - 20 pieces" data-vi="Bánh bông lan - 20 chiếc">Bánh bông lan - 20 chiếc</span><span class="secondary" data-en="5kg flour, 10 eggs" data-vi="5kg bột, 10 trứng">5kg bột, 10 trứng</span></div>
+                                        <div class="row"><span class="primary" data-en="Chocolate mousse cake - 15 pieces" data-vi="Bánh mousse socola - 15 chiếc">Bánh mousse socola - 15 chiếc</span><span class="secondary" data-en="2kg chocolate, 1.5kg fresh cream" data-vi="2kg socola, 1.5kg kem tươi">2kg socola, 1.5kg kem tươi</span></div>
+                                        <div class="row"><span class="primary" data-en="Strawberry tarts - 10 pieces" data-vi="Bánh tart dâu - 10 chiếc">Bánh tart dâu - 10 chiếc</span><span class="secondary" data-en="1kg flour, 0.5kg strawberry" data-vi="1kg bột, 0.5kg dâu">1kg bột, 0.5kg dâu</span></div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="card h-64" id="jobHints">
+                                <div class="card-divide"></div>
+                                <div class="card-title"><i class="fa-regular fa-lightbulb"></i><span data-en="Job Hints" data-vi="Gợi ý công việc">Gợi ý công việc</span></div>
+                                <div class="card-body">
+                                    <div class="hint blue" data-en="Use near-expired ingredients for today's cake combo" data-vi="Dùng nguyên liệu sắp hết hạn cho combo bánh hôm nay">Dùng nguyên liệu sắp hết hạn cho combo bánh hôm nay</div>
+                                    <div class="hint green" data-en="Record leftover flour for strawberry tart" data-vi="Ghi nhận phần bột thừa cho bánh tart dâu">Ghi nhận phần bột thừa cho bánh tart dâu</div>
+                                    <div class="hint purple" data-en="Use this alternative recipe for donuts" data-vi="Dùng công thức thay thế này cho bánh donut">Dùng công thức thay thế này cho bánh donut</div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- Right column -->
+                        <div class="col col-right">
+                            <div class="col-border"></div>
+                            <section class="card h-64" id="activityHistory">
+                                <div class="card-title"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="Recent activity history" data-vi="Lịch sử hoạt động gần đây">Lịch sử hoạt động gần đây</span></div>
+                                <div class="card-body scroll">
+                                    <div class="activity"><span class="time">09:15</span><span class="action" data-en="Import 5kg of flour" data-vi="Nhập 5kg bột">Nhập 5kg bột</span><span class="detail" data-en="Lot L2025-01" data-vi="Lô L2025-01">Lô L2025-01</span></div>
+                                    <div class="activity"><span class="time">10:30</span><span class="action" data-en="Record of flour use" data-vi="Ghi nhận sử dụng bột">Ghi nhận sử dụng bột</span><span class="detail" data-en="Lot L2025-03" data-vi="Lô L2025-03">Lô L2025-03</span></div>
+                                    <div class="activity"><span class="time">11:00</span><span class="action" data-en="Mark open bag of fresh milk" data-vi="Đánh dấu túi sữa tươi đã mở">Đánh dấu túi sữa tươi đã mở</span><span class="detail" data-en="Lot L2025-03" data-vi="Lô L2025-03">Lô L2025-03</span></div>
+                                </div>
+                            </section>
+                           <section class="card h-64" id="spoiledMaterials">
+                            <div class="card-divide"></div>
+                            <div class="card-title">
+                                <i class="fa-solid fa-trash"></i>
+                                <span data-en="Spoiled / Wasted Materials" data-vi="Nguyên liệu hỏng / thải">
+                                Nguyên liệu hỏng / thải
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="list" id="spList"><!-- JS sẽ đổ dữ liệu vào đây --></div>
+                                <div class="sp-total" id="spTotal">—</div>
+                            </div>
+                            </section>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="../../assets/js/language.js"></script>
+    <script>
+      if(window.GlobalLanguage && GlobalLanguage.initialize){
+        GlobalLanguage.initialize();
+      }else{
+        document.addEventListener('DOMContentLoaded',function(){
+          if(window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+        });
+      }
+      // Side bar menu navigation handler
+      document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+        btn.addEventListener('click',function(){
+          location.href = this.getAttribute('data-href');
+        });
+      });
+
+      // Clickable card navigation handler
+      document.querySelectorAll('.clickable-card[data-href]').forEach(card => {
+        card.addEventListener('click', function() {
+          location.href = this.getAttribute('data-href');
+        });
+        // Add cursor pointer style
+        card.style.cursor = 'pointer';
+      });
+    </script>
+    <script>
+  (function () {
+    const act = document.getElementById('activityHistory');
+    if (!act) return;
+    act.style.cursor = 'pointer';
+    act.setAttribute('role', 'button');
+    act.setAttribute('tabindex', '0');
+
+    const go = () => location.href = '../History/history.html';
+    act.addEventListener('click', go);
+    act.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  })();
+</script>
+
+</body>
+</html>
+

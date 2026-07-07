@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/check_inventory/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Inventory Check - IMDS-BAKERY</title>
+    <!-- Reuse homepage styles for identical sidebar/header -->
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css?v=20250126">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/lot-list.css?v=20250126">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar (identical to homepage) -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+        <nav class="sidebar-menu">
+        <button class="menu-item" data-href="../import-raw-materials/index.html">
+            <i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span>
+        </button>
+
+        <!-- ĐANG Ở TRANG INVENTORY → active -->
+        <button class="menu-item active inv-blue" aria-current="page" data-href="../check_inventory/lot-list.html">
+            <i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span>
+        </button>
+
+        <button class="menu-item" data-href="../update/update.html">
+            <i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span>
+        </button>
+
+        <!-- Khuyên dùng thư mục viết thường: recipe -->
+        <button class="menu-item" data-href="../recipe/recipe-list.html">
+            <i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span>
+        </button>
+
+        <button class="menu-item" data-href="../History/history.html">
+            <i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span>
+        </button>
+        </nav>
+
+
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header (identical to homepage) -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👨‍🍳</span>
+                        <h1 class="user-name">Nguyen Van A</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date">Loading...</div>
+                        <div class="time">Loading...</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb (house + IMDS-BAKERY + Check Inventory) -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="lot-list.html" class="breadcrumb-link"><span data-en="Check Inventory" data-vi="Kiểm tra kho">Kiểm tra kho</span></a>
+            </div>
+
+            <!-- Page content: Check Inventory -->
+            <section class="lot-list">
+                <div class="page-title">
+                    <h2><i class="fa-solid fa-box"></i> <span data-en="Check Inventory" data-vi="Kiểm tra kho">Kiểm tra kho</span></h2> 
+                </div>
+
+                <div class="subtitle">
+                    <i class="fa-solid fa-list"></i> <span data-en="List of raw material lots" data-vi="Danh sách lô nguyên liệu">Danh sách lô nguyên liệu</span>
+                </div>
+
+                <!-- Spinner -->
+                <div id="loadingSpinner" class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p><span data-en="Loading data..." data-vi="Đang tải dữ liệu...">Đang tải dữ liệu...</span></p>
+                </div>
+                
+                <div class="lot-grid" id="lotGrid">
+                    <!-- Dynamic lot items will be inserted here -->
+                </div>
+                <div class="pagination-bar">
+                    <button class="page-btn" id="pagePrev" aria-label="Previous page">&lt;</button>
+                    <span class="page-info" id="pageInfo">Page 1 / 1</span>
+                    <button class="page-btn" id="pageNext" aria-label="Next page">&gt;</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+  <script src="assets/js/lot-list.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+  <script>
+    // Initialize global language to preserve user's selection across pages
+    if (window.GlobalLanguage && GlobalLanguage.initialize) {
+      GlobalLanguage.initialize();
+    } else {
+      document.addEventListener('DOMContentLoaded', function(){
+        if (window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+      });
+    }
+    // Get username from sessionStorage (from login) - same as homepage
+    function updateUserInfo() {
+      try {
+        const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+        const userNameEl = document.querySelector('.user-name');
+        if (userInfo && userInfo.username && userNameEl) {
+          userNameEl.textContent = userInfo.username;
+        } else if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      } catch (error) {
+        console.log('Could not get user info from sessionStorage');
+        const userNameEl = document.querySelector('.user-name');
+        if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      }
+    }
+
+    // Header realtime date/time - same as homepage
+    function formatHeaderDate(d) {
+        const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+    }
+    function formatHeaderTime(d) {
+        let h = d.getHours();
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if (h === 0) h = 12;
+        return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+    }
+    
+    function updateHeaderTime() {
+        if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+            window.GlobalLanguage.updateDateTime();
+            return;
+        }
+        const now = new Date();
+        const elDate = document.querySelector('.header .date');
+        const elTime = document.querySelector('.header .time');
+        if (elDate) elDate.textContent = formatHeaderDate(now);
+        if (elTime) elTime.textContent = formatHeaderTime(now);
+    }
+
+    // Update user info and time when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUserInfo();
+        updateHeaderTime();
+        setInterval(updateHeaderTime, 60000); // Update every minute
+    });
+
+    // Logout handler
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', function () {
+        sessionStorage.removeItem('auth_token');
+        sessionStorage.removeItem('user_info');
+        sessionStorage.removeItem('user_token');
+        localStorage.removeItem('bakery_credentials');
+        window.location.href = '../../login/index.html';
+      });
+    }
+  </script>
+  <script>
+(function () {
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+
+  // Điều hướng theo data-href (relative-safe)
+  sidebar.addEventListener('click', (e) => {
+    const el = e.target.closest('.menu-item[data-href]');
+    if (!el) return;
+
+    e.preventDefault();
+
+    const href = el.getAttribute('data-href');     // ví dụ: ../recipe/recipe-list.html
+    if (!href) return;
+
+    const abs = new URL(href, window.location).href; // resolve dựa trên trang hiện tại
+
+    // UI active
+    sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+    el.classList.add('active');
+    el.setAttribute('aria-current', 'page');
+
+    // Điều hướng
+    window.location.assign(abs);
+  });
+
+  // Auto-highlight khi F5 / mở trực tiếp
+  const here = window.location.pathname;
+  sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+    const href = item.getAttribute('data-href');
+    if (!href) return;
+    const resolved = new URL(href, window.location).pathname;
+    if (here === resolved || here.endsWith(resolved)) {
+      item.classList.add('active');
+      item.setAttribute('aria-current', 'page');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
+
+

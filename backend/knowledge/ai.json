@@ -1,0 +1,55 @@
+[
+  {
+    "id": "login_and_permissions",
+    "source": "IMDS-Bakery functional guide",
+    "summary": "Steps for employees/admins/owners to log in securely before using any module.",
+    "key_points": [
+      "From the landing page select your role (Employee, Bakery Owner, Admin) if prompted; enter username/password issued by Admin.",
+      "If Remember me is checked the session token is stored locally until you log out.",
+      "After login the sidebar shows modules allowed for your role: employees see inventory/tasks, owners see dashboards/alerts, admins see management tools.",
+      "Use the Log out button in the sidebar bottom whenever you switch role or share the kiosk."
+    ]
+  },
+  {
+    "id": "ingredient_intake_manual",
+    "source": "Inventory module – PB02, PB05",
+    "summary": "Hai bước nhập nguyên liệu thủ công trong IMDS.",
+    "key_points": [
+      "Bước 1: ở trang `Nhập nguyên liệu`, điền đầy đủ thông tin từng dòng; có thể bấm `Thêm dòng mới` để tạo thêm dòng nhập. Sau khi kiểm tra, bấm `Lưu nguyên liệu` để chuyển sang bước kế tiếp.",
+      "Bước 2: tại trang `Lưu nguyên liệu`, bấm `Thêm nguyên liệu` để quay lại chỉnh sửa danh sách, bấm `Xuất` nếu cần tải file Excel tổng hợp, và bấm `Hoàn tất nhập kho` để chính thức ghi nhận các lô vào kho."
+    ]
+  },
+  {
+    "id": "ingredient_intake_barcode",
+    "source": "Inventory module – PB02",
+    "summary": "Barcode/QR workflow for faster intake.",
+    "key_points": [
+      "In the same Import screen switch to `Scan mode`.",
+      "Use the connected scanner or device camera to capture the QR/Barcode printed on the supplier slip.",
+      "System auto-populates lot code, ingredient, and expiry if the code matches a template; user only confirms quantity and storage info.",
+      "Save to commit; any fields not parsed can still be typed manually."
+    ]
+  },
+  {
+    "id": "fifo_management_and_usage_logging",
+    "source": "Inventory module – PB05, PB07, PB09, PB11",
+    "summary": "Ensuring ingredients are consumed in FIFO order and marking what was used.",
+    "key_points": [
+      "Open `Check inventory` → select ingredient; lots are sorted by oldest expiry (FIFO). Always pick the first `Valid` lot unless it is flagged `Opened/Use Today`.",
+      "During production, go to `Usage` tab and record the quantity taken from each lot; the system subtracts from on-hand and recalculates expiry for opened bags.",
+      "If a bag is opened but not fully used, tick `Opened package` so the system tracks the new shelf life and prompts reuse or disposal.",
+      "Spoiled or discarded quantities should be logged under `Waste reports` with a reason to keep dashboards accurate."
+    ]
+  },
+  {
+    "id": "alerts_and_reports",
+    "source": "Owner/Admin dashboard – PB13, PB14, PB16, PB18",
+    "summary": "Using the alert panel and reports to plan actions.",
+    "key_points": [
+      "Header bell icon shows count of urgent alerts (expired or <3 days) plus early warnings (low stock / 4-7 days). Click to open the detailed list.",
+      "Owners/Admins rely on `Today’s alerts` widget and `Recent activity` panel to know which lots were imported/consumed.",
+      "Reports module provides daily/weekly/monthly summaries: usage vs. waste, cost of goods, demand forecast, recommended replenishment.",
+      "Schedule: review alerts twice per shift, run replenishment report end-of-day, export CSV/PDF if you need offline handover."
+    ]
+  }
+]

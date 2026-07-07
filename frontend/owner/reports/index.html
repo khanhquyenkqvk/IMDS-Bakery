@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/owner/reports/">
+  <meta charset="UTF-8" />
+  <title>IMDS-BAKERY - Reports & Analytics</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-banner">
+      <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+    </div>
+    <nav class="sidebar-menu">
+      <button class="menu-item" data-href="../dashboard/index.html"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></button>
+      <button class="menu-item" data-href="../Inventory/index.html"><i class="fa-solid fa-boxes-stacked"></i><span>Inventory</span></button>
+      <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+      <button class="menu-item" data-href="../recipe/index.html"><i class="fa-solid fa-book"></i><span>Recipes</span></button>
+      <button class="menu-item" data-href="../notification/index.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+      <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+      <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div class="header-left">
+        <div class="user-line">
+          <span class="emoji">&#128100;</span>
+          <h1 class="user-name">Pham Van Nam</h1>
+        </div>
+        <p class="welcome">Welcome back, check out today's alerts and tasks</p>
+      </div>
+      <div class="header-right">
+        <div class="date-block">
+          <div class="date" id="currentDate">Monday, September 25</div>
+          <div class="time" id="currentTime">08:30 AM</div>
+        </div>
+        <button class="bell" title="Notifications">
+          <i class="fa-regular fa-bell"></i>
+          <span class="badge" id="notificationBadge">8</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="breadcrumb">
+      <i class="fa-solid fa-house"></i>
+      <span>/ </span>
+      <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+      <span> / </span>
+      <a href="index.html" class="breadcrumb-link">Reports</a>
+    </div>
+
+    <div class="content-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title"><i class="fa-solid fa-chart-column"></i> Reports & Analytics</h2>
+        </div>
+      </div>
+
+      <div class="kpi-stack">
+        <article class="kpi-modern kpi-modern--blue" id="restockCard" role="button" tabindex="0">
+          <div class="kpi-modern-top">
+            <div class="kpi-label">Total Restock Frequency</div>
+            <div class="kpi-value">0</div>
+          </div>
+        </article>
+
+        <article class="kpi-modern kpi-modern--green" id="activeCard" role="button" tabindex="0">
+          <div class="kpi-modern-top">
+            <div class="kpi-label">Active Ingredients</div>
+            <div class="kpi-value">0</div>
+          </div>
+        </article>
+
+        <article class="kpi-modern kpi-modern--purple" id="wasteCard" role="button" tabindex="0">
+          <div class="kpi-modern-top">
+            <div class="kpi-label">Spoilage/Waste Rate</div>
+            <div class="kpi-value">0%</div>
+          </div>
+        </article>
+      </div>
+
+      <section class="panel panel-outline">
+        <div class="panel-header">
+          <span class="panel-dot panel-dot-blue"></span>
+          <span class="panel-title">Inbound Stock Trend (Last 6 Months)</span>
+
+        </div>
+        <div class="panel-body">
+          <div class="panel-inner gradient-revenue">
+            <div id="importTrendChart" class="chart-bars-compact">
+              <!-- JS sẽ vẽ cột vào đây -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="panel panel-outline">
+        <div class="panel-header">
+          <span class="panel-dot panel-dot-orange"></span>
+          <span class="panel-title">Top Moving Ingredients (Last 30 Days)</span>
+        </div>
+        <div class="panel-body">
+          <div class="panel-inner gradient-product">
+            <div id="menuTrendChart" class="menu-trend">
+              <!-- JS vẽ -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="available-section">
+        <div class="avail-header">
+          <i class="fa-regular fa-file-lines"></i>
+          <span class="avail-title">Available Reports</span>
+        </div>
+        <div class="avail-wrapper">
+          <div class="avail-list">
+            <div class="avail-row">
+              <div class="row-left">
+                <div class="doc-icon doc-icon--blue"><i class="fa-regular fa-file-lines"></i></div>
+                <div class="doc-text">
+                  <div class="doc-title">Restock Frequency Report</div>
+                  <div class="doc-meta" id="restockMeta"></div>
+                  <div class="doc-status ready">Ready</div>
+                </div>
+              </div>
+              <div class="row-actions">
+                <button class="circle-btn circle-btn--ghost" data-modal-target="restockModal">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="circle-btn" data-download="restock">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+            <div class="avail-row">
+              <div class="row-left">
+                <div class="doc-icon doc-icon--green"><i class="fa-regular fa-file-excel"></i></div>
+                <div class="doc-text">
+                  <div class="doc-title">Inventory Analysis</div>
+                  <div class="doc-meta" id="inventoryMeta"></div>
+                  <div class="doc-status ready">Ready</div>
+                </div>
+              </div>
+              <div class="row-actions">
+                <button class="circle-btn circle-btn--ghost" data-modal-target="activeModal">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="circle-btn" data-download="inventory">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+            <div class="avail-row">
+              <div class="row-left">
+                <div class="doc-icon doc-icon--blue"><i class="fa-regular fa-file-lines"></i></div>
+                <div class="doc-text">
+                  <div class="doc-title">Production Summary</div>
+                  <div class="doc-meta" id="productionMeta"></div>
+                  <div class="doc-status ready">Ready</div>
+                </div>
+              </div>
+              <div class="row-actions">
+                <button class="circle-btn circle-btn--ghost" data-modal-target="productionModal">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="circle-btn" data-download="production">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+
+              </div>
+            </div>
+            <div class="avail-row">
+              <div class="row-left">
+                <div class="doc-icon doc-icon--blue"><i class="fa-regular fa-file-lines"></i></div>
+                <div class="doc-text">
+                  <div class="doc-title">Waste Management Report</div>
+                  <div class="doc-meta" id="wasteMeta"></div>
+                  <div class="doc-status ready">Ready</div>
+                </div>
+              </div>
+              <div class="row-actions">
+                <button class="circle-btn circle-btn--ghost" data-modal-target="wasteModal">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="circle-btn" data-download="waste">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Restock Modal -->
+<div class="modal-backdrop" id="restockModal" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="restockModalTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="restockModalTitle">Restock Frequency Report</h3>
+        <p class="modal-subtitle">Analysis of ingredient replenishment patterns</p>
+      </div>
+      <div class="modal-head-actions">
+        <button class="chip chip-light">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="restockPeriod">...</span>
+        </button>
+
+        <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export PDF</button>
+      </div>
+    </div>
+
+    <div class="modal-metrics-grid">
+      <div class="metric-card metric-card--blue">
+        <p class="metric-label">Avg. Restock Frequency</p>
+        <p class="metric-value">0<span>days</span></p>
+        <p class="metric-note"><i class="fa-solid fa-arrow-down"></i> 0 days faster than Aug</p>
+      </div>
+      <div class="metric-card metric-card--orange">
+        <p class="metric-label">Most Frequent Item</p>
+        <p class="metric-value">Fresh Milk</p>
+        <p class="metric-note">Restocked 0 times this month</p>
+      </div>
+    </div>
+
+
+    <h4 class="restock-title">Detailed Restock Log</h4>
+    <table class="restock-table">
+      <thead>
+        <tr>
+          <th>Ingredient Name</th>
+          <th>Frequency</th>
+          <th>Avg Qty</th>
+          <th>Last Restock</th>
+          <th>Next Expected</th>
+          <th>Trend</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fresh Milk (1L)</strong></td>
+          <td><span class="pill pill-green">High (Weekly)</span></td>
+          <td>45 units</td>
+          <td>Sep 28, 2025</td>
+          <td>Oct 01, 2025</td>
+          <td>
+            <div class="rel-wrapper">
+              <div class="rel-bar"><span style="width:95%"></span></div>
+              <span class="rel-value">0%</span>
+            </div>
+          </td>
+          <td>
+            <div class="trend-wrapper up">
+              <i class="fa-solid fa-arrow-up"></i>
+              <span>Rising</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Wheat Flour (25kg)</strong></td>
+          <td><span class="pill pill-blue">Medium (Bi-weekly)</span></td>
+          <td>10 bags</td>
+          <td>Sep 20, 2025</td>
+          <td>Oct 04, 2025</td>
+          <td>
+            <div class="trend-wrapper stable">
+              <i class="fa-solid fa-minus"></i>
+              <span>Stable</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Unsalted Butter</strong></td>
+          <td><span class="pill pill-orange">High (Weekly)</span></td>
+          <td>15 kg</td>
+          <td>Sep 29, 2025</td>
+          <td>Oct 06, 2025</td>
+          <td>
+            <div class="rel-wrapper">
+              <div class="rel-bar"><span style="width:90%"></span></div>
+              <span class="rel-value">0%</span>
+            </div>
+          </td>
+          <td>
+            <div class="trend-wrapper down">
+              <i class="fa-solid fa-arrow-down"></i>
+              <span>Falling</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+        <div class="restock-pagination" id="restockPagination">
+      <button class="page-btn" id="restockPrev">Prev</button>
+      <span class="page-info" id="restockPageInfo">1 / 1</span>
+      <button class="page-btn" id="restockNext">Next</button>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-close" id="restockClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Active Modal -->
+<div class="modal-backdrop" id="activeModal" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="activeModalTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="activeModalTitle">Inventory Analysis</h3>
+        <p class="modal-subtitle">Overview of stock health, waste, and movement</p>
+      </div>
+      <div class="modal-head-actions">
+        <button class="chip chip-light"><i class="fa-regular fa-square-check"></i> All Categories</button>
+        <button class="btn-export"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+      </div>
+    </div>
+
+<div class="summary-grid">
+  <div class="summary-card summary-card--blue">
+    <p class="summary-label">Total Ingredients</p>
+    <p class="summary-value">0</p>
+  </div>
+  <div class="summary-card summary-card--green">
+    <p class="summary-label">Active Items</p>
+    <p class="summary-value">0</p>
+  </div>
+  <div class="summary-card summary-card--amber">
+    <p class="summary-label">Low Stock Items</p>
+    <p class="summary-value">0</p>
+  </div>
+  <div class="summary-card summary-card--red">
+    <p class="summary-label">Expired Batches</p>
+    <p class="summary-value">0</p>
+  </div>
+  <div class="summary-card summary-card--teal">
+    <p class="summary-label">Avg Turnover</p>
+    <p class="summary-value">0 <span>days</span></p>
+  </div>
+  <div class="summary-card summary-card--purple">
+    <p class="summary-label">Waste Rate</p>
+    <p class="summary-value">0%</p>
+  </div>
+</div>
+
+
+
+
+
+    <div class="dual-grid">
+      <div class="chart-card">
+        <div class="chart-card-head">Stock Movement (Last 5 Months)</div>
+        <div class="chart-legend">
+          <span class="legend-dot legend-green"></span> Incoming
+          <span class="legend-dot legend-blue"></span> Outgoing
+          <span class="legend-dot legend-red"></span> Waste
+        </div>
+        <div class="chart-bars" id="stockMovementChart">
+          <!-- JS dựng chart từ API -->
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="top-ingredients">
+          <p class="panel-title muted">Top 5 Used Ingredients</p>
+          <div class="top-item">
+            <div class="top-name">1. Eggs (Grade A)</div>
+            <div class="top-row">
+              <div class="top-bar"><span style="width: 96%;"></span></div>
+            </div>
+          </div>
+          <div class="top-item">
+            <div class="top-name">2. Sugar (White)</div>
+            <div class="top-row">
+              <div class="top-bar"><span style="width: 82%;"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="alert-card">
+          <div class="alert-title"><i class="fa-solid fa-circle-exclamation"></i> Expiry Risk Alert</div>
+          <p class="alert-item">Heavy Cream — Batch #2033</p>
+          <span class="pill pill-red">2 Days Left</span>
+          <button class="btn-danger" id="btnViewWasteActions">View Waste Actions</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-close" id="activeClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Waste Modal -->
+<div class="modal-backdrop" id="wasteModal" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="wasteModalTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="wasteModalTitle">Waste Management Report</h3>
+        <p class="modal-subtitle">Tracking loss, spoilage, and production errors</p>
+      </div>
+      <div class="modal-head-actions">
+        <button class="chip chip-light">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="wastePeriod">...</span>
+        </button>
+
+        <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export Report</button>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card summary-card--red">
+        <p class="summary-label">Total Waste Volume</p>
+        <p class="summary-value">24.5 <span>kg</span></p>
+        <p class="metric-note"><i class="fa-solid fa-arrow-up"></i> 2.1kg vs last month</p>
+      </div>
+      <div class="summary-card summary-card--amber">
+        <p class="summary-label">Waste Rate</p>
+        <p class="summary-value">3.2%</p>
+        <p class="summary-label">Target: 3.0%</p>
+      </div>
+      <div class="summary-card summary-card--red">
+        <p class="summary-label">Top Cause</p>
+        <p class="summary-value">Expiration</p>
+        <p class="summary-label">45% of total waste</p>
+      </div>
+      <div class="summary-card summary-card--green">
+        <p class="summary-label">Rescued Ingredients</p>
+        <p class="summary-value">5.8 <span>kg</span></p>
+        <p class="summary-label">Repurposed successfully</p>
+      </div>
+    </div>
+
+    <div class="dual-grid">
+      <div class="chart-card">
+        <div class="chart-card-head">Waste Breakdown by Reason</div>
+        <div class="chart-placeholder" id="wasteBreakdownSummary"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card-head">Highest Waste Categories</div>
+        <div id="wasteCategoriesList"></div>
+      </div>
+
+
+    </div>
+
+    <div class="alert-card" style="margin-top:10px;">
+  <div class="alert-title">
+    <i class="fa-solid fa-circle-exclamation"></i> Critical Alert
+  </div>
+  <div class="alert-item"></div>
+</div>
+
+
+    <div class="section-header" style="margin-top:12px;">
+      <h4 class="section-title">Top Wasted Ingredients Log</h4>
+      <button class="btn-ghost">View Full Log</button>
+    </div>
+    <div class="modal-table">
+    <div class="table-head">
+      <div>Ingredient Name</div>
+      <div>Quantity Lost</div>
+      <div>Reason</div>
+      <div>Date Recorded</div>
+      <div>Status</div>
+    </div>
+    <!-- KHÔNG để các row demo ở đây nữa -->
+  </div>
+
+    <div class="modal-footer">
+      <button class="btn-close" id="wasteClose">Close</button>
+    </div>
+  </div>
+</div>
+<!-- Production Modal -->
+<div class="modal-backdrop" id="productionModal" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="productionModalTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="productionModalTitle">Production Summary</h3>
+        <p class="modal-subtitle">Ingredient usage and waste in production</p>
+      </div>
+      <div class="modal-head-actions">
+        <button class="chip chip-light">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="productionPeriod">...</span>
+        </button>
+        <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export Excel</button>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card summary-card--blue">
+        <p class="summary-label">Total Ingredients Used</p>
+        <p class="summary-value" id="prodTotalUsed">0</p>
+      </div>
+      <div class="summary-card summary-card--red">
+        <p class="summary-label">Total Waste (Production)</p>
+        <p class="summary-value" id="prodTotalWaste">0</p>
+      </div>
+      <div class="summary-card summary-card--teal">
+        <p class="summary-label">Avg Daily Usage</p>
+        <p class="summary-value" id="prodAvgDaily">0</p>
+      </div>
+      <div class="summary-card summary-card--purple">
+        <p class="summary-label">Production Waste Rate</p>
+        <p class="summary-value" id="prodWasteRate">0%</p>
+      </div>
+    </div>
+
+    <div class="dual-grid">
+    <div class="chart-card">
+      <div class="chart-card-head">Daily Production Usage</div>
+      <div class="chart-legend">
+        <span class="legend-dot legend-green"></span> Used
+        <span class="legend-dot legend-red"></span> Waste
+      </div>
+      <div class="chart-bars" id="productionDailyChart">
+        <!-- JS vẽ -->
+      </div>
+    </div>
+
+
+      <div class="side-panel">
+        <div class="top-ingredients">
+          <p class="panel-title muted">Top Used Ingredients</p>
+          <div id="productionTopList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-close" id="productionClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/script.js"></script>
+<script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+</body>
+</html>
+

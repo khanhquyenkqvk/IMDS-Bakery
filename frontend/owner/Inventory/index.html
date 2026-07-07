@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/owner/Inventory/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Inventory Management - IMDS-BAKERY</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Base shared styles from Recipe -->
+  <link rel="stylesheet" href="../recipe/assets/css/style.css">
+  <!-- Chatbot styles -->
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+  <!-- Inventory specific styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-banner">
+        <a href="../dashboard/index.html">
+          <img src="../recipe/assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img">
+        </a>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button class="menu-item" data-href="../dashboard/index.html"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></button>
+        <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-boxes-stacked"></i><span>Inventory</span></button>
+        <button class="menu-item" data-href="../reports/index.html"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+        <button class="menu-item" data-href="../recipe/index.html"><i class="fa-solid fa-book"></i><span>Recipes</span></button>
+        <button class="menu-item" data-href="../notification/index.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+        <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line">
+            <span class="emoji">👤</span>
+            <h1 class="user-name">Pham Van Nam</h1>
+          </div>
+          <p class="welcome">Welcome back, check out today's alerts and tasks</p>
+        </div>
+
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date" id="currentDate">Monday, September 25</div>
+            <div class="time" id="currentTime">08:30 AM</div>
+          </div>
+          <button class="bell"><i class="fa-regular fa-bell"></i><span class="badge" id="notificationBadge">8</span></button>
+        </div>
+      </header>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i>
+        <span>/ </span>
+        <a href="../dashboard/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+        <span> / </span>
+        <a href="index.html" class="breadcrumb-link">Inventory</a>
+      </div>
+
+      <!-- Inventory Section -->
+      <section class="inventory-section">
+        <!-- Page header -->
+        <div class="page-header">
+          <div class="page-title">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Inventory Management
+          </div>
+
+          <button class="add-btn">
+            <i class="fa-solid fa-plus"></i> Add New Item
+          </button>
+        </div>
+
+                <!-- Warning -->
+        <div class="warning-box" id="inventorySummary">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <b>Critical Inventory Issues</b>
+          &nbsp;Loading...
+        </div>
+
+        <!-- Filters row -->
+        <div class="filters-row">
+
+          <!-- Search box -->
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="inventorySearch" placeholder="Search ingredients or batch code...">
+          </div>
+
+          <!-- Dropdown status -->
+          <select class="status-dropdown" id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="in_stock">In Stock</option>
+            <option value="low_stock">Low Stock</option>
+            <option value="near_expiry">Expiring Soon</option>
+            <option value="expired">Expired</option>
+          </select>
+
+          <!-- Filter icon (hiện tại để dành, sau có thể thêm filter nâng cao) -->
+          <button class="icon-btn" id="btnFilterAdvanced">
+            <i class="fa-solid fa-filter"></i>
+          </button>
+
+          <!-- Sort theo hạn sử dụng -->
+          <button class="icon-btn" id="btnSortExpiry" title="Sort by expiry date">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path d="M8 6l4-4 4 4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 18l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>PRIORITY</th>
+                <th>BATCH CODE</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY</th>
+                <th>RECEIVED</th>
+                <th>EXPIRY DATE</th>
+                <th>STATUS</th>
+                <th class="actions">ACTIONS</th>
+              </tr>
+            </thead>
+
+            <tbody id="inventoryTableBody">
+              <!-- rows sẽ được render bằng JS -->
+            </tbody>
+          </table>
+          <div class="pagination">
+            <button class="page-btn" id="pagePrev" aria-label="Previous page">&lt;</button>
+            <span class="page-number active" id="pageInfo">Page 1 / 1</span>
+            <button class="page-btn" id="pageNext" aria-label="Next page">&gt;</button>
+          </div>
+
+        </div>
+
+      </section>
+    </div>
+  </div>
+  <!-- Modal Add / Edit Inventory Item -->
+  <div class="modal-overlay" id="inventoryModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="inventoryModalTitle">Add New Item</h2>
+        <button type="button" class="modal-close" id="btnCloseModal">&times;</button>
+      </div>
+
+      <form id="inventoryForm">
+        <input type="hidden" id="batchId">
+        <input type="hidden" id="aiSuggestionId">
+
+
+        <div class="modal-body">
+
+          <div class="form-row">
+            <label for="ingredientSelect">Ingredient</label>
+            <select id="ingredientSelect" required>
+              <option value="">Select ingredient...</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="lotCodeInput">Batch code (Lot code)</label>
+            <input type="text" id="lotCodeInput" readonly style="background:#f1f5f9;">
+          </div>
+
+          <div class="form-grid">
+          <div class="form-row">
+            <label for="quantityInput">Quantity</label>
+            <input type="number" step="1" min="0" id="quantityInput" required>
+          </div>
+          <div class="form-row">
+            <label for="unitSelect">Unit</label>
+            <select id="unitSelect" required>
+              <option value="">Select unit...</option>
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="ml">ml</option>
+              <option value="L">L</option>
+              <option value="pcs">pcs</option>
+              <option value="each">each</option>
+              <option value="pack">pack</option>
+              <option value="bag">bag</option>
+              <option value="box">box</option>
+
+            </select>
+          </div>
+        </div>
+
+
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="manufactureDateInput">Manufacture date</label>
+              <input type="date" id="manufactureDateInput" required>
+            </div>
+            <div class="form-row">
+              <label for="expiryDateInput">Expiry date</label>
+              <input type="date" id="expiryDateInput" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="statusSelect">Status</label>
+            <select id="statusSelect">
+              <option value="Valid">Valid</option>
+              <option value="NearExpiry">Near Expiry</option>
+              <option value="Expired">Expired</option>
+              <option value="Opened">Opened</option>
+              <option value="UsedUp">Used up</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="btnCancelModal">Cancel</button>
+          <button type="submit" class="btn-primary" id="btnSaveInventory">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    <!-- Delete confirm modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h2>Delete batch</h2>
+        <button type="button" class="modal-close" id="btnCloseDeleteModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteMessage">
+          Are you sure you want to delete this batch?
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="btnCancelDelete">Cancel</button>
+        <button type="button" class="btn-primary btn-danger" id="btnConfirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+</body>
+</html>
+
+

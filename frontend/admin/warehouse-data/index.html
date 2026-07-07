@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/admin/warehouse-data/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Warehouse Data - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="../assets/js/language.js"></script>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../report/index.html"><i class="fa-solid fa-gauge"></i><span data-en="Report" data-vi="Báo cáo">Báo cáo</span></button>
+                <button class="menu-item" data-href="../batch-management/index.html"><i class="fa-solid fa-boxes-stacked"></i><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-warehouse"></i><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></button>
+                <button class="menu-item" data-href="../user-management/index.html"><i class="fa-solid fa-users"></i><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></button>
+                <button class="menu-item" data-href="../smart-suggestion/index.html"><i class="fa-solid fa-lightbulb"></i><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Gợi ý thông minh</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👤</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></a>
+            </div>
+
+            <!-- Warehouse Data Section -->
+            <section class="warehouse-section">
+                <h2 class="page-title"><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></h2>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Total Imported Warehouse" data-vi="Tổng nhập kho">Tổng nhập kho</h3>
+                            <p class="card-value" id="cardTotalImport">0 batches</p>
+                            <p class="card-desc" data-en="Keep track of new material availability." data-vi="Theo dõi số lô nguyên liệu mới.">Theo dõi số lô nguyên liệu mới.</p>
+                        </div>
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Total Warehouse Output" data-vi="Tổng xuất kho">Tổng xuất kho</h3>
+                            <p class="card-value" id="cardTotalExport">0 batches</p>
+                            <p class="card-desc" data-en="Control usage." data-vi="Kiểm soát sử dụng.">Kiểm soát sử dụng.</p>
+                        </div>
+                        <div class="card-icon orange">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Total Loss Inventory (Shrinkage)" data-vi="Tổng hao hụt">Tổng hao hụt</h3>
+                            <p class="card-value" id="cardTotalLoss">0 batches</p>
+                            <p class="card-desc" data-en="Track loss and report loss." data-vi="Theo dõi và báo cáo hao hụt.">Theo dõi và báo cáo hao hụt.</p>
+                        </div>
+                        <div class="card-icon red">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Section -->
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><span data-en="Warehouse Activity Data Sheet" data-vi="Bảng hoạt động kho">Bảng hoạt động kho</span></h3>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <i class="fa-solid fa-search"></i>
+                                <input
+                                    type="text"
+                                    class="search-input"
+                                    placeholder="Tìm theo nguyên liệu, mã lô, nhân viên..."
+                                    data-en-placeholder="Search by ingredients, batch code, employee..."
+                                    data-vi-placeholder="Tìm theo nguyên liệu, mã lô, nhân viên..."
+                                />
+                            </div>
+                            <select class="filter-select" title="Filter by action type">
+                                <option value="all" data-en="All actions" data-vi="Tất cả thao tác">Tất cả thao tác</option>
+                                <option value="import" data-en="Import" data-vi="Nhập">Nhập</option>
+                                <option value="export" data-en="Export" data-vi="Xuất">Xuất</option>
+                                <option value="expect" data-en="Expect" data-vi="Hao hụt">Hao hụt</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="warehouse-table">
+                            <thead>
+                                <tr>
+                                    <th><span data-en="Time" data-vi="Thời gian">Thời gian</span></th>
+                                    <th><span data-en="Operation type" data-vi="Loại thao tác">Loại thao tác</span></th>
+                                    <th><span data-en="Product Name" data-vi="Tên nguyên liệu">Tên nguyên liệu</span></th>
+                                    <th><span data-en="Code batches" data-vi="Mã lô">Mã lô</span></th>
+                                    <th class="text-right"><span data-en="Quantity" data-vi="Số lượng">Số lượng</span></th>
+                                    <th><span data-en="Employee" data-vi="Nhân viên">Nhân viên</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="warehouseTableBody">
+                                <tr>
+                                    <td>10:42 - 05/11/2025</td>
+                                    <td><span class="status-badge status-import" data-en="Import" data-vi="Nhập">Nhập</span></td>
+                                    <td>Sữa tươi</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-green">+20 kg</td>
+                                    <td>Nguyen Van A</td>
+                                </tr>
+                                <tr>
+                                    <td>09:30 - 05/11/2025</td>
+                                    <td><span class="status-badge status-export" data-en="Export" data-vi="Xuất">Xuất</span></td>
+                                    <td>Bột mì</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-red">-12 kg</td>
+                                    <td>Tran Thi B</td>
+                                </tr>
+                                <tr>
+                                    <td>17:10 - 04/11/2025</td>
+                                    <td><span class="status-badge status-export" data-en="Export" data-vi="Xuất">Xuất</span></td>
+                                    <td>Phô mai cream</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-red">-9 kg</td>
+                                    <td>Le Van C</td>
+                                </tr>
+                                <tr>
+                                    <td>15:20 - 04/11/2025</td>
+                                    <td><span class="status-badge status-expect" data-en="Expect" data-vi="Hao hụt">Hao hụt</span></td>
+                                    <td>Đường</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-red">-2 kg</td>
+                                    <td>Tran Thi B</td>
+                                </tr>
+                                <tr>
+                                    <td>14:15 - 04/11/2025</td>
+                                    <td><span class="status-badge status-import" data-en="Import" data-vi="Nhập">Nhập</span></td>
+                                    <td>Bơ</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-green">+5 kg</td>
+                                    <td>Nguyen Van A</td>
+                                </tr>
+                                <tr>
+                                    <td>11:03 - 03/11/2025</td>
+                                    <td><span class="status-badge status-expect" data-en="Expect" data-vi="Hao hụt">Hao hụt</span></td>
+                                    <td>Trứng</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-red">-3 kg</td>
+                                    <td>Le Van C</td>
+                                </tr>
+                                <tr>
+                                    <td>09:00 - 03/11/2025</td>
+                                    <td><span class="status-badge status-import" data-en="Import" data-vi="Nhập">Nhập</span></td>
+                                    <td>Sữa</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-green">+30 L</td>
+                                    <td>Nguyen Van A</td>
+                                </tr>
+                                <tr>
+                                    <td>16:30 - 03/11/2025</td>
+                                    <td><span class="status-badge status-export" data-en="Export" data-vi="Xuất">Xuất</span></td>
+                                    <td>Bột mì</td>
+                                    <td>L2025-10-03-01</td>
+                                    <td class="text-right text-red">-1 kg</td>
+                                    <td>Le Van C</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-pagination" id="warehousePagination">
+                        <button class="page-btn" id="warehousePagePrev" type="button" data-en="Prev" data-vi="Trước">Trước</button>
+                        <span class="page-info" id="warehousePageInfo">1 / 1</span>
+                        <button class="page-btn" id="warehousePageNext" type="button" data-en="Next" data-vi="Sau">Sau</button>
+                    </div>
+                </div>
+
+                <!-- Side Information Panel -->
+                <div class="side-panel">
+                    <div class="side-card">
+                        <h3 data-en="Most active employee" data-vi="Nhân viên hoạt động nhiều nhất">Nhân viên hoạt động nhiều nhất</h3>
+                        <div class="employee-info">
+                            <div class="employee-avatar" id="topEmployeeAvatar">A</div>
+                            <div class="employee-details">
+                                <div class="employee-name" id="topEmployeeName">--</div>
+                                <div class="employee-role" id="topEmployeeCode">--</div>
+                                <div class="employee-meta" id="topEmployeeMeta" data-en="0 transactions" data-vi="0 giao dịch">0 giao dịch</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-card">
+                        <h3 data-en="Most imported raw materials" data-vi="Nguyên liệu nhập nhiều nhất">Nguyên liệu nhập nhiều nhất</h3>
+                        <p class="highlight-text" id="topImportIngredientName">--</p>
+                        <p class="muted-text" id="topImportIngredientMeta" data-en="0 batches" data-vi="0 lô">0 lô</p>
+                    </div>
+
+                    <div class="side-card warning-card">
+                        <h3 data-en="Expiring Soon" data-vi="Sắp hết hạn">Sắp hết hạn</h3>
+                        <div id="expiringSoonList">
+                            <!-- JS render -->
+                        </div>
+                    </div>
+
+                    <div class="side-card alert-card">
+                        <h3 data-en="General warning today" data-vi="Cảnh báo chung hôm nay">Cảnh báo chung hôm nay</h3>
+                        <p class="muted-text" id="generalWarningText" data-en="No warnings." data-vi="Không có cảnh báo.">Không có cảnh báo.</p>
+                    </div>
+                </div>
+
+                <!-- Bottom Report Section -->
+                <div class="report-section">
+                    <div class="report-header">
+                        <h3 data-en="Periodic Summary Report" data-vi="Báo cáo định kỳ">Báo cáo định kỳ</h3>
+                        <p class="report-subtitle" data-en="Weekly/monthly warehouse activity summary." data-vi="Tổng kết hoạt động kho theo tuần/tháng.">Tổng kết hoạt động kho theo tuần/tháng.</p>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="warehouse-table">
+                            <thead>
+                            <tr>
+                                <th><span data-en="Reporting period" data-vi="Kỳ báo cáo">Kỳ báo cáo</span></th>
+                                <th><span data-en="Time" data-vi="Thời gian">Thời gian</span></th>
+                                <th><span data-en="Import" data-vi="Nhập">Nhập</span></th>
+                                <th><span data-en="Export" data-vi="Xuất">Xuất</span></th>
+                                <th><span data-en="Expect" data-vi="Hao hụt">Hao hụt</span></th>
+                                <th><span data-en="Ending balance" data-vi="Tồn cuối">Tồn cuối</span></th>
+                                <th><span data-en="Action" data-vi="Hành động">Hành động</span></th>
+                            </tr>
+                            </thead>
+                            <tbody id="periodicSummaryBody">                                <!-- JS s? render -->                            </tbody>                        </table>                        <div class="pagination-bar">                            <button class="page-btn" id="periodicPagePrev" aria-label="Previous page">&lt;</button>                            <span class="page-info" id="periodicPageInfo">Page 1 / 1</span>                            <button class="page-btn" id="periodicPageNext" aria-label="Next page">&gt;</button>                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Sidebar menu navigation handler
+        document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const href = this.getAttribute('data-href');
+                if (href && href !== '#') {
+                    location.href = href;
+                }
+            });
+        });
+
+        // Logout handler
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                sessionStorage.removeItem('auth_token');
+                sessionStorage.removeItem('user_info');
+                sessionStorage.removeItem('user_token');
+                sessionStorage.removeItem('user_role');
+                sessionStorage.removeItem('user_role_id');
+                localStorage.removeItem('bakery_credentials');
+                window.location.href = '../../login/index.html';
+            });
+        }
+
+        // Header date/time update
+        function formatHeaderDate(d) {
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const now = new Date();
+            const elDate = document.getElementById('currentDate');
+            const elTime = document.getElementById('currentTime');
+            if (elDate) elDate.textContent = formatHeaderDate(now);
+            if (elTime) elTime.textContent = formatHeaderTime(now);
+        }
+
+        // Update user info from sessionStorage
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userInfo && userInfo.username && userNameEl) {
+                    userNameEl.textContent = userInfo.username;
+                }
+            } catch (error) {
+                console.log('Could not get user info from sessionStorage');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000); // Update every minute
+            
+            if (window.GlobalLanguage && GlobalLanguage.initialize) {
+                GlobalLanguage.initialize();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

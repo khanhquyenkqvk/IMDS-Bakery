@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/update/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Update - IMDS-BAKERY</title>
+
+  <link rel="stylesheet" href="../homepage/assets/css/employee-home.css" />
+  <link rel="stylesheet" href="assets/css/check-inventory.css?v=20251023" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-banner">
+        <a href="../homepage/index.html">
+          <img src="assets/img/banner.png" alt="IMPS-BAKERY" class="sidebar-banner-img" />
+        </a>
+      </div>
+      <nav class="sidebar-menu">
+        <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Nhập nguyên liệu</span></button>
+        <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Kiểm tra kho</span></button>
+        <button class="menu-item active" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Cập nhật</span></button>
+        <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Công thức</span></button>
+        <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">Lịch sử</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+        <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+        <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line">
+            <span class="emoji">👨‍🍳</span>
+            <h1 class="user-name">Nguyen Van A</h1>
+          </div>
+          <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+        </div>
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date">Monday, September 25</div>
+            <div class="time" id="clock">08:30 AM</div>
+          </div>
+          <button class="bell">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">0</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i>
+        <span>/ </span>
+        <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+        <span> / </span>
+        <a href="update.html" class="breadcrumb-link"><span data-en="Update" data-vi="Cập nhật">Cập nhật</span></a>
+      </div>
+
+      <section class="inventory-section"> 
+        
+        <h2 class="main-heading"><i class="fa-solid fa-rotate"></i> <span data-en="Update" data-vi="Cập nhật">Cập nhật</span></h2>
+
+        <div class="alert-box">
+          ⚠️ <span data-en="Warning: 2 ingredients are about to expire, 1 ingredient is insufficient in quantity, and 1 ingredient has expired!" data-vi="Cảnh báo: 2 nguyên liệu sắp hết hạn, 1 nguyên liệu sắp hết hàng và 1 nguyên liệu đã hết hạn!">Cảnh báo: 2 nguyên liệu sắp hết hạn, 1 nguyên liệu sắp hết hàng và 1 nguyên liệu đã hết hạn!</span>
+        </div>
+
+        <div class="table-container styled">
+          <div class="table-header">
+            <h3><i class="fa-solid fa-list-ul"></i> <span data-en="Inventory of ingredients" data-vi="Danh sách nguyên liệu">Danh sách nguyên liệu</span></h3>
+            <div class="table-tools">
+              <div class="search-wrapper">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm..." data-en-placeholder="Search" data-vi-placeholder="Tìm kiếm..." />
+              </div>
+              <button id="btnFilter"><i class="fa-solid fa-filter"></i> <span data-en="Filter" data-vi="Lọc">Lọc</span></button>
+              <button id="btnSort"><i class="fa-solid fa-arrow-down-wide-short"></i> <span data-en="Sort" data-vi="Sắp xếp">Sắp xếp</span></button>
+            </div>
+                        <!-- Filter popup -->
+            <div id="filterPopup" class="popup-box" style="display:none;">
+              <label for="filterStatus">Filter by status:</label>
+              <select id="filterStatus">
+                <option value="all">All</option>
+                <option value="Valid">Valid (In stock)</option>
+                <option value="NearExpiry">Near Expiry</option>
+                <option value="Opened">Opened</option>
+                <option value="UsedUp">Used Up</option>
+                <option value="Expired">Expired</option>
+              </select>
+              <div class="popup-actions">
+                <button id="applyFilter" class="btn-save">Apply</button>
+                <button id="resetFilter" class="btn-cancel">Reset</button>
+              </div>
+            </div>
+
+            <!-- Sort popup -->
+            <div id="sortPopup" class="popup-box" style="display:none;">
+              <label for="sortBy">Sort by:</label>
+              <select id="sortBy">
+                <option value="none">None</option>
+                <option value="expiryAsc">Expiry Date ↑</option>
+                <option value="expiryDesc">Expiry Date ↓</option>
+                <option value="nameAsc">Name A → Z</option>
+                <option value="nameDesc">Name Z → A</option>
+              </select>
+              <div class="popup-actions">
+                <button id="applySort" class="btn-save">Apply</button>
+                <button id="resetSort" class="btn-cancel">Reset</button>
+              </div>
+            </div>
+
+          </div>
+
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th><span data-en="Batch code" data-vi="Mã lô">Mã lô</span></th>
+                <th><span data-en="Product Name" data-vi="Tên sản phẩm">Tên sản phẩm</span></th>
+                <th><span data-en="Quantity left" data-vi="Số lượng còn lại">Số lượng còn lại</span></th>
+                <th><span data-en="Received date" data-vi="Ngày nhập">Ngày nhập</span></th>
+                <th><span data-en="Use-by date" data-vi="Hạn dùng">Hạn dùng</span></th>
+                <th><span data-en="Status" data-vi="Trạng thái">Trạng thái</span></th>
+                <th><span data-en="Operation" data-vi="Thao tác">Thao tác</span></th>
+              </tr>
+            </thead>
+           <tbody id="inventoryBody">
+  <tr data-id="1">
+    <td>L2025-10-03-02</td>
+    <td>Wheat Flour</td>
+    <td class="quantity-nearly-expired">10 kg</td>
+    <td>2025-09-22</td>
+    <td>2026-03-22</td>
+    <td>
+      <span class="status nearly-expired">
+        <i class="fa-solid fa-circle-info"></i> <span data-en="Nearly expired" data-vi="Sắp hết hạn">Nearly expired</span>
+      </span>
+    </td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+  <tr data-id="2">
+    <td>L2025-10-03-02</td>
+    <td>Fresh Milk</td>
+    <td class="quantity-low">8L</td>
+    <td>2025-09-24</td>
+    <td>2025-10-01</td>
+    <td><span class="status low"><span data-en="Low warehouse" data-vi="Sắp hết hàng">Low warehouse</span></span></td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+  <tr data-id="3">
+    <td>L2025-10-03-02</td>
+    <td>Whipped cream</td>
+    <td class="quantity-low">7L</td>
+    <td>2025-09-24</td>
+    <td>2025-10-01</td>
+    <td><span class="status low"><span data-en="Low warehouse" data-vi="Sắp hết hàng">Low warehouse</span></span></td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+  <tr data-id="4">
+    <td>L2025-10-03-02</td>
+    <td>Eggs</td>
+    <td class="quantity-expired">15pcs</td>
+    <td>2025-09-24</td>
+    <td>2025-09-30</td>
+    <td><span class="status expired"><span data-en="Expired" data-vi="Hết hạn">Expired</span></span></td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+  <tr data-id="5">
+    <td>L2025-10-03-02</td>
+    <td>Butter</td>
+    <td class="quantity-default">3kg</td>
+    <td>2025-09-23</td>
+    <td>2025-11-23</td>
+    <td><span class="status good"><span data-en="In stock" data-vi="Còn hàng">In stock</span></span></td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+  <tr data-id="6">
+    <td>L2025-10-03-02</td>
+    <td>Sugar</td>
+    <td class="quantity-default">12kg</td>
+    <td>2025-09-25</td>
+    <td>2026-09-25</td>
+    <td><span class="status good"><span data-en="In stock" data-vi="Còn hàng">In stock</span></span></td>
+    <td class="operation-icons">
+      <a href="#" class="icon-edit"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="#" class="icon-delete"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+  </tr>
+</tbody>
+          </table>
+          <div class="pagination-bar">
+            <button class="page-btn" id="pagePrev" aria-label="Previous page">&lt;</button>
+            <span class="page-info" id="pageInfo">Page 1 / 1</span>
+            <button class="page-btn" id="pageNext" aria-label="Next page">&gt;</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<!-- Modal Edit -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-pen-to-square"></i> <span data-en="Update Ingredient" data-vi="Cập nhật nguyên liệu">Update Ingredient</span></h3>
+      <span class="close">&times;</span>
+    </div>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label><span data-en="Lot Code:" data-vi="Mã lô:">Lot Code:</span></label>
+        <input type="text" id="editCode" required>
+      </div>
+      <div class="form-group">
+        <label><span data-en="Product Name:" data-vi="Tên sản phẩm:">Product Name:</span></label>
+        <input type="text" id="editName" required>
+      </div>
+      <div class="form-group">
+        <label><span data-en="Quantity Left:" data-vi="Số lượng còn lại:">Quantity Left:</span></label>
+        <input type="number" id="editQuantity" step="1" min="0" required>
+      </div>
+      <div class="form-date-row">
+        <div class="form-group">
+          <label><span data-en="Received Date:" data-vi="Ngày nhập:">Received Date:</span></label>
+          <input type="date" id="editReceived" required>
+        </div>
+        <div class="form-group">
+          <label><span data-en="Use-by Date:" data-vi="Hạn dùng:">Use-by Date:</span></label>
+          <input type="date" id="editUseby" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label><span data-en="Status:" data-vi="Trạng thái:">Status:</span></label>
+        <select id="editStatus">
+        <option value="Valid" data-en="In stock" data-vi="Còn hàng">Valid</option>
+        <option value="Opened" data-en="Opened" data-vi="Đã mở">Opened</option>
+        <option value="NearExpiry" data-en="Nearly expired" data-vi="Sắp hết hạn">NearExpiry</option>
+        <option value="Expired" data-en="Expired" data-vi="Hết hạn">Expired</option>
+        <option value="UsedUp" data-en="Used up" data-vi="Đã sử dụng hết">UsedUp</option>
+      </select>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelEdit" class="btn-cancel" data-en="Cancel" data-vi="Hủy">Cancel</button>
+        <button type="submit" class="btn-save" data-en="Save" data-vi="Lưu">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Delete Confirmation -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-trash-can"></i> <span data-en="Confirm Delete" data-vi="Xác nhận xóa">Confirm Delete</span></h3>
+      <span class="close">&times;</span>
+    </div>
+    <form id="deleteForm">
+      <input type="hidden" id="deleteId">
+      <p><span data-en="Are you sure you want to delete" data-vi="Bạn có chắc muốn xóa">Are you sure you want to delete</span> <span id="deleteName"></span>?</p>
+      <div class="form-group">
+        <label><span data-en="Reason for deletion (required):" data-vi="Lý do xóa (bắt buộc):">Reason for deletion (required):</span></label>
+        <textarea id="deleteReason" required rows="3" placeholder="Enter reason..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelDelete" class="btn-cancel" data-en="Cancel" data-vi="Hủy">Cancel</button>
+        <button type="submit" class="btn-delete" data-en="Delete" data-vi="Xóa">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <script src="assets/js/update.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+  <script>
+    // Get username from sessionStorage (from login) - same as homepage
+    function updateUserInfo() {
+      try {
+        const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+        const userNameEl = document.querySelector('.user-name');
+        if (userInfo && userInfo.username && userNameEl) {
+          userNameEl.textContent = userInfo.username;
+        } else if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      } catch (error) {
+        console.log('Could not get user info from sessionStorage');
+        const userNameEl = document.querySelector('.user-name');
+        if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      }
+    }
+
+    // Header realtime date/time - same as homepage
+    function formatHeaderDate(d) {
+        const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+    }
+    function formatHeaderTime(d) {
+        let h = d.getHours();
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if (h === 0) h = 12;
+        return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+    }
+    
+    function updateHeaderTime() {
+        if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+          window.GlobalLanguage.updateDateTime();
+          return;
+        }
+        const now = new Date();
+        const elDate = document.querySelector('.header .date');
+        const elTime = document.querySelector('.header .time');
+        if (elDate) elDate.textContent = formatHeaderDate(now);
+        if (elTime) elTime.textContent = formatHeaderTime(now);
+    }
+
+    // Update user info and time when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUserInfo();
+        updateHeaderTime();
+        setInterval(updateHeaderTime, 60000); // Update every minute
+        
+        // Initialize language and update placeholders
+        if(window.GlobalLanguage && GlobalLanguage.initialize){
+          GlobalLanguage.initialize();
+          // Update search placeholder based on language
+          const searchInput = document.getElementById('searchInput');
+          if (searchInput) {
+            const lang = GlobalLanguage.getLanguage();
+            const placeholder = lang === 'vi' 
+              ? searchInput.getAttribute('data-vi-placeholder') || 'Tìm kiếm...'
+              : searchInput.getAttribute('data-en-placeholder') || 'Search';
+            searchInput.placeholder = placeholder;
+            
+            // Listen for language changes
+            const originalApply = GlobalLanguage.applyLanguage;
+            GlobalLanguage.applyLanguage = function(lang) {
+              originalApply(lang);
+              const currentLang = GlobalLanguage.getLanguage();
+              const newPlaceholder = currentLang === 'vi' 
+                ? searchInput.getAttribute('data-vi-placeholder') || 'Tìm kiếm...'
+                : searchInput.getAttribute('data-en-placeholder') || 'Search';
+              searchInput.placeholder = newPlaceholder;
+            };
+          }
+        }
+    });
+  </script>
+
+  <!-- Navigation and Logout Script -->
+  <script>
+    (function () {
+      const sidebar = document.querySelector('.sidebar');
+      if (!sidebar) return;
+
+      // Navigation handling
+      sidebar.addEventListener('click', (e) => {
+        const el = e.target.closest('.menu-item[data-href]');
+        if (!el) return;
+
+        e.preventDefault();
+
+        const href = el.getAttribute('data-href');
+        if (!href) return;
+
+        const abs = new URL(href, window.location).href;
+
+        // UI active state
+        sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+        el.classList.add('active');
+        el.setAttribute('aria-current', 'page');
+
+        // Navigate
+        window.location.assign(abs);
+      });
+
+      // Logout handling
+      const logoutBtn = document.getElementById('btnLogout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          // Clear all session storage
+          sessionStorage.removeItem('user_info');
+          sessionStorage.removeItem('user_token');
+          sessionStorage.removeItem('auth_token');
+          
+          // Clear localStorage credentials if any
+          localStorage.removeItem('bakery_credentials');
+          
+          // Redirect to login page
+          window.location.href = '../../login/index.html';
+        });
+      }
+
+      // Auto-highlight current page
+      const here = window.location.pathname;
+      sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+        const href = item.getAttribute('data-href');
+        if (!href) return;
+        const resolved = new URL(href, window.location).pathname;
+        if (here === resolved || here.endsWith(resolved)) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        }
+      });
+    })();
+  </script>
+  <script>
+    // Initialize language manager
+    if(window.GlobalLanguage && GlobalLanguage.initialize){
+      GlobalLanguage.initialize();
+    }else{
+      document.addEventListener('DOMContentLoaded',function(){
+        if(window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+      });
+    }
+  </script>
+  <!-- Toast notification container -->
+<div id="toastContainer" class="toast-container"></div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,53 @@
+﻿document.addEventListener('DOMContentLoaded', () => {
+  const modals = [
+    { trigger: 'restockCard', modal: 'restockModal', close: 'restockClose' },
+    { trigger: 'activeCard', modal: 'activeModal', close: 'activeClose' },{ trigger: 'wasteCard', modal: 'wasteModal', close: 'wasteClose' },
+  ];
+
+  const hideAll = () => {
+    modals.forEach(({ modal }) => {
+      const m = document.getElementById(modal);
+      if (m) {
+        m.classList.remove('open');
+        m.style.display = 'none';
+        m.setAttribute('aria-hidden', 'true');
+      }
+    });
+  };
+
+  const toggleModal = (id, show) => {
+    hideAll();
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.toggle('open', show);
+    m.style.display = show ? 'flex' : 'none';
+    m.setAttribute('aria-hidden', show ? 'false' : 'true');
+  };
+
+  modals.forEach(({ trigger, modal, close }) => {
+    const t = document.getElementById(trigger);
+    const m = document.getElementById(modal);
+    const c = document.getElementById(close);
+
+    if (t && m) {
+      t.addEventListener('click', () => toggleModal(modal, true));
+      t.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleModal(modal, true);
+        }
+      });
+    }
+    if (c) c.addEventListener('click', () => toggleModal(modal, false));
+    m?.addEventListener('click', (e) => {
+      if (e.target === m) toggleModal(modal, false);
+    });
+  });
+
+  hideAll();
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideAll();
+  });
+});
+

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/owner/dashboard/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Owner Dashboard - IMDS-BAKERY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Base layout & components shared style-->
+    <link rel="stylesheet" href="../recipe/assets/css/style.css">
+    <!-- Chatbot styles -->
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <!-- Dashboard specific styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="../recipe/assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></button>
+                <button class="menu-item" data-href="../Inventory/index.html"><i class="fa-solid fa-boxes-stacked"></i><span>Inventory</span></button>
+                <button class="menu-item" data-href="../reports/index.html"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+                <button class="menu-item" data-href="../recipe/index.html"><i class="fa-solid fa-book"></i><span>Recipes</span></button>
+                <button class="menu-item" data-href="../notification/index.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">&#128100;</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome">Welcome back, check out today's alerts and tasks</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">3</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link">Dashboard</a>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section">
+                <!-- Urgent Alert Banner -->
+                <div class="alert-card alert-card--urgent">
+                    <div class="alert-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="alert-content">
+                        <p class="alert-title">Urgent Attention Required!</p>
+                        <p class="alert-message">
+                            <span class="alert-highlight" id="expiredCount">
+                                0 items expired
+                            </span>,
+                            <span class="alert-highlight" id="exp48Count">
+                                0 items expiring within 48 hours
+                            </span>,
+                            <span class="alert-highlight" id="lowStockCount">
+                                0 items low in stock
+                            </span>
+                        </p>
+
+                        <button class="alert-link" type="button" id="btnViewUrgent">
+                            View Details
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Urgent Details Popup (Owner only) -->
+                <div class="urgent-modal" id="urgentModal" aria-hidden="true">
+                <div class="urgent-modal-backdrop" id="urgentModalBackdrop"></div>
+
+                <div class="urgent-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="urgentModalTitle">
+                    <div class="urgent-modal-header">
+                    <h2 id="urgentModalTitle">Urgent inventory notices</h2>
+                    <button class="urgent-modal-close" type="button" id="urgentModalClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    </div>
+
+                    <div class="urgent-modal-body">
+                    <!-- 🔹 Dùng lại layout urgent giống employee -->
+                    <section class="urgent urgent--in-modal">
+                        <div class="urgent-title">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Urgent notice</span>
+                        </div>
+
+                        <div class="urgent-body">
+                        <div class="urgent-grid">
+                            <div class="urgent-card urgent-red">
+                            <div class="urgent-icon"><i class="fa-regular fa-clock"></i></div>
+                            <div class="urgent-content" id="urgentOwnerRed">
+                                <!-- JS /api/alerts sẽ đổ "Expiring soon" vào đây -->
+                            </div>
+                            </div>
+
+                            <div class="urgent-card urgent-yellow">
+                            <div class="urgent-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="urgent-content" id="urgentOwnerYellow">
+                                <!-- JS /api/alerts sẽ đổ "Early warning" vào đây -->
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+                    <!-- end urgent -->
+                    </div>
+                </div>
+                </div>
+
+
+                <!-- Stats Overview -->
+                <div class="stat-grid">
+                    <article class="stat-card">
+                        <div class="stat-main">
+                            <div class="stat-icon stat-icon--revenue"><i class="fa-solid fa-sack-dollar"></i></div>
+                            <div class="stat-info">
+                                <p class="stat-label">Total Restock Frequency</p>
+                                <p class="stat-value" id="statRevenue">0</p>
+                            </div>
+                        </div>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-main">
+                            <div class="stat-icon stat-icon--products"><i class="fa-solid fa-cake-candles"></i></div>
+                            <div class="stat-info">
+                                <p class="stat-label">Active Products</p>
+                                <p class="stat-value" id="statActiveProducts">0</p>
+                            </div>
+                        </div>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-main">
+                            <div class="stat-icon stat-icon--low-stock"><i class="fa-solid fa-box-open"></i></div>
+                            <div class="stat-info">
+                                <p class="stat-label">Low Stock Items</p>
+                                <p class="stat-value" id="statLowStock">0</p>
+                            </div>
+                        </div>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-main">
+                            <div class="stat-icon stat-icon--expiring"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <div class="stat-info">
+                                <p class="stat-label">Expiring Soon</p>
+                                <p class="stat-value" id="statExpiring">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-trend stat-trend--urgent">
+                            <span id="statExpiringStatus">Urgent</span>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Today Menu Details Panel -->
+                <section class="panel" id="todayMenuPanel">
+                    <button class="panel-header" type="button" data-panel-toggle>
+                        <h2 class="panel-title">Today's Menu Details</h2>
+                        <i class="fa-solid fa-chevron-down panel-chevron"></i>
+                    </button>
+                    <div class="panel-body">
+                        <div class="panel-body-inner">
+                            <div class="today-menu-table-wrapper">
+                                <table class="today-menu-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-cake">Cake (Product)</th>
+                                            <th class="col-qty">Quantity</th>
+                                            <th class="col-note">Note</th>
+                                            <th class="col-status">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="todayMenuBody">
+                                        <!-- JS sẽ render dữ liệu ở đây -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+
+
+                <!-- AI Recommendations Panel -->
+                <section class="panel" id="aiRecommendationPanel">
+                    <button class="panel-header" type="button" data-panel-toggle>
+                        <div class="panel-title-block">
+                            <h2 class="panel-title">AI-Powered Recommendations</h2>
+                            <p class="panel-subtitle">Smart insights to maximize profit and reduce waste</p>
+                        </div>
+                        <div class="panel-header-right">
+                            <span class="chip chip--info" id="aiNewCountChip">0 New</span>
+                            <i class="fa-solid fa-chevron-down panel-chevron"></i>
+                        </div>
+                    </button>
+                    <div class="panel-body">
+                        <div class="panel-body-inner">
+                        <div class="ai-reco-list ai-reco-list--modern" id="aiRecoList">
+                            <!-- JS render -->
+                        </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AI Demand Forecast Panel -->
+                <section class="panel" id="aiForecastPanel">
+                    <button class="panel-header" type="button" data-panel-toggle>
+                        <div class="panel-title-block">
+                            <h2 class="panel-title">AI Demand Forecast</h2>
+                            <p class="panel-subtitle">Next 7 days prediction</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-down panel-chevron"></i>
+                    </button>
+                    <div class="panel-body">
+                        <div class="panel-body-inner">
+                        <div class="forecast-list" id="forecastList">
+                            <!-- JS render -->
+                        </div>
+
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+      <!-- Confirm remove AI suggestion -->
+  <div class="modal-overlay" id="aiRemoveModal">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h2>Remove suggestion</h2>
+        <button type="button" class="modal-close" id="btnCloseAiRemove">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="aiRemoveMessage">
+          Are you sure you want to remove this recommendation from dashboard?
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="btnCancelAiRemove">Cancel</button>
+        <button type="button" class="btn-primary btn-danger" id="btnConfirmAiRemove">Remove</button>
+      </div>
+    </div>
+  </div>
+
+    <script src="assets/js/script.js"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+</body>
+</html>
+
+
+

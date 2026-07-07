@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/admin/user-management/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>User Management - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="../batch-management/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="../assets/js/language.js"></script>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../report/index.html"><img src="../report/assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../report/index.html"><i class="fa-solid fa-gauge"></i><span data-en="Report" data-vi="Báo cáo">Báo cáo</span></button>
+                <button class="menu-item" data-href="../batch-management/index.html"><i class="fa-solid fa-boxes-stacked"></i><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></button>
+                <button class="menu-item" data-href="../warehouse-data/index.html"><i class="fa-solid fa-warehouse"></i><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-users"></i><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></button>
+                <button class="menu-item" data-href="../smart-suggestion/index.html"><i class="fa-solid fa-lightbulb"></i><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Gợi ý thông minh</span></button>
+            </nav>
+            <div class="sidebar-bottom">
+                <button class="menu-item alt"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">&#128100;</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome">
+                        <span data-en="Welcome back, check out today's alerts and tasks"
+                              data-vi="Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay">
+                            Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay
+                        </span>
+                    </p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></a>
+            </div>
+
+            <section class="user-section">
+                <div class="page-header">
+                    <h2><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></h2>
+                    <span class="chip" data-en="Admin Panel" data-vi="Bảng điều khiển Admin">Bảng điều khiển Admin</span>
+                </div>
+
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-target="tab-users" data-en="User Directory" data-vi="Danh mục người dùng">Danh mục người dùng</button>
+                    <button class="tab-btn" data-target="tab-history" data-en="History of Activities" data-vi="Lịch sử hoạt động">Lịch sử hoạt động</button>
+                </div>
+
+                <div class="tab-pane active" id="tab-users">
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div>
+                            <h3 data-en="Total Users" data-vi="Tổng số người dùng">Tổng số người dùng</h3>
+                            <p class="card-value" id="summaryTotalUsers">0</p>
+                        </div>
+                        <div class="card-icon blue"><i class="fa-solid fa-users"></i></div>
+                    </div>
+                    <div class="summary-card">
+                        <div>
+                            <h3 class="green" data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</h3>
+                            <p class="card-value green" id="summaryActiveUsers">0</p>
+                        </div>
+                        <div class="card-icon green"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="summary-card">
+                        <div>
+                            <h3 class="red" data-en="Locked" data-vi="Đã khóa">Đã khóa</h3>
+                            <p class="card-value red" id="summaryLockedUsers">0</p>
+                        </div>
+                        <div class="card-icon red"><i class="fa-solid fa-lock"></i></div>
+                    </div>
+                    <div class="summary-card">
+                        <div>
+                            <h3 class="purple" data-en="Roles Defined" data-vi="Số vai trò">Số vai trò</h3>
+                            <p class="card-value purple" id="summaryRolesDefined">0</p>
+                        </div>
+                        <div class="card-icon purple"><i class="fa-solid fa-user-gear"></i></div>
+                    </div>
+
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="userSearchInput" type="text" placeholder="Tìm theo tên"
+                               data-en-placeholder="Search by name" data-vi-placeholder="Tìm theo tên">
+                    </div>
+                    <select class="filter" id="roleFilter">
+                        <option value="" data-en="Filter Role" data-vi="Lọc vai trò">Lọc vai trò</option>
+                        <option value="Admin" data-en="Admin" data-vi="Admin">Admin</option>
+                        <option value="Owner" data-en="Owner" data-vi="Owner">Owner</option>
+                        <option value="Employee" data-en="Employee" data-vi="Nhân viên">Nhân viên</option>
+                    </select>
+                    <select class="filter" id="statusFilter">
+                        <option value="" data-en="Filter Status" data-vi="Lọc trạng thái">Lọc trạng thái</option>
+                        <option value="Active" data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</option>
+                        <option value="Locked" data-en="Locked" data-vi="Đã khóa">Đã khóa</option>
+                    </select>
+                    <button class="btn-primary" id="btnOpenAddUser">
+                        <i class="fa-solid fa-plus"></i> <span data-en="Add User" data-vi="Thêm người dùng">Thêm người dùng</span>
+                    </button>
+
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 data-en="User Directory" data-vi="Danh mục người dùng">Danh mục người dùng</h3>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="user-table" id="userTable">
+                            <thead>
+                                <tr>
+                                    <th data-en="Name" data-vi="Họ tên">Họ tên</th>
+                                    <th data-en="Role" data-vi="Vai trò">Vai trò</th>
+                                    <th data-en="Phone Number" data-vi="Số điện thoại">Số điện thoại</th>
+                                    <th data-en="Status" data-vi="Trạng thái">Trạng thái</th>
+                                    <th data-en="Last Login" data-vi="Đăng nhập cuối">Đăng nhập cuối</th>
+                                    <th data-en="Created By" data-vi="Người tạo">Người tạo</th>
+                                    <th data-en="Actions" data-vi="Hành động">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <!-- Rows will be rendered by user-management.js -->
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="pagination" id="userPagination"></div>
+                </div>
+
+                </div>
+
+                <div class="tab-pane" id="tab-history">
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="historySearchInput" type="text" placeholder="Tìm kiếm hoạt động"
+                               data-en-placeholder="Search activities" data-vi-placeholder="Tìm kiếm hoạt động">
+                    </div>
+                    <select class="filter" id="historyUserFilter">
+                        <option value="" data-en="Filter User" data-vi="Lọc người dùng">Filter User</option>
+                        <option value="Nguyen Van B">Nguyen Van B</option>
+                        <option value="Pham Van A">Pham Van A</option>
+                        <option value="Hoang Van E">Hoang Van E</option>
+                    </select>
+                    <select class="filter" id="historyActionFilter">
+                        <option value="" data-en="Filter Action" data-vi="Lọc hành động">Filter Action</option>
+                        <option value="Export" data-en="Export" data-vi="Xuất">Export</option>
+                        <option value="Create" data-en="Create" data-vi="Tạo mới">Create</option>
+                        <option value="Approve" data-en="Approve" data-vi="Duyệt">Approve</option>
+                        <option value="Lock" data-en="Lock" data-vi="Khóa">Lock</option>
+                    </select>
+                </div>
+
+                <div class="panel history-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3 data-en="History of Activities" data-vi="Lịch sử hoạt động">History of Activities</h3>
+                            <p class="muted" data-en="Track all changes and actions in the system." data-vi="Theo dõi mọi thay đổi và thao tác trong hệ thống.">Track all changes and actions in the system.</p>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="user-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th data-en="Time" data-vi="Thời gian">Time</th>
+                                    <th data-en="User" data-vi="Người dùng">User</th>
+                                    <th data-en="Actions" data-vi="Hành động">Actions</th>
+                                    <th data-en="Detail" data-vi="Chi tiết">Detail</th>
+                                    <th data-en="IP Address" data-vi="Địa chỉ IP">IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- Filled by user-management.js -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="pagination" id="historyPagination"></div>
+                </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        <!-- Modal Add / Edit User -->
+    <div class="um-modal" id="userModal">
+        <div class="um-modal-backdrop"></div>
+        <div class="um-modal-content">
+            <div class="um-modal-header">
+                <h3 id="userModalTitle" data-en="Add User" data-vi="Thêm người dùng">Thêm người dùng</h3>
+                <button class="um-modal-close" id="btnCloseUserModal">&times;</button>
+            </div>
+            <form id="userForm">
+                <div class="um-modal-body">
+                    <div class="um-form-grid">
+                        <div class="um-form-field">
+                            <label data-en="Full Name" data-vi="Họ và tên">Họ và tên <span>*</span></label>
+                            <input type="text" id="inputFullName" required
+                                   data-en-placeholder="Enter full name" data-vi-placeholder="Nhập họ tên">
+                        </div>
+                        <div class="um-form-field">
+                            <label data-en="Username" data-vi="Tên đăng nhập">Tên đăng nhập <span>*</span></label>
+                            <input type="text" id="inputUsername" required
+                                   data-en-placeholder="Enter username" data-vi-placeholder="Nhập tên đăng nhập">
+                        </div>
+                        <div class="um-form-field">
+                            <label data-en="Email" data-vi="Email">Email</label>
+                            <input type="email" id="inputEmail"
+                                   data-en-placeholder="Enter email" data-vi-placeholder="Nhập email">
+                        </div>
+                        <div class="um-form-field">
+                            <label data-en="Phone" data-vi="Số điện thoại">Số điện thoại</label>
+                            <input type="text" id="inputPhone"
+                                   data-en-placeholder="Enter phone" data-vi-placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="um-form-field">
+                            <label data-en="Role" data-vi="Vai trò">Vai trò <span>*</span></label>
+                            <select id="inputRole" required>
+                                <option value="" data-en="Select role" data-vi="Chọn vai trò">Chọn vai trò</option>
+                                <option value="Admin" data-en="Admin" data-vi="Admin">Admin</option>
+                                <option value="Owner" data-en="Owner" data-vi="Owner">Owner</option>
+                                <option value="Employee" data-en="Employee" data-vi="Nhân viên">Nhân viên</option>
+                            </select>
+                        </div>
+                        <div class="um-form-field">
+                            <label data-en="Status" data-vi="Trạng thái">Trạng thái</label>
+                            <select id="inputStatus">
+                                <option value="Active" data-en="Active" data-vi="Đang hoạt động">Đang hoạt động</option>
+                                <option value="Locked" data-en="Locked" data-vi="Đã khóa">Đã khóa</option>
+                            </select>
+                        </div>
+                        <div class="um-form-field" id="passwordField">
+                            <label data-en="Password" data-vi="Mật khẩu">Mật khẩu <span>*</span></label>
+                            <input type="password" id="inputPassword" autocomplete="new-password"
+                                   data-en-placeholder="Enter password" data-vi-placeholder="Nhập mật khẩu">
+                        </div>
+                    </div>
+                </div>
+                <div class="um-modal-footer">
+                    <span class="um-form-error" id="userFormError"></span>
+                    <div class="um-modal-actions">
+                        <button type="button" class="btn-secondary" id="btnCancelUser" data-en="Cancel" data-vi="Hủy">Hủy</button>
+                        <button type="submit" class="btn-primary" id="btnSaveUser" data-en="Save" data-vi="Lưu">Lưu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <!-- Confirm Modal for Lock / Delete -->
+    <div class="um-modal" id="confirmModal">
+        <div class="um-modal-backdrop"></div>
+        <div class="um-modal-content um-modal-sm">
+            <div class="um-modal-header">
+                <h3 id="confirmTitle" data-en="Confirm" data-vi="Xác nhận">Xác nhận</h3>
+                <button class="um-modal-close" id="btnCloseConfirm">&times;</button>
+            </div>
+            <div class="um-modal-body">
+                <p id="confirmMessage" style="font-size: 14px; color: #374151;"
+                   data-en="Are you sure?" data-vi="Bạn có chắc không?">
+                    Bạn có chắc không?
+                </p>
+            </div>
+            <div class="um-modal-footer">
+                <span></span>
+                <div class="um-modal-actions">
+                    <button type="button" class="btn-secondary" id="btnCancelConfirm" data-en="Cancel" data-vi="Hủy">Hủy</button>
+                    <button type="button" class="btn-primary" id="btnOkConfirm" data-en="Confirm" data-vi="Xác nhận">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for User Management -->
+    <div class="um-toast" id="umToast">
+        <div class="um-toast-inner">
+            <span class="um-toast-icon"></span>
+            <span class="um-toast-message"></span>
+        </div>
+    </div>
+
+    <script src="assets/js/user-management.js"></script>
+    <script>
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const href = btn.getAttribute('data-href');
+                if (href && href !== '#') location.href = href;
+            });
+        });
+
+        // Logout
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                sessionStorage.clear();
+                localStorage.removeItem('bakery_credentials');
+                window.location.href = '../../login/index.html';
+            });
+        }
+
+        // Header time + user
+        function formatHeaderDate(d) {
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2,'0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const now = new Date();
+            const elDate = document.getElementById('currentDate');
+            const elTime = document.getElementById('currentTime');
+            if (elDate) elDate.textContent = formatHeaderDate(now);
+            if (elTime) elTime.textContent = formatHeaderTime(now);
+        }
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userNameEl) {
+                    userNameEl.textContent = userInfo.username || userInfo.full_name || userInfo.email || 'Pham Van Nam';
+                }
+            } catch(e) {
+                console.warn('Could not parse user_info', e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000);
+
+            if (window.GlobalLanguage && GlobalLanguage.initialize) {
+                GlobalLanguage.initialize();
+            }
+
+            // Tab switching with remember last active tab
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            let activeTabId = localStorage.getItem('admin_user_active_tab') || 'tab-users';
+
+            function setActiveTab(tabId) {
+                tabButtons.forEach(btn => {
+                    const targetId = btn.getAttribute('data-target');
+                    if (targetId === tabId) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+                tabPanes.forEach(pane => {
+                    if (pane.id === tabId) pane.classList.add('active');
+                    else pane.classList.remove('active');
+                });
+            }
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    if (!targetId) return;
+                    activeTabId = targetId;
+                    localStorage.setItem('admin_user_active_tab', activeTabId);
+                    setActiveTab(activeTabId);
+                });
+            });
+
+            setActiveTab(activeTabId);
+        });
+
+    </script>
+</body>
+</html>
+

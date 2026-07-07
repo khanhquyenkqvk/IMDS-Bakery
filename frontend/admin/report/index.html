@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/admin/report/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Reporting Center - IMDS-BAKERY</title>
+    <!-- Base admin layout (same as batch-management) -->
+    <link rel="stylesheet" href="../batch-management/assets/css/style.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-gauge"></i><span data-en="Report" data-vi="Báo cáo">Report</span></button>
+                <button class="menu-item" data-href="../batch-management/index.html"><i class="fa-solid fa-boxes-stacked"></i><span data-en="Batch Management" data-vi="Quản lý lô hàng">Batch Management</span></button>
+                <button class="menu-item" data-href="../warehouse-data/index.html"><i class="fa-solid fa-warehouse"></i><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Warehouse Data</span></button>
+                <button class="menu-item" data-href="../user-management/index.html"><i class="fa-solid fa-users"></i><span data-en="User Management" data-vi="Quản lý người dùng">User Management</span></button>
+                <button class="menu-item" data-href="../smart-suggestion/index.html"><i class="fa-solid fa-lightbulb"></i><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Smart Suggestions</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👤</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome" data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay">Welcome back, check out today's alerts and tasks</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+            <div class='breadcrumb'>
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Report" data-vi="Báo cáo">Report</span></a>
+            </div>
+
+            <section class="batch-section reporting-section">
+                <h2 class="page-title"><span data-en="Reporting Center" data-vi="Trung tâm báo cáo">Reporting Center</span></h2>
+
+                <!-- 4 card t?ng quan -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Total inventory" data-vi="Tổng tồn kho">Total inventory</h3>
+                            <p class="card-value" id="sumTotalLots">0</p>
+                            <p class="card-desc" data-en="material lots" data-vi="lô nguyên liệu">material lots</p>
+                        </div>
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-warehouse"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Trend" data-vi="Xu hướng">Trend</h3>
+                            <p class="card-value" id="sumTrendLabel" data-en="Stable" data-vi="Ổn định">Stable</p>
+                            <p class="card-desc" id="sumTrendDesc" data-en="+0% compared to last month" data-vi="+0% so với tháng trước">+0% compared to last month</p>
+                        </div>
+                        <div class="card-icon green">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Waste rate" data-vi="Tỷ lệ hao hụt">Waste rate</h3>
+                            <p class="card-value" id="sumWasteRate">0%</p>
+                            <p class="card-desc" data-en="in the month" data-vi="trong tháng">in the month</p>
+                        </div>
+                        <div class="card-icon orange">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-content">
+                            <h3 data-en="Automatic reporting" data-vi="Báo cáo tự động">Automatic reporting</h3>
+                            <p class="card-value" id="sumAutoReporting" style="font-size: 24px; color: var(--blue);">On</p>
+                            <p class="card-desc" id="sumAutoReportingDesc" data-en="Send daily" data-vi="Gửi hằng ngày">Send daily</p>
+                        </div>
+                        <div class="card-icon blue">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INVENTORY REPORT M?I -->
+                <div class="inventory-report">
+                    <div class="inventory-report-header">
+                        <h3 data-en="Inventory Report" data-vi="Báo cáo tồn kho">Inventory Report</h3>
+                    </div>
+
+                    <!-- KPI nh? -->
+                    <div class="inventory-kpi-grid">
+                        <div class="inventory-kpi-card">
+                            <h4 data-en="Total lots of materials" data-vi="Tổng lô nguyên liệu">Total lots of materials</h4>
+                            <p class="kpi-value" id="kpiTotalLots">0</p>
+                            <p class="kpi-desc" data-en="lots under management" data-vi="lô đang quản lý">lots under management</p>
+                        </div>
+
+                        <div class="inventory-kpi-card kpi-good">
+                            <h4 data-en="Good condition" data-vi="Tốt">Good condition</h4>
+                            <p class="kpi-value" id="kpiGoodCount">0</p>
+                            <p class="kpi-desc" id="kpiGoodPercent" data-en="0% of the total" data-vi="0% tổng số">0% of the total</p>
+                        </div>
+
+                        <div class="inventory-kpi-card kpi-warning">
+                            <h4 data-en="Almost gone" data-vi="Sắp hết">Almost gone</h4>
+                            <p class="kpi-value" id="kpiWarningCount">0</p>
+                            <p class="kpi-desc" id="kpiWarningPercent" data-en="Need to enter more" data-vi="Cần nhập thêm">Need to enter more</p>
+                        </div>
+
+                        <div class="inventory-kpi-card kpi-danger">
+                            <h4 data-en="Danger" data-vi="Nguy hiểm">Danger</h4>
+                            <p class="kpi-value" id="kpiDangerCount">0</p>
+                            <p class="kpi-desc" id="kpiDangerPercent" data-en="Need urgent treatment" data-vi="Cần xử lý gấp">Need urgent treatment</p>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="inventory-tabs">
+                        <button class="inventory-tab active" data-target="tab-overview" data-en="Overview" data-vi="Tổng quan">Overview</button>
+                        <button class="inventory-tab" data-target="tab-detail" data-en="Detail" data-vi="Chi tiết">Detail</button>
+                        <button class="inventory-tab" data-target="tab-trend" data-en="Trend" data-vi="Xu hướng">Trend</button>
+                        <button class="inventory-tab" data-target="tab-analysis" data-en="Analysis" data-vi="Phân tích">Analysis</button>
+                    </div>
+
+                    <!-- PANEL: OVERVIEW -->
+                    <div class="inventory-tab-panel active" id="tab-overview">
+                        <div class="inventory-charts">
+                            <!-- Bar chart -->
+                            <div class="chart-card">
+                                <h3 data-en="Inventory Distribution" data-vi="Phân bố tồn kho">Inventory Distribution</h3>
+                                <p class="chart-subtitle" data-en="Top 5 raw materials with the highest inventory" data-vi="Top 5 nguyên liệu tồn cao nhất">Top 5 raw materials with the highest inventory</p>
+                                <div class="chart-wrapper">
+                                    <canvas id="inventoryDistributionChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Doughnut chart -->
+                            <div class="chart-card">
+                                <h3 data-en="Inventory Status" data-vi="Trạng thái tồn kho">Inventory Status</h3>
+                                <p class="chart-subtitle" data-en="Classification by inventory level" data-vi="Phân loại theo mức tồn">Classification by inventory level</p>
+                                <div class="chart-wrapper chart-wrapper-row">
+                                    <div class="chart-canvas-wrapper">
+                                        <canvas id="inventoryStatusChart"></canvas>
+                                    </div>
+                                    <div class="chart-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-dot legend-dot-red"></span>
+                                            <span id="legendCriticalText" data-en="Critical: 0 (0%)" data-vi="Nguy hiểm: 0 (0%)">Critical: 0 (0%)</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot legend-dot-orange"></span>
+                                            <span id="legendLowText" data-en="Low: 0 (0%)" data-vi="Sắp hết: 0 (0%)">Low: 0 (0%)</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-dot legend-dot-green"></span>
+                                            <span id="legendGoodText" data-en="Good: 0 (0%)" data-vi="Tốt: 0 (0%)">Good: 0 (0%)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL: DETAIL -->
+                    <div class="inventory-tab-panel" id="tab-detail">
+                        <div class="detail-report-card">
+                            <div class="detail-header">
+                                <div>
+                                    <h3 class="detail-title" data-en="Detailed Inventory Report" data-vi="Báo cáo tồn kho chi tiết">Detailed Inventory Report</h3>
+                                    <p class="detail-subtitle" data-en="Full list of all raw materials in stock" data-vi="Danh sách đầy đủ nguyên liệu trong kho">Full list of all raw materials in stock</p>
+                                </div>
+                                <button class="btn-export-excel">
+                                    <i class="fa-solid fa-file-export"></i> <span data-en="Excel Export" data-vi="Xuất Excel">Excel Export</span>
+                                </button>
+                            </div>
+
+                            <div class="detail-table-wrapper">
+                                <table class="detail-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-en="No" data-vi="STT">No</th>
+                                            <th data-en="Products Name" data-vi="Tên nguyên liệu">Products Name</th>
+                                            <th data-en="Inventory" data-vi="Tồn kho">Inventory</th>
+                                            <th data-en="Unit" data-vi="Đơn vị">Unit</th>
+                                            <th data-en="Lot Number" data-vi="Mã lô">Lot Number</th>
+                                            <th data-en="Status" data-vi="Trạng thái">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="detailTableBody">
+                                    <!-- JS render -->
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="table-pagination" id="detailPagination">
+                                <button class="page-btn" id="detailPrev" type="button" data-en="Prev" data-vi="Trước">Prev</button>
+                                <span class="page-info" id="detailPageInfo">1 / 1</span>
+                                <button class="page-btn" id="detailNext" type="button" data-en="Next" data-vi="Sau">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL: TREND -->
+                    <div class="inventory-tab-panel" id="tab-trend">
+
+                        <div class="trend-chart-card">
+                            <h3 data-en="Import - Export - Deduct Trends" data-vi="Xu hướng nhập - xuất - hao hụt">Import - Export - Deduct Trends</h3>
+                            <p class="chart-subtitle" data-en="Track warehouse activity over the past week" data-vi="Theo dõi hoạt động kho tuần qua">Track warehouse activity over the past week</p>
+
+                            <div class="chart-wrapper" style="height: 340px;">
+                            <canvas id="inventoryTrendChart"></canvas>
+                            </div>
+                        </div>
+
+
+                        <div class="trend-summary-grid">
+
+                            <div class="trend-summary-card">
+                                <div class="trend-summary-icon trend-icon-green">
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                </div>
+                                <h4 data-en="Total imports this week" data-vi="Tổng nhập tuần này">Total imports this week</h4>
+                                <p id="trendImportNum" class="trend-summary-value">22</p>
+                                <span class="trend-summary-desc" data-en="+ 15% compared to last week" data-vi="+ 15% so với tuần trước">+ 15% compared to last week</span>
+                            </div>
+
+                            <div class="trend-summary-card">
+                                <div class="trend-summary-icon trend-icon-blue">
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                </div>
+                                <h4 data-en="Total exports this week" data-vi="Tổng xuất tuần này">Total exports this week</h4>
+                                <p id="trendExportNum" class="trend-summary-value">18</p>
+                                <span class="trend-summary-desc blue" data-en="+ 4.5% from last week" data-vi="+ 4.5% so với tuần trước">+ 4.5% from last week</span>
+                            </div>
+
+                            <div class="trend-summary-card">
+                                <div class="trend-summary-icon trend-icon-red">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                                <h4 data-en="Total waste this week" data-vi="Tổng hao hụt tuần này">Total waste this week</h4>
+                                <p id="trendDeductNum" class="trend-summary-value red">980</p>
+                                <span class="trend-summary-desc red" data-en="24.5% of total inventory" data-vi="24.5% tổng tồn kho">24.5% of total inventory</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
+                    <!-- PANEL: ANALYSIS -->
+                    <div class="inventory-tab-panel" id="tab-analysis">
+
+                        <div class="analysis-grid">
+
+                            <!-- LEFT -->
+                            <div class="analysis-card">
+                                <h3 class="analysis-title" data-en="Performance Analysis" data-vi="Phân tích hiệu suất">Performance Analysis</h3>
+                                <p class="analysis-subtitle" data-en="Warehouse performance evaluation" data-vi="Đánh giá hiệu suất kho">Warehouse performance evaluation</p>
+
+                                <div class="analysis-item">
+                                    <div class="analysis-label">
+                                        <span data-en="Waste rate" data-vi="Tỷ lệ hao hụt">Waste rate</span>
+                                        <span id="analysisWasteValue" class="analysis-value red">0%</span>
+                                    </div>
+                                <div class="analysis-progress">
+                                    <div id="analysisWasteBar" class="analysis-bar red"></div>
+                                </div>
+                                <p class="analysis-target" data-en="Target: < 5%" data-vi="Mục tiêu: < 5%">Target: &lt; 5%</p>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-label">
+                                    <span data-en="Good inventory ratio" data-vi="Tỷ lệ tồn tốt">Good inventory ratio</span>
+                                    <span id="analysisGoodValue" class="analysis-value green">0%</span>
+                                </div>
+                                <div class="analysis-progress">
+                                    <div id="analysisGoodBar" class="analysis-bar green"></div>
+                                </div>
+                                <p class="analysis-target" data-en="Target: > 70%" data-vi="Mục tiêu: > 70%">Target: &gt; 70%</p>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-label">
+                                    <span data-en="FIFO performance" data-vi="Hiệu suất FIFO">FIFO performance</span>
+                                    <span id="analysisFifoValue" class="analysis-value blue">0%</span>
+                                </div>
+                                <div class="analysis-progress">
+                                    <div id="analysisFifoBar" class="analysis-bar blue"></div>
+                                </div>
+                                <p class="analysis-target" data-en="Target: > 90%" data-vi="Mục tiêu: > 90%">Target: &gt; 90%</p>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT -->
+                        <div class="analysis-card">
+                            <h3 class="analysis-title" data-en="Recommendations" data-vi="Khuyến nghị">Recommendations</h3>
+                            <p class="analysis-subtitle" data-en="Proposal to improve warehouse management" data-vi="Đề xuất cải thiện quản lý kho">Proposal to improve warehouse management</p>
+
+                            <div id="recommendBox" class="recommend-list">
+                                <!-- JS s? t? render 4 th? v?o d?y -->
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Chart.js + logic -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/language.js"></script>
+    
+    <script src="assets/js/report.js"></script>
+
+    <script>
+        // Sidebar menu navigation handler
+        document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const href = this.getAttribute('data-href');
+                if (href && href !== '#') {
+                    location.href = href;
+                }
+            });
+        });
+
+        // Logout handler
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                sessionStorage.removeItem('auth_token');
+                sessionStorage.removeItem('user_info');
+                sessionStorage.removeItem('user_token');
+                sessionStorage.removeItem('user_role');
+                sessionStorage.removeItem('user_role_id');
+                localStorage.removeItem('bakery_credentials');
+                window.location.href = '../../login/index.html';
+            });
+        }
+
+        // Header date/time update
+        function formatHeaderDate(d, lang) {
+            if (lang === 'vi') {
+                const dayNames = ['Chủ nhật','Thứ hai','Thứ ba','Thứ tư','Thứ năm','Thứ sáu','Thứ bảy'];
+                const month = d.getMonth() + 1;
+                return `${dayNames[d.getDay()]}, ngày ${d.getDate()} tháng ${month}`;
+            }
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d, lang) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            if (lang === 'vi') {
+                const suffix = h < 12 ? 'SA' : 'CH';
+                let hh = h % 12; if (hh === 0) hh = 12;
+                return `${String(hh).padStart(2,'0')}:${m} ${suffix}`;
+            }
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const lang = (window.GlobalLanguage && typeof window.GlobalLanguage.getLanguage === 'function')
+                ? window.GlobalLanguage.getLanguage()
+                : (localStorage.getItem('app_language_admin') === 'vi' ? 'vi' : 'en');
+            const now = new Date();
+            const elDate = document.getElementById('currentDate');
+            const elTime = document.getElementById('currentTime');
+            if (elDate) elDate.textContent = formatHeaderDate(now, lang);
+            if (elTime) elTime.textContent = formatHeaderTime(now, lang);
+        }
+
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userNameEl) {
+                    userNameEl.textContent = userInfo.username || userInfo.full_name || userInfo.email || 'Admin';
+                }
+            } catch (error) {
+                console.log('Could not get user info from sessionStorage');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.GlobalLanguage) {
+                window.GlobalLanguage.initialize();
+            }
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000);
+            const notificationBadge = document.getElementById('notificationBadge');
+            if (notificationBadge) notificationBadge.textContent = '8';
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

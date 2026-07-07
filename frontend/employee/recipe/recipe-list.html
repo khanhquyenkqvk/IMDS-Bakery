@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/recipe/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Recipes - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css?v=20250126">
+    <link rel="stylesheet" href="assets/css/recipe.css?v=20250126">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nh?p nguyên li?u">Import raw materials</span></button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Ki?m tra kho">Check Inventory</span></button>
+                <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="C?p nh?t">Update</span></button>
+                <button class="menu-item active inv-blue" aria-current="page" data-href="recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công th?c">Recipe</span></button>
+                <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="L?ch s?">History</span></button>
+            </nav>
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Tr? giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài d?t">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Ðang xu?t">Log out</span></button>
+            </div>
+        </aside>
+
+        <div class="main">
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">?????</span>
+                        <h1 class="user-name">Nguyen Van A</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào m?ng tr? l?i, ki?m tra các c?nh báo và nhi?m v? hôm nay">Welcome back, check out today's alerts and tasks</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date">Loading...</div>
+                        <div class="time" id="clock">Loading...</div>
+                    </div>
+                    <button class="bell"><i class="fa-regular fa-bell"></i><span class="badge">8</span></button>
+                </div>
+            </header>
+
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="recipe-list.html" class="breadcrumb-link"><span data-en="Recipe" data-vi="Công th?c">Recipe</span></a>
+            </div>
+
+            <section class="recipe-list-section">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 512 512" style="margin-right:10px;vertical-align:middle;">
+                        <path fill="#444" d="M352 160c0-53-43-96-96-96s-96 43-96 96H64c-35.3 0-64 28.7-64 64 0 27.3 17.3 50.6 41.6 59.7L64 448h384l22.4-164.3C494.7 274.6 512 251.3 512 224c0-35.3-28.7-64-64-64h-96zM112 480v32h288v-32H112z"/>
+                    </svg>
+                    <span data-en="Recipe" data-vi="Công th?c">Recipe</span>
+                </h2>
+                <div class="recipe-list-tools">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="recipeSearch" placeholder="Search recipes..." data-en="Search recipes..." data-vi="Tìm ki?m công th?c...">
+                    </div>
+                </div>
+
+                <div id="recipeGridLoading" class="recipe-grid">
+                    <article class="recipe-card skeleton">
+                        <div class="recipe-img skeleton-img shimmer"></div>
+                        <div class="recipe-info">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-btn shimmer"></div>
+                        </div>
+                    </article>
+                    <article class="recipe-card skeleton">
+                        <div class="recipe-img skeleton-img shimmer"></div>
+                        <div class="recipe-info">
+                            <div class="skeleton-title shimmer"></div>
+                            <div class="skeleton-btn shimmer"></div>
+                        </div>
+                    </article>
+                    <p class="loading-text" data-en="Loading recipes..." data-vi="Ðang t?i danh sách công th?c...">Loading recipes...</p>
+                </div>
+
+                <div class="recipe-grid" id="recipeGrid" style="display:none;"></div>
+
+                <div class="pagination-bar">
+                    <button class="page-btn" id="recipePagePrev" aria-label="Previous page">&lt;</button>
+                    <span class="page-info" id="recipePageInfo">Page 1 / 1</span>
+                    <button class="page-btn" id="recipePageNext" aria-label="Next page">&gt;</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="assets/js/recipe.js"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+    <script src="../../assets/js/language.js"></script>
+    <script>
+      if (window.GlobalLanguage && GlobalLanguage.initialize) {
+        GlobalLanguage.initialize();
+      } else {
+        document.addEventListener('DOMContentLoaded', function(){
+          if (window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+        });
+      }
+    </script>
+    <script>
+    (function () {
+      const sidebar = document.querySelector('.sidebar');
+      if (!sidebar) return;
+
+      sidebar.addEventListener('click', (e) => {
+        const el = e.target.closest('.menu-item[data-href]');
+        if (!el) return;
+        e.preventDefault();
+        const href = el.getAttribute('data-href');
+        if (!href) return;
+        const abs = new URL(href, window.location).href;
+        sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+        el.classList.add('active');
+        el.setAttribute('aria-current', 'page');
+        window.location.assign(abs);
+      });
+
+      const logoutBtn = document.getElementById('btnLogout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          sessionStorage.clear();
+          localStorage.removeItem('bakery_credentials');
+          window.location.href = '../../login/index.html';
+        });
+      }
+
+      const here = window.location.pathname;
+      sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+        const href = item.getAttribute('data-href');
+        if (!href) return;
+        const resolved = new URL(href, window.location).pathname;
+        if (here === resolved || here.endsWith(resolved)) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        }
+      });
+    })();
+    </script>
+    <script>
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userInfo && userInfo.username && userNameEl) {
+                    userNameEl.textContent = userInfo.username;
+                } else if (userNameEl) {
+                    userNameEl.textContent = 'Nguyen Van A';
+                }
+            } catch (error) {
+                const userNameEl = document.querySelector('.user-name');
+                if (userNameEl) userNameEl.textContent = 'Nguyen Van A';
+            }
+        }
+        function formatHeaderDate(d) {
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const now = new Date();
+            const elDate = document.querySelector('.header .date');
+            const elTime = document.querySelector('.header .time');
+            if (elDate) elDate.textContent = formatHeaderDate(now);
+            if (elTime) elTime.textContent = formatHeaderTime(now);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000);
+        });
+    </script>
+</body>
+</html>
+

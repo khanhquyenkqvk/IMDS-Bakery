@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/owner/notification/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Notifications Center - IMDS-BAKERY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Base shared styles from Recipe -->
+    <link rel="stylesheet" href="../recipe/assets/css/style.css">
+    <!-- Chatbot styles -->
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <!-- Notification specific styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../dashboard/index.html"><img src="../recipe/assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../dashboard/index.html"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></button>
+                <button class="menu-item" data-href="../Inventory/index.html"><i class="fa-solid fa-boxes-stacked"></i><span>Inventory</span></button>
+                <button class="menu-item" data-href="../reports/index.html"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+                <button class="menu-item" data-href="../recipe/index.html"><i class="fa-solid fa-book"></i><span>Recipes</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👤</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome">Welcome back, check out today's alerts and tasks</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">15</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../dashboard/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link">Notifications</a>
+            </div>
+
+            <!-- Notification Section -->
+            <section class="notification-section">
+                <div class="notification-header">
+                    <div>
+                        <h2 class="page-title"><i class="fa-solid fa-bell"></i> Notifications Center</h2>
+                        <p class="page-subtitle">Stay updated with real-time alerts and AI-powered insights</p>
+                    </div>
+                    <div class="notification-header-actions">
+                        <button class="btn-mark-read" id="btnMarkAllRead">
+                            <i class="fa-solid fa-check-double"></i>
+                            Mark All as Read
+                        </button>
+                        <button class="btn-icon" title="Filter"><i class="fa-solid fa-filter"></i></button>
+                        <button class="btn-icon" title="Sort"><i class="fa-solid fa-arrow-down-wide-short"></i></button>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="notification-tabs">
+                    <button class="notif-tab active" data-filter="all">All (<span id="countAll">0</span>)</button>
+                    <button class="notif-tab" data-filter="unread">Unread (<span id="countUnread">0</span>)</button>
+                    <button class="notif-tab" data-filter="critical">Critical (<span id="countCritical">0</span>)</button>
+                    <button class="notif-tab" data-filter="warning">Warnings (<span id="countWarning">0</span>)</button>
+                    <button class="notif-tab" data-filter="ai">AI Suggestions (<span id="countAI">0</span>)</button>
+                </div>
+
+                <!-- Notification List -->
+                <div class="notification-wrapper">
+                    <div id="notificationList" class="notification-list">
+                        <!-- JS will render notification cards here -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn" id="prevPage" disabled>
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <span class="page-info" id="pageInfo">Page 1 / 1</span>
+                        <button class="page-btn" id="nextPage" disabled>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        <!-- Detail Notification Modal -->
+    <div id="notificationDetailOverlay" class="notif-detail-overlay hidden">
+        <div class="notif-detail-dialog">
+            <button class="notif-detail-close" id="notifDetailCloseBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <header class="notif-detail-header">
+                <div class="notif-detail-badge-row">
+                    <span id="detailPriorityChip" class="detail-chip detail-chip-urgent">
+                        🔥 Urgent
+                    </span>
+                </div>
+                <h3 id="detailTitle" class="detail-title">CRITICAL: Item Expired</h3>
+                <div class="detail-sub">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="detailTimeAgo">5 mins ago</span>
+                </div>
+            </header>
+
+            <section class="detail-section detail-section-main">
+                <h4 class="detail-section-title">
+                    📊 Detailed Information
+                </h4>
+                <p id="detailInformation" class="detail-text">
+                    <!-- JS sẽ fill -->
+                </p>
+            </section>
+
+            <section class="detail-section detail-section-related">
+                <h4 class="detail-section-title">
+                    📦 Related Items
+                </h4>
+                <div class="detail-related-pill" id="detailRelatedItem">
+                    <!-- JS fill -->
+                </div>
+            </section>
+
+            <section class="detail-section detail-section-actions">
+                <h4 class="detail-section-title">
+                    ✅ Recommended Actions
+                </h4>
+                <p id="detailRecommended" class="detail-text">
+                    <!-- JS fill -->
+                </p>
+            </section>
+
+            <section class="detail-section detail-section-tags">
+                <div class="detail-tag-card">
+                    <div class="detail-tag-label">Priority Level</div>
+                    <div id="detailPriorityLabel" class="detail-tag-value">Urgent</div>
+                </div>
+                <div class="detail-tag-card">
+                    <div class="detail-tag-label">Business Impact</div>
+                    <div id="detailImpactLabel" class="detail-tag-value">High</div>
+                </div>
+            </section>
+
+            <footer class="detail-footer">
+                <button id="btnDetailMarkRead" class="detail-btn-primary">
+                    Mark as Read
+                </button>
+                <button id="btnDetailCloseBottom" class="detail-btn-secondary">
+                    Close
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+</body>
+</html>
+
+

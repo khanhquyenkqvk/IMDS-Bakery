@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/help/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Help - IMDS-BAKERY</title>
+    <!-- Reuse homepage styles for identical sidebar/header -->
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/style.css?v=20250103">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar (same structure as homepage/settings) -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../import-raw-materials/index.html">
+                    <i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span>
+                </button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html">
+                    <i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span>
+                </button>
+                <button class="menu-item" data-href="../update/update.html">
+                    <i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span>
+                </button>
+                <button class="menu-item" data-href="../recipe/recipe-list.html">
+                    <i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span>
+                </button>
+                <button class="menu-item" data-href="../History/history.html">
+                    <i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt active" aria-current="page" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header (same as homepage) -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji" aria-hidden="true">👨‍🍳</span>
+                        <h1 class="user-name">Employee</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, how can we help you today?" data-vi="Chào mừng trở lại, bạn cần hỗ trợ gì hôm nay?">Welcome back, how can we help you today?</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date">Loading...</div>
+                        <div class="time">Loading...</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Help" data-vi="Trợ giúp">Help</span></a>
+            </div>
+
+            <!-- Page content: Help Center -->
+            <section class="help-page">
+                <div class="page-heading">
+                    <div class="heading-main">
+                        <p class="eyebrow" data-en="Help Center" data-vi="Trung tâm trợ giúp">Help Center</p>
+                        <h2 class="page-title" data-en="Support for Employees" data-vi="Hỗ trợ dành cho nhân viên">Support for Employees</h2>
+                        <p class="page-subtitle" data-en="" data-vi=""></p>
+                        <div class="hero-actions">
+                            <div class="search-bar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input id="helpSearch" type="text" placeholder="Search how-to, FAQs, keywords..." aria-label="Search help content">
+                                <span class="search-hint" data-en="Press Enter to jump to first match" data-vi="Nhấn Enter để chuyển tới kết quả đầu tiên">Press Enter to jump to first match</span>
+                            </div>
+                            <div class="filter-chips" role="listbox" aria-label="Filter topics">
+                                <button class="chip active" data-topic="all" data-en="All topics" data-vi="Tất cả">All topics</button>
+                                <button class="chip" data-topic="getting-started" data-en="Getting started" data-vi="Bắt đầu">Getting started</button>
+                                <button class="chip" data-topic="inventory" data-en="Inventory" data-vi="Kho">Inventory</button>
+                                <button class="chip" data-topic="recipe" data-en="Recipe" data-vi="Công thức">Recipe</button>
+                                <button class="chip" data-topic="account" data-en="Account" data-vi="Tài khoản">Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="help-layout">
+                    <div class="help-column" id="helpColumnLeft">
+                        <div class="card guide-card" data-topic="getting-started">
+                            <div class="card-head">
+                                <div>
+                                    <p class="label" data-en="Kick-off" data-vi="Khởi động">Kick-off</p>
+                                    <h3 data-en="Getting started checklist" data-vi="Checklist khởi động">Getting started checklist</h3>
+                                </div>
+                                <span class="pill subtle" data-en="10 mins" data-vi="10 phút">10 mins</span>
+                            </div>
+                            <ul class="guide-list">
+                                <li>
+                                    <div class="dot blue"></div>
+                                    <div>
+                                        <p class="guide-title" data-en="Log in and confirm your role" data-vi="Đăng nhập và xác nhận vai trò">Log in and confirm your role</p>
+                                        <p class="guide-desc" data-en="Make sure your account shows Employee and today’s station." data-vi="Đảm bảo tài khoản hiển thị Nhân viên và vị trí làm việc hôm nay.">Make sure your account shows Employee and today’s station.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dot purple"></div>
+                                    <div>
+                                        <p class="guide-title" data-en="Sync latest recipes" data-vi="Đồng bộ công thức mới nhất">Sync latest recipes</p>
+                                        <p class="guide-desc" data-en="Open Recipe → tap refresh to pull the newest approved formulas." data-vi="Vào Công thức → nhấn làm mới để lấy công thức được duyệt mới nhất.">Open Recipe → tap refresh to pull the newest approved formulas.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dot green"></div>
+                                    <div>
+                                        <p class="guide-title" data-en="Run quick stock check" data-vi="Chạy kiểm kho nhanh">Run quick stock check</p>
+                                        <p class="guide-desc" data-en="Check Inventory → filter Expiry to catch items expiring this week." data-vi="Vào Kiểm tra kho → lọc hết hạn để bắt các lô hết hạn trong tuần.">Check Inventory → filter Expiry to catch items expiring this week.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="cta-inline">
+                                <button class="link-btn" data-action="open-inventory">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    <span data-en="Jump to inventory view" data-vi="Mở nhanh trang kiểm kho">Jump to inventory view</span>
+                                </button>
+                                <button class="link-btn ghost" data-action="open-recipes">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span data-en="Open recipe list" data-vi="Mở nhanh danh sách công thức">Open recipe list</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card guide-card" data-topic="inventory">
+                            <div class="card-head">
+                                <div>
+                                    <p class="label" data-en="Inventory" data-vi="Kho">Inventory</p>
+                                    <h3 data-en="Stay ahead of stock & expiry" data-vi="Theo dõi tồn kho và hạn dùng">Stay ahead of stock & expiry</h3>
+                                </div>
+                                <span class="pill info" data-en="Updated daily" data-vi="Cập nhật hằng ngày">Updated daily</span>
+                            </div>
+                            <div class="split-grid">
+                                <div class="checklist">
+                                    <h4 data-en="Daily habits" data-vi="Thói quen hằng ngày">Daily habits</h4>
+                                    <ul>
+                                        <li data-en="Scan inbound materials and attach lot numbers." data-vi="Quét nguyên liệu nhập và gắn mã lô.">Scan inbound materials and attach lot numbers.</li>
+                                        <li data-en="Filter by Expiry to isolate soon-to-expire items." data-vi="Lọc theo Hạn dùng để thấy lô sắp hết hạn.">Filter by Expiry to isolate soon-to-expire items.</li>
+                                        <li data-en="Lock spoiled lots so they cannot be used in recipes." data-vi="Khóa lô hỏng để tránh dùng vào công thức.">Lock spoiled lots so they cannot be used in recipes.</li>
+                                    </ul>
+                                </div>
+                                <div class="tips">
+                                    <h4 data-en="Pro tips" data-vi="Mẹo nhanh">Pro tips</h4>
+                                    <div class="tip">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        <p data-en="Use batch label search to find all recipes using a lot." data-vi="Tìm theo mã lô để xem mọi công thức đang dùng lô đó.">Use batch label search to find all recipes using a lot.</p>
+                                    </div>
+                                    <div class="tip">
+                                        <i class="fa-solid fa-shield"></i>
+                                        <p data-en="Mark Requires QC to request supervisor approval before mixing." data-vi="Đánh dấu Cần QC để yêu cầu duyệt trước khi trộn.">Mark Requires QC to request supervisor approval before mixing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card guide-card" data-topic="recipe">
+                            <div class="card-head">
+                                <div>
+                                    <p class="label" data-en="Recipe" data-vi="Công thức">Recipe</p>
+                                    <h3 data-en="Craft perfect batches" data-vi="Trộn mẻ hoàn hảo">Craft perfect batches</h3>
+                                </div>
+                                <span class="pill warning" data-en="Focus" data-vi="Lưu ý">Focus</span>
+                            </div>
+                            <div class="flow">
+                                <div class="step">
+                                    <span class="step-number">01</span>
+                                    <div>
+                                        <p class="guide-title" data-en="Confirm yield and oven schedule" data-vi="Chốt sản lượng và lịch lò">Confirm yield and oven schedule</p>
+                                        <p class="guide-desc" data-en="Check Today’s Menu to align with sales forecast before mixing." data-vi="Xem Menu hôm nay để khớp dự báo bán hàng trước khi trộn.">Check Today’s Menu to align with sales forecast before mixing.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">02</span>
+                                    <div>
+                                        <p class="guide-title" data-en="Follow scale helper" data-vi="Dùng trợ lý cân">Follow scale helper</p>
+                                        <p class="guide-desc" data-en="Use the gram/ml unit toggle that matches your workstation scale." data-vi="Chọn đơn vị gram/ml đúng với cân ở trạm của bạn.">Use the gram/ml unit toggle that matches your workstation scale.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">03</span>
+                                    <div>
+                                        <p class="guide-title" data-en="Log substitutions" data-vi="Ghi nhận thay thế">Log substitutions</p>
+                                        <p class="guide-desc" data-en="Note any ingredient swap so DSS can suggest better alternatives next time." data-vi="Ghi chú thay thế để DSS gợi ý tốt hơn cho lần sau.">Note any ingredient swap so DSS can suggest better alternatives next time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card faq-card">
+                            <div class="card-head">
+                                <div>
+                                    <p class="label" data-en="FAQ" data-vi="Câu hỏi thường gặp">FAQ</p>
+                                    <h3 data-en="Your top questions" data-vi="Câu hỏi phổ biến">Your top questions</h3>
+                                </div>
+                                <button class="link-btn ghost" id="btnViewAllFaq">
+                                    <i class="fa-solid fa-list"></i>
+                                    <span data-en="View all articles" data-vi="Xem toàn bộ bài viết">View all articles</span>
+                                </button>
+                            </div>
+                            <div class="faq-list">
+                                <div class="faq-item" data-topic="inventory">
+                                    <button class="faq-question" aria-expanded="false">
+                                        <span data-en="How do I check which lots are about to expire?" data-vi="Làm sao xem lô nào sắp hết hạn?">How do I check which lots are about to expire?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p data-en="Go to Check Inventory → filter by Expiry → sort ascending. Lock the lots that are within 3 days." data-vi="Vào Kiểm tra kho → lọc Hạn dùng → sắp xếp tăng dần. Khóa những lô còn dưới 3 ngày.">Go to Check Inventory → filter by Expiry → sort ascending. Lock the lots that are within 3 days.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item" data-topic="recipe">
+                                    <button class="faq-question" aria-expanded="false">
+                                        <span data-en="How to import raw materials?" data-vi="Làm sao để nhập nguyên liệu">How to import raw materials?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p data-en="Go to Import raw materials and enter the lot details; the system will store and sync the quantities for you." data-vi="Vào Nhập nguyên liệu và nhập thông tin lô; hệ thống sẽ lưu và đồng bộ số lượng cho bạn.">Go to Import raw materials and enter the lot details; the system will store and sync the quantities for you.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item" data-topic="getting-started">
+                                    <button class="faq-question" aria-expanded="false">
+                                        <span data-en="Where can I see today’s menu?" data-vi="Xem thực đơn hôm nay ở đâu?">Where can I see today’s menu?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="faq-answer">
+                                        <p data-en="Open Today’s Menu to see planned batches and timing; urgent alerts are highlighted on the Homepage." data-vi="Vào Thực đơn hôm nay để xem mẻ dự kiến và thời gian; các cảnh báo gấp sẽ hiển thị ở Trang chủ.">Open Today’s Menu to see planned batches and timing; urgent alerts are highlighted on the Homepage.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+    <script src="../../assets/js/language.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/owner/recipe/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Recipe Management - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../dashboard/index.html"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></button>
+                <button class="menu-item" data-href="../Inventory/index.html"><i class="fa-solid fa-boxes-stacked"></i><span>Inventory</span></button>
+                <button class="menu-item" data-href="../reports/index.html"><i class="fa-solid fa-chart-line"></i><span>Reports</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-book"></i><span>Recipes</span></button>
+                <button class="menu-item" data-href="../notification/index.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span>Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👤</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome">Welcome back, check out today's alerts and tasks</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link">Recipes</a>
+            </div>
+
+            <!-- Recipe Management Section -->
+            <section class="recipe-section">
+                <div class="section-header">
+                <h2 class="page-title">Recipe Management</h2>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-today-menu" id="btnOpenTodayMenu">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        Today's Menu
+                    </button>
+                    <button class="btn-add-recipe">
+                        <i class="fa-solid fa-plus"></i>
+                        Add New Recipe
+                    </button>
+                </div>
+            </div>
+
+
+                <!-- Search and Filter Bar -->
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search recipes..." id="searchInput">
+                    </div>
+                    <div class="filter-controls">
+                        <select class="filter-select" id="statusFilter" title="Filter recipes by status">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="draft">Draft</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Recipe Tabs -->
+                <div class="recipe-tabs">
+                    <button class="tab-button active" data-tab="cake-recipes">
+                        Cake Recipes
+                    </button>
+                    <button class="tab-button" data-tab="suggest-recipes">
+                        Suggest Suitable Cake Recipes
+                    </button>
+                </div>
+
+                <!-- Recipe loading skeleton (fake cards giống layout real) -->
+                <div class="recipes-loading" id="recipesLoading">
+                    <!-- Skeleton 1 -->
+                    <article class="recipe-card-skeleton shimmer">
+                        <div class="recipe-card-skeleton-image"></div>
+                        <div class="recipe-card-skeleton-content">
+                            <div class="recipe-card-skeleton-title"></div>
+                            <div class="recipe-card-skeleton-meta"></div>
+                            <div class="recipe-card-skeleton-btn"></div>
+                        </div>
+                    </article>
+
+                    <!-- Skeleton 2 -->
+                    <article class="recipe-card-skeleton shimmer">
+                        <div class="recipe-card-skeleton-image"></div>
+                        <div class="recipe-card-skeleton-content">
+                            <div class="recipe-card-skeleton-title"></div>
+                            <div class="recipe-card-skeleton-meta"></div>
+                            <div class="recipe-card-skeleton-btn"></div>
+                        </div>
+                    </article>
+
+                    <!-- Skeleton 3 -->
+                    <article class="recipe-card-skeleton shimmer">
+                        <div class="recipe-card-skeleton-image"></div>
+                        <div class="recipe-card-skeleton-content">
+                            <div class="recipe-card-skeleton-title"></div>
+                            <div class="recipe-card-skeleton-meta"></div>
+                            <div class="recipe-card-skeleton-btn"></div>
+                        </div>
+                    </article>
+
+                    <p class="recipes-loading-text">Loading recipes...</p>
+                </div>
+
+                <!-- Recipe Cards Container: JS sẽ fill ở đây -->
+                <div class="recipes-container" id="recipesContainer"></div>
+                <div class="recipes-pagination" id="recipesPagination">
+                    <button class="page-btn" id="recipesPrev">Prev</button>
+                    <span class="page-info" id="recipesPageInfo">1 / 1</span>
+                    <button class="page-btn" id="recipesNext">Next</button>
+                </div>
+
+                <!-- Suggestion Container -->
+                <div class="suggestion-content hidden" id="suggestionContainer">
+                    <div class="suggestion-summary">
+                        <div class="summary-card summary-card--info">
+                            <div class="summary-icon">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div class="summary-content">
+                                <p class="summary-label">Total suggestions</p>
+                                <p class="summary-number" data-stat="total">5</p>
+                                <p class="summary-desc">Dishes that can be made</p>
+                            </div>
+                        </div>
+                        <div class="summary-card summary-card--urgent">
+                            <div class="summary-icon">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                            </div>
+                            <div class="summary-content">
+                                <p class="summary-label">Urgent</p>
+                                <p class="summary-number" data-stat="urgent">3</p>
+                                <p class="summary-desc">Need to be dealt with today</p>
+                            </div>
+                        </div>
+                        <div class="summary-card summary-card--medium">
+                            <div class="summary-icon">
+                                <i class="fa-solid fa-bell"></i>
+                            </div>
+                            <div class="summary-content">
+                                <p class="summary-label">Medium</p>
+                                <p class="summary-number" data-stat="medium">2</p>
+                                <p class="summary-desc">Should do during the week</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="suggestion-list">
+                        <article class="suggestion-card suggestion-card--high">
+                            <div class="suggestion-card__header">
+                                <div>
+                                    <h3>Pink Strawberry Mousse</h3>
+                                    <div class="suggestion-tags">
+                                        <span class="priority-chip priority-chip--high">High priority</span>
+                                        <span class="priority-chip priority-chip--info">Has 4 formulas</span>
+                                    </div>
+                                </div>
+                                <div class="suggestion-batch">Batch STR-025-001</div>
+                            </div>
+
+                            <div class="suggestion-alert">
+                                <span class="alert-title">Suggested reasons</span>
+                                <p>Strawberries batch STR-025-001 is about to expire (5 days left). Whipping Cream is also about to
+                                    expire.</p>
+                            </div>
+
+                            <div class="materials-panel">
+                                <div class="materials-heading">
+                                    <span>Check raw materials</span>
+                                    <span class="materials-hint">Need vs Inventory</span>
+                                </div>
+                                <div class="materials-table">
+                                    <div class="materials-row materials-row--head">
+                                        <span>Product Name</span>
+                                        <span>Need to use</span>
+                                        <span>Inventory</span>
+                                        <span>Status</span>
+                                        <span>Use-by date</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Wheat Flour</span>
+                                        <span>5 kg</span>
+                                        <span>900 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough (180 days)</span></span>
+                                        <span>200 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Sugar</span>
+                                        <span>70 kg</span>
+                                        <span>860 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>400 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Whipping Cream</span>
+                                        <span>230 L</span>
+                                        <span>300 L</span>
+                                        <span><span class="status-chip status-chip--danger">Urgent (5 days)</span></span>
+                                        <span class="use-by use-by--danger">5 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Strawberries</span>
+                                        <span>150 kg</span>
+                                        <span>150 kg</span>
+                                        <span><span class="status-chip status-chip--danger">Critical (2 days)</span></span>
+                                        <span class="use-by use-by--danger">2 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Gelatin</span>
+                                        <span>8 kg</span>
+                                        <span>50 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>310 days</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="suggestion-note">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Making this dish helps us use ingredients that are about to expire.</p>
+                            </div>
+
+                            <div class="suggestion-actions">
+                                <button class="suggestion-btn suggestion-btn--ghost">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    All Formulas
+                                </button>
+                                <button class="suggestion-btn suggestion-btn--primary">
+                                    Apply now
+                                </button>
+                            </div>
+                        </article>
+
+                        <article class="suggestion-card suggestion-card--medium">
+                            <div class="suggestion-card__header">
+                                <div>
+                                    <h3>Sweet Vanilla Cupcake</h3>
+                                    <div class="suggestion-tags">
+                                        <span class="priority-chip priority-chip--medium">Medium priority</span>
+                                    </div>
+                                </div>
+                                <div class="suggestion-batch">Batch BLT-2025-002</div>
+                            </div>
+
+                            <div class="suggestion-alert suggestion-alert--warning">
+                                <span class="alert-title">Suggested reasons</span>
+                                <p>Butter batch BLT-2025-002 is about to expire (7 days left); optimize inventory.</p>
+                            </div>
+
+                            <div class="materials-panel">
+                                <div class="materials-heading">
+                                    <span>Check raw materials</span>
+                                    <span class="materials-hint">Need vs Inventory</span>
+                                </div>
+                                <div class="materials-table">
+                                    <div class="materials-row materials-row--head">
+                                        <span>Product Name</span>
+                                        <span>Need to use</span>
+                                        <span>Inventory</span>
+                                        <span>Status</span>
+                                        <span>Use-by date</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Wheat Flour</span>
+                                        <span>12 kg</span>
+                                        <span>900 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>260 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Sugar</span>
+                                        <span>15 kg</span>
+                                        <span>800 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>400 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Butter</span>
+                                        <span>10 kg</span>
+                                        <span>120 kg</span>
+                                        <span><span class="status-chip status-chip--warning">Due soon (7 days)</span></span>
+                                        <span class="use-by use-by--warning">7 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Eggs</span>
+                                        <span>2 trays</span>
+                                        <span>40 trays</span>
+                                        <span><span class="status-chip status-chip--danger">Use now (16 days)</span></span>
+                                        <span class="use-by use-by--danger">16 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Vanilla Extract</span>
+                                        <span>500 ml</span>
+                                        <span>4 L</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>180 days</span>
+                                    </div>
+                                    <div class="materials-row">
+                                        <span>Baking Powder</span>
+                                        <span>5 kg</span>
+                                        <span>100 kg</span>
+                                        <span><span class="status-chip status-chip--ok">Enough</span></span>
+                                        <span>310 days</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="suggestion-note suggestion-note--warning">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <p>Making this dish helps to use up ingredients that are about to expire.</p>
+                            </div>
+
+                            <div class="suggestion-actions">
+                                <button class="suggestion-btn suggestion-btn--ghost">
+                                    <i class="fa-regular fa-eye"></i>
+                                    View Recipe
+                                </button>
+                                <button class="suggestion-btn suggestion-btn--primary">
+                                    Apply now
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Create New Recipe Modal -->
+    <div class="modal-overlay" id="createRecipeModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div class="modal-title-text">
+                        <h3>Create New Recipe</h3>
+                        <p>Add a delicious recipe to your collection</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-progress">
+                <div class="progress-step active">1</div>
+                <div class="progress-step">2</div>
+                <div class="progress-step">3</div>
+                <div class="progress-step">4</div>
+            </div>
+
+            <div class="modal-body">
+                <form id="createRecipeForm">
+                    <!-- Step 1: Cake Ingredients -->
+                    <div class="form-step active" id="step1">
+                        <div class="form-section">
+                            <h4>Cake Ingredients</h4>
+                            
+                            <div class="form-group">
+                                <label for="recipeName">Name of Cake</label>
+                                <input type="text" id="recipeName" name="recipeName" placeholder="e.g. Chocolate Tiramisu" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Difficulty Level</label>
+                                <div class="difficulty-options">
+                                    <label class="difficulty-option">
+                                        <input type="radio" name="difficulty" value="easy" required>
+                                        <span class="difficulty-badge easy">
+                                            <i class="fa-solid fa-star"></i>
+                                            Easy
+                                        </span>
+                                    </label>
+                                    <label class="difficulty-option">
+                                        <input type="radio" name="difficulty" value="medium" required>
+                                        <span class="difficulty-badge medium">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            Medium
+                                        </span>
+                                    </label>
+                                    <label class="difficulty-option">
+                                        <input type="radio" name="difficulty" value="hard" required>
+                                        <span class="difficulty-badge hard">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            Hard
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="prepTime">Pre Time (minutes)</label>
+                                    <input type="number" id="prepTime" name="prepTime" placeholder="30" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cookTime">Cook Time (minutes)</label>
+                                    <input type="number" id="cookTime" name="cookTime" placeholder="45" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serves">Serves</label>
+                                    <input type="number" id="serves" name="serves" placeholder="6" min="1" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipeDescription">Description</label>
+                                <textarea id="recipeDescription" name="recipeDescription" placeholder="Brief description of your recipe..." rows="4" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Image of Cake</label>
+                                <div class="image-upload-area" id="imageUploadArea">
+                                    <div class="upload-icon">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <p>Click to upload or drag and drop</p>
+                                    <button type="button" class="btn-choose-image" id="chooseImageBtn">Choose Files</button>
+                                </div>
+                                    <input type="file" id="recipeImageInput" accept="image/*" style="display:none;">
+                                    <input type="hidden" id="recipeImagePath" name="image_path">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Recipe Ingredients -->
+                    <div class="form-step" id="step2">
+                        <div class="form-section">
+                            <div class="step-header">
+                                <h4>Recipe Ingredients</h4>
+                                <button type="button" class="btn-add-ingredient" id="addIngredientBtn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Add Ingredient
+                                </button>
+                            </div>
+                            
+                            <div class="ingredients-list" id="ingredientsList">
+                                <div class="ingredient-item">
+                                    <div class="form-group">
+                                        <input type="text" name="ingredientName[]" class="ingredient-name" placeholder="Search ingredient..." autocomplete="off" required>
+                                        <input type="hidden" name="ingredientId[]" class="ingredient-id">
+                                        <div class="ingredient-suggest hidden"></div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" name="ingredientQuantity[]" placeholder="1" min="0" step="1" value="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="ingredientUnit[]" required>
+                                            <option value="Kg">Kg</option>
+                                            <option value="g">g</option>
+                                            <option value="L">L</option>
+                                            <option value="ml">ml</option>
+                                            <option value="pcs">pcs</option>
+                                            <option value="pack">pack</option>
+                                            <option value="bag">bag</option>
+                                            <option value="box">box</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tip-box">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span>Tip: Be specific with ingredient names and quantities for accurate inventory tracking</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Cooking Instructions -->
+                    <div class="form-step" id="step3">
+                        <div class="form-section">
+                            <div class="step-header">
+                                <h4>Cooking Instructions</h4>
+                                <button type="button" class="btn-add-step" id="addStepBtn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Add Step
+                                </button>
+                            </div>
+                            
+                            <div class="instructions-list" id="instructionsList">
+                                <div class="instruction-item">
+                                    <div class="step-number">1</div>
+                                    <textarea name="instructionStep[]" placeholder="Step 1: Describe what to do..." required></textarea>
+                                    <button type="button" class="btn-remove-step" title="Remove step">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="instruction-item">
+                                    <div class="step-number">2</div>
+                                    <textarea name="instructionStep[]" placeholder="Step 2: Describe what to do..." required></textarea>
+                                    <button type="button" class="btn-remove-step" title="Remove step">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="additionalNotes">Additional Notes (Optional)</label>
+                                <textarea id="additionalNotes" name="additionalNotes" placeholder="Any tips, variations, or storage instructions..." rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review Your Recipe -->
+                    <div class="form-step" id="step4">
+                        <div class="form-section">
+                            <div class="review-header">
+                                <h4>Review Your Recipe</h4>
+                                <p>Make sure everything looks perfect before publishing</p>
+                            </div>
+                            
+                            <div class="review-content" id="reviewContent">
+                                <!-- Content will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="previousBtn" style="display: none;">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    Previous
+                </button>
+                <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="button" class="btn-primary" id="nextBtn">
+                    Next
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+        <!-- View Recipe Modal -->
+    <div class="modal-overlay" id="viewRecipeModal">
+        <div class="modal-container recipe-detail-modal">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="modal-title-text">
+                        <h3 id="viewRecipeTitle">Recipe Detail</h3>
+                        <p id="viewRecipeSubtitle">Full recipe information</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeViewModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body recipe-detail-body">
+                <div class="recipe-detail-layout">
+                    <div class="recipe-detail-left">
+                        <div class="recipe-detail-image-wrapper">
+                            <img id="viewRecipeImage" src="assets/img/placeholder.jpg" alt="Cake image">
+                            <span class="recipe-detail-status" id="viewRecipeStatusBadge">Active</span>
+                        </div>
+
+                        <div class="recipe-detail-meta">
+                            <div class="meta-chip" id="viewRecipeDifficultyChip">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span id="viewRecipeDifficulty">Medium</span>
+                            </div>
+                            <div class="meta-row">
+                                <span><i class="fa-regular fa-clock"></i> <span id="viewRecipeTimes">Prep 0 / Cook 0</span></span>
+                                <span><i class="fa-solid fa-users"></i> <span id="viewRecipeServes">Serves 0</span></span>
+                            </div>
+                            <div class="meta-row meta-row-date">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span id="viewRecipeCreatedAt">Created at ...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-detail-right">
+                        <div class="recipe-detail-section">
+                            <h4>Description</h4>
+                            <p id="viewRecipeDescription"></p>
+                        </div>
+
+                        <div class="recipe-detail-section">
+                            <h4>Ingredients</h4>
+                            <ul class="recipe-detail-list" id="viewRecipeIngredients"></ul>
+                        </div>
+
+                        <div class="recipe-detail-section">
+                            <h4>Instructions</h4>
+                            <ol class="recipe-detail-steps" id="viewRecipeInstructions"></ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer recipe-detail-footer">
+                <button type="button" class="btn-secondary" id="viewModalCloseBtn">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+        <!-- Delete Recipe Confirm Modal -->
+    <div class="modal-overlay" id="deleteRecipeModal">
+        <div class="modal-container modal-confirm-danger">
+            <div class="modal-header modal-header-danger">
+                <div class="modal-title-section">
+                    <div class="modal-icon modal-icon-danger">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="modal-title-text">
+                        <h3>Delete Recipe</h3>
+                        <p id="deleteRecipeSubtitle">This action cannot be undone.</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeDeleteModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="delete-warning">
+                    <p class="delete-main-text">
+                        Are you sure you want to delete this recipe?
+                    </p>
+                    <div class="delete-recipe-info">
+                        <span class="delete-label">Recipe:</span>
+                        <span class="delete-name" id="deleteRecipeName">Chocolate Lava Cake</span>
+                    </div>
+                    <p class="delete-sub-text">
+                        All ingredients and instructions linked to this recipe will also be removed.
+                    </p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btnCancelDelete">
+                    Cancel
+                </button>
+                <button type="button" class="btn-danger" id="btnConfirmDelete">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete Recipe
+                </button>
+            </div>
+        </div>
+    </div>
+<!-- Today Menu Modal (Owner kế hoạch sản xuất) -->
+<div class="modal-overlay" id="todayMenuModal">
+    <div class="modal-container today-menu-modal">
+        <div class="modal-header">
+            <div class="modal-title-section">
+                <div class="modal-icon">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+                <div class="modal-title-text">
+                    <h3>Today's Production Plan</h3>
+                    <p>Choose cakes and quantity for production today</p>
+                </div>
+            </div>
+            <button class="modal-close" id="closeTodayMenuModal">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body today-menu-body">
+            <div class="today-menu-topbar">
+                <div class="today-menu-date">
+                    <label for="todayMenuDate">Production Date</label>
+                    <input type="date" id="todayMenuDate">
+                </div>
+            </div>
+
+            <div class="today-menu-table-wrapper">
+                <table class="today-menu-table">
+                    <thead>
+                        <tr>
+                            <th>CAKE (PRODUCT)</th>
+                            <th>QUANTITY</th>
+                            <th>NOTE</th>
+                            <th>STATUS</th>
+                            <th>ACT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todayMenuTbody">
+                        <!-- JS fill -->
+                    </tbody>
+                </table>
+                <div class="today-menu-empty hidden" id="todayMenuEmpty">
+                    <p>No cake in today’s menu yet.</p>
+                    <span>Use “Add from recipes” or click icon on each recipe card.</span>
+                </div>
+            </div>
+
+            <div class="today-menu-actions">
+                <button type="button" class="btn-secondary" id="btnAddRowFromSearch">
+                    <i class="fa-solid fa-plus"></i>
+                    Add from recipes
+                </button>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelTodayMenu">
+                Cancel
+            </button>
+            <button type="button" class="btn-primary" id="btnSaveTodayMenu">
+                <i class="fa-solid fa-save"></i>
+                Save Today Menu
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Choose Recipes for Today Menu -->
+<div class="modal-overlay" id="todayMenuChooseRecipeModal">
+    <div class="modal-container today-menu-choose-modal">
+        <div class="modal-header">
+            <div class="modal-title-section">
+                <div class="modal-icon">
+                    <i class="fa-solid fa-cake-candles"></i>
+                </div>
+                <div class="modal-title-text">
+                    <h3>Select recipes</h3>
+                    <p>Pick cakes to add into today's menu</p>
+                </div>
+            </div>
+            <button class="modal-close" id="closeChooseRecipeModal">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body choose-recipe-body">
+            <div class="choose-recipe-search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="chooseRecipeSearchInput" placeholder="Search cakes...">
+            </div>
+
+            <div class="choose-recipe-grid" id="chooseRecipeGrid">
+                <!-- JS render -->
+            </div>
+
+            <div class="choose-empty hidden" id="chooseRecipeEmpty">
+                <p>No recipes found.</p>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelChooseRecipe">
+                Cancel
+            </button>
+            <button type="button" class="btn-primary" id="btnConfirmChooseRecipe">
+                <i class="fa-solid fa-plus"></i>
+                Add selected
+            </button>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="aiFormulaModal">
+  <div class="modal-container" style="max-width: 980px;">
+    <div class="modal-header">
+      <div class="modal-title-section">
+        <div class="modal-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div class="modal-title-text">
+          <h3 id="aiFormulaTitle">AI-Suggested Alternative Recipe</h3>
+          <p>AI-generated replacement formulas based on inventory status</p>
+        </div>
+      </div>
+      <button class="modal-close" id="closeAiFormulaModal">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body" id="aiFormulaBody"></div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-secondary" id="btnCloseAiFormula">Close</button>
+    </div>
+  </div>
+</div>
+<!-- Toast container (Owner) -->
+<div id="toast-container" class="toast-container"></div>
+
+    <script src="assets/js/recipe-substitute.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+</body>
+</html>
+

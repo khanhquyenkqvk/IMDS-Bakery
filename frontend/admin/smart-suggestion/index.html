@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/admin/smart-suggestion/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Smart Suggestions - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="../assets/js/language.js"></script>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../report/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../report/index.html"><i class="fa-solid fa-gauge"></i><span data-en="Report" data-vi="Báo cáo">Báo cáo</span></button>
+                <button class="menu-item" data-href="../batch-management/index.html"><i class="fa-solid fa-boxes-stacked"></i><span data-en="Batch Management" data-vi="Quản lý lô hàng">Quản lý lô hàng</span></button>
+                <button class="menu-item" data-href="../warehouse-data/index.html"><i class="fa-solid fa-warehouse"></i><span data-en="Warehouse Data" data-vi="Dữ liệu kho">Dữ liệu kho</span></button>
+                <button class="menu-item" data-href="../user-management/index.html"><i class="fa-solid fa-users"></i><span data-en="User Management" data-vi="Quản lý người dùng">Quản lý người dùng</span></button>
+                <button class="menu-item active" data-href="index.html"><i class="fa-solid fa-lightbulb"></i><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Gợi ý thông minh</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">&#128100;</span>
+                        <h1 class="user-name">Pham Van Nam</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../report/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Gợi ý thông minh</span></a>
+            </div>
+
+            <!-- Smart Suggestion Section -->
+            <section class="smart-section">
+                <h2 class="page-title"><span data-en="Smart Suggestions" data-vi="Gợi ý thông minh">Smart Suggestions</span></h2>
+
+                <!-- Summary Stats -->
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Rendered by JS -->
+                </div>
+
+                <!-- Tabs -->
+                <div class="tab-nav">
+                    <button class="tab-btn" data-target="historyTab" data-en="History of AI" data-vi="Lịch sử AI">History of AI</button>
+                    <button class="tab-btn active" data-target="warehouseTab" data-en="Warehouse Suggestions" data-vi="Gợi ý kho">Warehouse Suggestions</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="historyTab" class="tab-panel">
+                    <div class="section-header">
+                        <h3 data-en="History of AI Activities" data-vi="Lịch sử hoạt động AI">History of AI Activities</h3>
+                    </div>
+                    <div class="activity-list" id="historyList">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="list-pagination" id="historyPagination">
+                        <button type="button" class="page-btn" id="historyPrev" data-en="Prev" data-vi="Trước">Prev</button>
+                        <span class="page-info" id="historyPageInfo">1 / 1</span>
+                        <button type="button" class="page-btn" id="historyNext" data-en="Next" data-vi="Sau">Next</button>
+                    </div>
+                </div>
+
+                <div id="warehouseTab" class="tab-panel active">
+                    <div class="section-header">
+                        <h3 data-en="Warehouse Suggestions" data-vi="Gợi ý kho">Warehouse Suggestions</h3>
+                    </div>
+                    <div class="activity-list suggestion-list" id="warehouseList">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="list-pagination" id="warehousePagination">
+                        <button type="button" class="page-btn" id="warehousePrev" data-en="Prev" data-vi="Trước">Prev</button>
+                        <span class="page-info" id="warehousePageInfo">1 / 1</span>
+                        <button type="button" class="page-btn" id="warehouseNext" data-en="Next" data-vi="Sau">Next</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+

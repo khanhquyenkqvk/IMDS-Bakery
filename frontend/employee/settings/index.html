@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/settings/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Settings - IMDS-BAKERY</title>
+    <!-- Reuse homepage styles for identical sidebar/header -->
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css">
+    <!-- Page-specific styles -->
+    <link rel="stylesheet" href="assets/css/style.css?v=20250102">
+    <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="color-scheme" content="light only">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar (identical to homepage) -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../import-raw-materials/index.html">
+                    <i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span>
+                </button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html">
+                    <i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span>
+                </button>
+                <button class="menu-item" data-href="../update/update.html">
+                    <i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span>
+                </button>
+                <button class="menu-item" data-href="../recipe/recipe-list.html">
+                    <i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span>
+                </button>
+                <button class="menu-item" data-href="../History/history.html">
+                    <i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder active" aria-current="page" data-href="/settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header (identical to homepage) -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👨‍🍳</span>
+                        <h1 class="user-name">Employee</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Welcome back, check out today's alerts and tasks</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date">Loading...</div>
+                        <div class="time">Loading...</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">8</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb (house + IMPS-BAKERY + Settings) -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="index.html" class="breadcrumb-link"><span data-en="Settings" data-vi="Cài đặt">Settings</span></a>
+            </div>
+
+            <!-- Page content: Settings -->
+            <section class="settings-page">
+                <h2 class="page-title" data-en="Settings" data-vi="Cài đặt">Settings</h2>
+
+                <!-- Settings Form Container -->
+                <div class="settings-container">
+                    <div class="settings-grid">
+                        <!-- Left Column -->
+                        <div class="settings-column">
+                            <!-- Account Information Section -->
+                            <div class="settings-section">
+                                <h3 class="section-title">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span class="text" data-en="Account Information" data-vi="Thông tin tài khoản">Account Information</span>
+                                </h3>
+                                <div class="form-group">
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-user"></i>
+                                            <span data-en="Full Name" data-vi="Họ và tên">Full Name</span>
+                                        </span>
+                                        <input type="text" id="fullName" value="" class="input-field">
+                                    </label>
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-envelope"></i>
+                                            <span data-en="Email Address" data-vi="Địa chỉ email">Email Address</span>
+                                        </span>
+                                        <input type="email" id="email" value="" class="input-field">
+                                    </label>
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-phone"></i>
+                                            <span data-en="Phone number" data-vi="Số điện thoại">Phone number</span>
+                                        </span>
+                                        <input type="tel" id="phone" value="" class="input-field">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Language and Display Section -->
+                            <div class="settings-section">
+                                <h3 class="section-title">
+                                    <i class="fa-solid fa-globe"></i>
+                                    <span class="text" data-en="Language and Display" data-vi="Ngôn ngữ và Hiển thị">Language and Display</span>
+                                </h3>
+                                <div class="form-group">
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-globe"></i>
+                                            <span data-en="Language" data-vi="Ngôn ngữ">Language</span>
+                                        </span>
+                                        <select id="language" class="input-field">
+                                            <option value="en" data-en="English" data-vi="Tiếng Anh">English</option>
+                                            <option value="vi" data-en="Vietnamese" data-vi="Tiếng Việt">Tiếng Việt</option>
+                                        </select>
+                                    </label>
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-balance-scale"></i>
+                                            <span data-en="Measurement Units" data-vi="Đơn vị đo lường">Measurement Units</span>
+                                        </span>
+                                        <select id="measurementUnits" class="input-field">
+                                            <option value="grams-ml" data-en="grams/ml" data-vi="gam/ml">grams/ml</option>
+                                            <option value="kg-l" data-en="kg/l" data-vi="kg/l">kg/l</option>
+                                            <option value="pounds-oz" data-en="pounds/oz" data-vi="pound/oz">pounds/oz</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="settings-column">
+                            <!-- Password Section -->
+                            <div class="settings-section">
+                                <h3 class="section-title">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <span class="text" data-en="Password" data-vi="Mật khẩu">Password</span>
+                                </h3>
+                                <div class="form-group">
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-key"></i>
+                                            <span data-en="Current Password" data-vi="Mật khẩu hiện tại">Current Password</span>
+                                        </span>
+                                        <input type="password" id="currentPassword" class="input-field">
+                                    </label>
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-lock"></i>
+                                            <span data-en="New Password" data-vi="Mật khẩu mới">New Password</span>
+                                        </span>
+                                        <input type="password" id="newPassword" class="input-field">
+                                    </label>
+                                    <label class="field">
+                                        <span class="label">
+                                            <i class="fa-solid fa-check"></i>
+                                            <span data-en="Confirm New Password" data-vi="Xác nhận mật khẩu mới">Confirm New Password</span>
+                                        </span>
+                                        <input type="password" id="confirmPassword" class="input-field">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- System Preferences Section -->
+                            <div class="settings-section">
+                                <h3 class="section-title">
+                                    <i class="fa-solid fa-cog"></i>
+                                    <span class="text" data-en="System Preferences" data-vi="Tùy chọn hệ thống">System Preferences</span>
+                                </h3>
+                                <div class="form-group">
+                                    <div class="toggle-field">
+                                        <div class="toggle-info">
+                                            <i class="fa-solid fa-rotate"></i>
+                                            <div class="toggle-text">
+                                                <span class="toggle-label" data-en="Auto-Sync Inventory" data-vi="Đồng bộ kho tự động">Auto-Sync Inventory</span>
+                                                <span class="toggle-description" data-en="Automatically sync ingredient usage after each recipe" data-vi="Tự động đồng bộ việc sử dụng nguyên liệu sau mỗi công thức">Automatically sync ingredient usage after each recipe</span>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="autoSync" checked aria-label="Auto-Sync Inventory">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="toggle-field">
+                                        <div class="toggle-info">
+                                            <i class="fa-solid fa-lightbulb"></i>
+                                            <div class="toggle-text">
+                                                <span class="toggle-label" data-en="AI Smart Suggestion" data-vi="Gợi ý thông minh AI">AI Smart Suggestion</span>
+                                                <span class="toggle-description" data-en="Allow DSS to auto-recommend ingredient replacements" data-vi="Cho phép DSS tự động đề xuất thay thế nguyên liệu">Allow DSS to auto-recommend ingredient replacements</span>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="aiSuggestion" checked aria-label="AI Smart Suggestion">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="toggle-field">
+                                        <div class="toggle-info">
+                                            <i class="fa-solid fa-bell"></i>
+                                            <div class="toggle-text">
+                                                <span class="toggle-label" data-en="Email Notifications" data-vi="Thông báo email">Email Notifications</span>
+                                                <span class="toggle-description" data-en="Receive alerts for low stock or expiry" data-vi="Nhận cảnh báo khi hết hàng hoặc hết hạn">Receive alerts for low stock or expiry</span>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="emailNotifications" checked aria-label="Email Notifications">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="settings-actions">
+                    <button class="btn btn-cancel" id="btnCancel">
+                        <i class="fa-solid fa-times"></i>
+                        <span data-en="Cancel" data-vi="Hủy">Cancel</span>
+                    </button>
+                    <button class="btn btn-save" id="btnSave">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                        <span data-en="Save Changes" data-vi="Lưu thay đổi">Save Changes</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+    <script src="../../assets/js/language.js"></script>
+    <script src="assets/js/script.js"></script>
+    
+    <!-- Register Service Worker to prevent cache issues -->
+    
+
+</body>
+</html>
+

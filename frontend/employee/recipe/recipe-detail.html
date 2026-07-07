@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/recipe/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Recipe Details | IMDS-BAKERY</title>
+  <link rel="stylesheet" href="../homepage/assets/css/employee-home.css" />
+  <link rel="stylesheet" href="assets/css/recipe.css" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <meta name="color-scheme" content="light only">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <div class="layout-recipe-detail">
+    <aside class="recipe-sidebar">
+      <div class="sidebar-banner"><a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img" /></a></div>
+      <h3 class="recipe-list-title"><span data-en="Recipe List" data-vi="Danh sách công thức">Danh sách công thức</span></h3>
+      <div class="recipe-list-items" id="recipeListItems">
+        <!-- Rendered by JS -->
+      </div>
+    </aside>
+    <main class="main-recipe-detail">
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line"><span class="emoji">👨‍🍳</span><h1 class="user-name">Nguyen Van A</h1></div>
+          <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+        </div>
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date">Loading...</div>
+            <div class="time" id="clock">Loading...</div>
+          </div>
+          <button class="bell">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">8</span>
+          </button>
+        </div>
+      </header>
+      <div class="content-wrap">
+        <div class="breadcrumb">
+          <i class="fa-solid fa-house"></i>
+          <span>/ </span>
+          <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+          <span> / </span>
+          <a href="recipe-list.html" class="breadcrumb-link"><span data-en="Recipe" data-vi="Công thức">Công thức</span></a>
+          <span> / </span>
+          <a href="recipe-detail.html" class="breadcrumb-link" id="recipeBreadcrumb">Pink Strawberry Mousse</a>
+        </div>
+        <section class="recipe-detail">
+          <div class="recipe-header-card">
+            <div class="title-line">
+              <img id="recipeImage" src="assets/img/Pink-Strawberry-Cake.webp" alt="Recipe Image">
+              <h2 id="recipeTitle">Pink Strawberry Mousse</h2>
+            </div>
+            <div id="recipeMeta" class="recipe-meta">
+              <!-- Rendered by JS -->
+            </div>
+            <button id="toggleProduction" class="btn-toggle-production" data-en="Calculate Production Quantity" data-vi="Tính số lượng sản xuất">Tính số lượng sản xuất</button>
+            <div id="productionSection" class="production-section hidden">
+              <h3 class="production-title" data-en="Production Quantity" data-vi="Số lượng sản xuất">Số lượng sản xuất</h3>
+              <div class="production-inputs">
+                <label for="numCakes" data-en="Number of cakes" data-vi="Số lượng bánh">Số lượng bánh</label>
+                <input type="number" id="numCakes" min="1" value="1" />
+                <button id="calculateBtn" class="btn-calculate" data-en="Calculate Ingredients" data-vi="Tính nguyên liệu">Tính nguyên liệu</button>
+              </div>
+            </div>
+            <div id="recipeContentGrid" class="recipe-content-grid">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+          <h3 class="usage-title" data-en="Ingredient Usage Management" data-vi="Quản lý sử dụng nguyên liệu">Quản lý sử dụng nguyên liệu</h3>
+          <button class="btn-use-all" data-en="Use All Ingredients" data-vi="Dùng tất cả">Dùng tất cả</button>
+          <div id="usageList" class="usage-list">
+            <!-- Rendered by JS -->
+          </div>
+          <div id="ingredientWarning" class="ingredient-warning" style="display: none;">
+            <div class="warning-header">
+              <i class="fa-solid fa-bell"></i>
+              <span data-en="Notification" data-vi="Thông báo">Thông báo</span>
+            </div>
+            <div class="warning-body">
+              <p id="warningMessage" data-en="Warning: Whipping Cream in stock expired or about to expire. This ingredient cannot be safely used in the current formulation." data-vi="Cảnh báo: Nguyên liệu Whipping Cream trong kho đã hoặc sắp hết hạn. Nguyên liệu này không thể sử dụng an toàn trong công thức hiện tại.">Cảnh báo: Nguyên liệu Whipping Cream trong kho đã hoặc sắp hết hạn. Nguyên liệu này không thể sử dụng an toàn trong công thức hiện tại.</p>
+              <p data-en="Let's do DSS" data-vi="Sử dụng DSS">Sử dụng DSS</p>
+            </div>
+            <div class="warning-actions">
+              <button class="btn-warning-cancel" data-en="X Cancel" data-vi="X Hủy">X Hủy</button>
+              <button class="btn-warning-alternative" data-en="Use Alternative Recipe" data-vi="Dùng công thức thay thế">Dùng công thức thay thế</button>
+            </div>
+          </div>
+          <div class="usage-footer">
+            <button class="btn-cancel" data-en="Cancel" data-vi="Hủy">Hủy <i class="fa-solid fa-times"></i></button>
+            <button class="btn-use-ingredients" data-en="Use Ingredients" data-vi="Sử dụng nguyên liệu">Sử dụng nguyên liệu <i class="fa-solid fa-check-double"></i></button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Report Modal -->
+  <div id="reportModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3><span data-en="Report Issue for" data-vi="Báo cáo vấn đề cho">Báo cáo vấn đề cho</span> <span id="reportIngredient"></span></h3>
+      <form id="reportForm">
+        <div class="report-option">
+          <input type="radio" id="expiring-soon" name="reportType" value="expiring-soon">
+          <label for="expiring-soon" data-en="Expiring Soon" data-vi="Sắp hết hạn">Sắp hết hạn</label>
+        </div>
+        <div class="report-option">
+          <input type="radio" id="expired" name="reportType" value="expired">
+          <label for="expired" data-en="Expired" data-vi="Hết hạn">Hết hạn</label>
+        </div>
+        <div class="report-option">
+          <input type="radio" id="low-stock" name="reportType" value="low-stock">
+          <label for="low-stock" data-en="Low Stock" data-vi="Sắp hết hàng">Sắp hết hàng</label>
+        </div>
+        <button type="submit" data-en="Send Report" data-vi="Gửi báo cáo">Gửi báo cáo</button>
+      </form>
+    </div>
+  </div>
+<div id="toast-container"></div>
+  <script src="assets/js/recipe.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+
+  <!-- User Info and Real-time Clock Script -->
+  <script>
+      // Get username from sessionStorage (from login) - same as homepage
+      function updateUserInfo() {
+          try {
+              const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+              const userNameEl = document.querySelector('.user-name');
+              if (userInfo && userInfo.username && userNameEl) {
+                  userNameEl.textContent = userInfo.username;
+              } else if (userNameEl) {
+                  userNameEl.textContent = 'Nguyen Van A'; // Fallback
+              }
+          } catch (error) {
+              console.log('Could not get user info from sessionStorage');
+              const userNameEl = document.querySelector('.user-name');
+              if (userNameEl) {
+                  userNameEl.textContent = 'Nguyen Van A'; // Fallback
+              }
+          }
+      }
+
+      // Header realtime date/time - same as homepage
+      function formatHeaderDate(d) {
+          const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+          const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+          return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+      }
+      function formatHeaderTime(d) {
+          let h = d.getHours();
+          const m = String(d.getMinutes()).padStart(2, '0');
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12; if (h === 0) h = 12;
+          return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+      }
+      
+      function updateHeaderTime() {
+          if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+              window.GlobalLanguage.updateDateTime();
+              return;
+          }
+          const now = new Date();
+          const elDate = document.querySelector('.header .date');
+          const elTime = document.querySelector('.header .time');
+          if (elDate) elDate.textContent = formatHeaderDate(now);
+          if (elTime) elTime.textContent = formatHeaderTime(now);
+      }
+
+      // Update user info and time when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+          if (window.GlobalLanguage && GlobalLanguage.initialize) { GlobalLanguage.initialize(); }
+          updateUserInfo();
+          updateHeaderTime();
+          setInterval(updateHeaderTime, 60000); // Update every minute
+      });
+  </script>
+</body>
+</html>
+

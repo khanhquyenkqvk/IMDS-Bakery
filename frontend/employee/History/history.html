@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/History/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>History - IMDS-BAKERY</title>
+
+  <link rel="stylesheet" href="../homepage/assets/css/employee-home.css" />
+  <link rel="stylesheet" href="assets/css/history.css?v=20251017" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-banner">
+        <a href="../homepage/index.html">
+          <img src="assets/img/banner.png" alt="IMPS-BAKERY" class="sidebar-banner-img" />
+        </a>
+      </div>
+      <nav class="sidebar-menu">
+        <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Nhập nguyên liệu</span></button>
+        <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Kiểm tra kho</span></button>
+        <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Cập nhật</span></button>
+        <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Công thức</span></button>
+        <button class="menu-item active" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">Lịch sử</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Trợ giúp</span></button>
+        <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Cài đặt</span></button>
+        <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Đăng xuất</span></button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line">
+            <span class="emoji">👨‍🍳</span>
+            <h1 class="user-name">Nguyen Van A</h1>
+          </div>
+          <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+        </div>
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date">Loading...</div>
+            <div class="time" id="clock">Loading...</div>
+          </div>
+          <button class="bell">
+            <i class="fa-regular fa-bell"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i>
+        <span>/ </span>
+        <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+        <span> / </span>
+        <a href="history.html" class="breadcrumb-link"><span data-en="History" data-vi="Lịch sử">Lịch sử</span></a>
+      </div>
+
+      <section class="history-section">
+        
+        <div class="filter-container">
+        <!-- Từ ngày -->
+        <div class="filter-group">
+          <label for="from-date"><span data-en="From" data-vi="Từ">Từ</span></label>
+          <input type="date" id="from-date" />
+        </div>
+
+        <!-- Đến ngày -->
+        <div class="filter-group">
+          <label for="to-date"><span data-en="To" data-vi="Đến">Đến</span></label>
+          <input type="date" id="to-date" />
+        </div>
+
+        <!-- Loại giao dịch (Transactions.type) -->
+        <!-- Loại giao dịch (Transactions.type + Production) -->
+        <div class="filter-group">
+          <label for="filter-act"><span data-en="Transaction type" data-vi="Loại giao dịch">Loại giao dịch</span></label>
+          <select id="filter-act">
+            <option value="All" data-en="All" data-vi="Tất cả">Tất cả</option>
+            <option value="Import" data-en="Import" data-vi="Nhập kho">Import</option>
+            <option value="Export" data-en="Export" data-vi="Xuất kho">Export</option>
+            <option value="Use" data-en="Use" data-vi="Sử dụng">Use</option>
+            <option value="Waste" data-en="Waste" data-vi="Hủy">Waste</option>
+            <option value="Adjust" data-en="Adjust" data-vi="Điều chỉnh">Adjust</option>
+            <!-- NEW: hành động sản xuất -->
+            <option value="Make cakes" data-en="Make cakes" data-vi="Làm bánh">Make cakes</option>
+          </select>
+        </div>
+
+
+        <!-- Trạng thái lô (Batches.status) -->
+        <!-- (Đổi nhãn tùy ý) Trạng thái -->
+        <div class="filter-group">
+          <label for="filter-status"><span data-en="Status" data-vi="Trạng thái">Trạng thái</span></label>
+          <select id="filter-status">
+            <option value="All" data-en="All" data-vi="Tất cả">Tất cả</option>
+            <option value="Valid" data-en="Valid" data-vi="Còn hạn">Valid</option>
+            <option value="NearExpiry" data-en="NearExpiry" data-vi="Sắp hết hạn">NearExpiry</option>
+            <option value="Expired" data-en="Expired" data-vi="Hết hạn">Expired</option>
+            <option value="Opened" data-en="Opened" data-vi="Đã mở">Opened</option>
+            <option value="UsedUp" data-en="UsedUp" data-vi="Đã dùng hết">UsedUp</option>
+            <!-- NEW: trạng thái sản xuất -->
+            <option value="Complete" data-en="Complete" data-vi="Hoàn thành">Complete</option>
+            <option value="Doing" data-en="Doing" data-vi="Đang làm">Doing</option>
+          </select>
+        </div>
+
+
+        <!-- Người thực hiện (Users.username) -->
+        <div class="filter-group">
+          <label for="filter-implementer"><span data-en="Implementer" data-vi="Người thực hiện">Người thực hiện</span></label>
+          <select id="filter-implementer">
+            <option value="All" data-en="All" data-vi="Tất cả">Tất cả</option>
+            
+          </select>
+        </div>
+
+        <!-- Nút tìm kiếm -->
+        <button class="btn-search" id="btnSearch">
+          <i class="fa-solid fa-search"></i>
+          <span data-en="Search" data-vi="Tìm kiếm">Tìm kiếm</span>
+        </button>
+      </div>
+
+
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th><span data-en="Time" data-vi="Thời gian">Thời gian</span></th>
+              <th><span data-en="ACT" data-vi="Hành động">Hành động</span></th>
+              <th><span data-en="Raw materials / products" data-vi="Nguyên liệu / Sản phẩm">Nguyên liệu / Sản phẩm</span></th>
+              <th><span data-en="Batch code" data-vi="Mã lô">Mã lô</span></th>
+              <th><span data-en="Quantity" data-vi="Số lượng">Số lượng</span></th>
+              <th><span data-en="Unit" data-vi="Đơn vị">Đơn vị</span></th>
+              <th class="col-status"><span data-en="Status" data-vi="Trạng thái">Trạng thái</span></th>
+              <th><span data-en="Implementer" data-vi="Người thực hiện">Người thực hiện</span></th>
+              <th class="col-note"><span data-en="Note" data-vi="Ghi chú">Ghi chú</span></th>
+            </tr>
+          </thead>
+          
+          <tbody id="history-table-body">
+            </tbody>
+
+        </table>
+        <div class="pagination-bar">
+          <button class="page-btn" id="pagePrev" aria-label="Previous page">&lt;</button>
+          <span class="page-info" id="pageInfo">Page 1 / 1</span>
+          <button class="page-btn" id="pageNext" aria-label="Next page">&gt;</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="assets/js/history.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+  <script>
+    // Get username from sessionStorage (from login) - same as homepage
+    function updateUserInfo() {
+      try {
+        const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+        const userNameEl = document.querySelector('.user-name');
+        if (userInfo && userInfo.username && userNameEl) {
+          userNameEl.textContent = userInfo.username;
+        } else if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      } catch (error) {
+        console.log('Could not get user info from sessionStorage');
+        const userNameEl = document.querySelector('.user-name');
+        if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      }
+    }
+
+    // Header realtime date/time - same as homepage
+    function formatHeaderDate(d) {
+        const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+    }
+    function formatHeaderTime(d) {
+        let h = d.getHours();
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if (h === 0) h = 12;
+        return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+    }
+    
+    function updateHeaderTime() {
+        if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+          window.GlobalLanguage.updateDateTime();
+          return;
+        }
+        const now = new Date();
+        const elDate = document.querySelector('.header .date');
+        const elTime = document.querySelector('.header .time');
+        if (elDate) elDate.textContent = formatHeaderDate(now);
+        if (elTime) elTime.textContent = formatHeaderTime(now);
+    }
+
+    // Update user info and time when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUserInfo();
+        updateHeaderTime();
+        setInterval(updateHeaderTime, 60000); // Update every minute
+        
+        // Update placeholders based on language
+        if(window.GlobalLanguage && GlobalLanguage.getLanguage){
+          const lang = GlobalLanguage.getLanguage();
+          const fromDateInput = document.getElementById('from-date');
+          const toDateInput = document.getElementById('to-date');
+          if (fromDateInput) {
+            fromDateInput.placeholder = lang === 'vi' 
+              ? (fromDateInput.getAttribute('data-vi-placeholder') || 'dd/mm/yyyy')
+              : (fromDateInput.getAttribute('data-en-placeholder') || 'mm/dd/yyyy');
+          }
+          if (toDateInput) {
+            toDateInput.placeholder = lang === 'vi' 
+              ? (toDateInput.getAttribute('data-vi-placeholder') || 'dd/mm/yyyy')
+              : (toDateInput.getAttribute('data-en-placeholder') || 'mm/dd/yyyy');
+          }
+        }
+    });
+
+    // Initialize language manager
+    if(window.GlobalLanguage && GlobalLanguage.initialize){
+      GlobalLanguage.initialize();
+    }else{
+      document.addEventListener('DOMContentLoaded',function(){
+        if(window.GlobalLanguage && GlobalLanguage.initialize) GlobalLanguage.initialize();
+      });
+    }
+
+    // Logout handler
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', function () {
+        sessionStorage.removeItem('auth_token');
+        sessionStorage.removeItem('user_info');
+        sessionStorage.removeItem('user_token');
+        localStorage.removeItem('bakery_credentials');
+        window.location.href = '../../login/index.html';
+      });
+    }
+
+    // Navigation handling
+    (function () {
+      const sidebar = document.querySelector('.sidebar');
+      if (!sidebar) return;
+
+      sidebar.addEventListener('click', (e) => {
+        const el = e.target.closest('.menu-item[data-href]');
+        if (!el) return;
+
+        e.preventDefault();
+
+        const href = el.getAttribute('data-href');
+        if (!href) return;
+
+        const abs = new URL(href, window.location).href;
+
+        // UI active state
+        sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+        el.classList.add('active');
+        el.setAttribute('aria-current', 'page');
+
+        // Navigate
+        window.location.assign(abs);
+      });
+
+      // Auto-highlight current page
+      const here = window.location.pathname;
+      sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+        const href = item.getAttribute('data-href');
+        if (!href) return;
+        const resolved = new URL(href, window.location).pathname;
+        if (here === resolved || here.endsWith(resolved)) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+

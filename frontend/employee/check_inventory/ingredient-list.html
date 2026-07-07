@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/employee/check_inventory/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Check Raw Material Inventory - IMDS-BAKERY</title>
+
+  <!-- CSS kế thừa + riêng -->
+  <link rel="stylesheet" href="../homepage/assets/css/employee-home.css?v=20250126" />
+  <link rel="stylesheet" href="assets/css/ingredient-list.css?v=20250126" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-banner">
+        <a href="../homepage/index.html">
+          <img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img" />
+        </a>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span></button>
+        <button class="menu-item inv-blue active" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></button>
+        <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span></button>
+        <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span></button>
+        <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+        <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+        <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line">
+            <span class="emoji">👨‍🍳</span>
+            <h1 class="user-name">Nguyen Van A</h1>
+          </div>
+          <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Welcome back, check out today's alerts and tasks</span></p>
+        </div>
+
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date">Loading...</div>
+            <div class="time" id="clock">Loading...</div>
+          </div>
+          <button class="bell">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">8</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="breadcrumb">
+        <i class="fa-solid fa-house"></i>
+        <span>/ </span>
+        <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+        <span> / </span>
+        <a href="lot-list.html" class="breadcrumb-link"><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></a>
+        <span> / </span>
+        <a href="ingredient-list.html" class="breadcrumb-link" id="lotCodeBreadcrumb">Loading...</a>
+      </div>
+
+      <!-- Page content: Check Inventory -->
+      <section class="ingredient-section">
+        <div class="page-title">
+          <h2><i class="fa-solid fa-inbox"></i> <span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></h2> 
+        </div>
+
+        <!-- ALERT -->
+        <div class="alert-box">
+          ⚠️ <span data-en="Warning: 2 ingredients are about to expire, 1 ingredient is low in quantity, and 1 ingredient has expired!" data-vi="Cảnh báo: 2 nguyên liệu sắp hết hạn, 1 nguyên liệu sắp hết hàng và 1 nguyên liệu đã hết hạn!">Warning: 2 ingredients are about to expire, 1 ingredient is low in quantity, and 1 ingredient has expired!</span>
+        </div>
+        <div class="table-header">
+          <h2><i class="fa-solid fa-list"></i> <span data-en="Inventory of Ingredients" data-vi="Danh sách nguyên liệu">Inventory of Ingredients</span></h2>
+          <div class="table-tools">
+          <input type="text" id="searchInput" placeholder="Search..." data-en="Search..." data-vi="Tìm kiếm..." />
+          <button id="btnFilter" class="filter-btn"><i class="fa-solid fa-filter"></i> <span data-en="Filter" data-vi="Lọc">Filter</span></button>
+          <button id="btnSort" class="sort-btn"><i class="fa-solid fa-arrow-down-wide-short"></i> <span data-en="Sort" data-vi="Sắp xếp">Sort</span></button>
+        </div>
+        <!-- The Filter Dropdown -->
+        <div class="filter-dropdown">
+          <label for="statusFilter" data-en="Status:" data-vi="Trạng thái:">Status:</label>
+          <select id="statusFilter">
+            <option value="" data-en="Select Status" data-vi="Chọn trạng thái">Select Status</option>
+            <option value="in stock" data-en="In Stock" data-vi="Còn hàng">In Stock</option>
+            <option value="LowStock" data-en="Low Stock" data-vi="Sắp hết hàng">Low Stock</option>
+            <option value="expired" data-en="Expired" data-vi="Hết hạn">Expired</option>
+            <option value="NearExpiry" data-en="Near Expiry" data-vi="Sắp hết hạn">Near Expiry</option>
+          </select>
+          <button id="filterSubmit" data-en="Apply Filter" data-vi="Áp dụng lọc">Apply Filter</button>
+        </div>
+        </div>
+
+                <table class="ingredient-table">
+          <thead>
+            <tr>
+              <th data-en="Lot Code" data-vi="Mã lứ">Lot Code</th>
+              <th data-en="Product Name" data-vi="Tên sản phẩm">Product Name</th>
+              <th data-en="Quantity" data-vi="Số lượng">Quantity</th>
+              <th data-en="Quantity Left" data-vi="Số lượng còn lại">Quantity Left</th>
+              <th data-en="Unit" data-vi="Đơn v�?">Unit</th>
+              <th data-en="Received Date" data-vi="Ngày nhập">Received Date</th>
+              <th data-en="Use-by Date" data-vi="Hạn dụng">Use-by Date</th>
+              <th data-en="Status" data-vi="Trạng thái">Status</th>
+            </tr>
+          </thead>
+          <tbody id="ingredientBody"></tbody>
+        </table>
+        <div class="pagination-bar">
+          <button class="page-btn" id="pagePrev" aria-label="Previous page">&lt;</button>
+          <span class="page-info" id="pageInfo">Page 1 / 1</span>
+          <button class="page-btn" id="pageNext" aria-label="Next page">&gt;</button>
+        </div>
+
+        <div class="table-buttons">
+          <button id="btnRefresh"><i class="fa-solid fa-rotate"></i> <span data-en="Refresh" data-vi="Làm mới">Refresh</span></button>
+          <button id="btnBack"><i class="fa-solid fa-house"></i> <span data-en="Back to Home" data-vi="Về trang chủ">Back to Home</span></button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="assets/js/ingredient-list.js"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+  <script>
+    // Get username from sessionStorage (from login) - same as homepage
+    function updateUserInfo() {
+      try {
+        const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+        const userNameEl = document.querySelector('.user-name');
+        if (userInfo && userInfo.username && userNameEl) {
+          userNameEl.textContent = userInfo.username;
+        } else if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      } catch (error) {
+        console.log('Could not get user info from sessionStorage');
+        const userNameEl = document.querySelector('.user-name');
+        if (userNameEl) {
+          userNameEl.textContent = 'Nguyen Van A'; // Fallback
+        }
+      }
+    }
+
+    // Header realtime date/time - same as homepage
+    function formatHeaderDate(d) {
+        const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+    }
+    function formatHeaderTime(d) {
+        let h = d.getHours();
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if (h === 0) h = 12;
+        return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+    }
+    
+    function updateHeaderTime() {
+        if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+          window.GlobalLanguage.updateDateTime();
+          return;
+        }
+        const now = new Date();
+        const elDate = document.querySelector('.header .date');
+        const elTime = document.querySelector('.header .time');
+        if (elDate) elDate.textContent = formatHeaderDate(now);
+        if (elTime) elTime.textContent = formatHeaderTime(now);
+    }
+
+    // Update user info and time when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateUserInfo();
+        updateHeaderTime();
+        setInterval(updateHeaderTime, 60000); // Update every minute
+    });
+  </script>
+
+  <!-- Navigation and Logout Script -->
+  <script>
+    (function () {
+      const sidebar = document.querySelector('.sidebar');
+      if (!sidebar) return;
+
+      // Navigation handling
+      sidebar.addEventListener('click', (e) => {
+        const el = e.target.closest('.menu-item[data-href]');
+        if (!el) return;
+
+        e.preventDefault();
+
+        const href = el.getAttribute('data-href');
+        if (!href) return;
+
+        const abs = new URL(href, window.location).href;
+
+        // UI active state
+        sidebar.querySelectorAll('.menu-item').forEach(it => it.classList.remove('active'));
+        el.classList.add('active');
+        el.setAttribute('aria-current', 'page');
+
+        // Navigate
+        window.location.assign(abs);
+      });
+
+      // Logout handling
+      const logoutBtn = document.getElementById('btnLogout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          // Clear all session storage
+          sessionStorage.removeItem('user_info');
+          sessionStorage.removeItem('user_token');
+          sessionStorage.removeItem('auth_token');
+          
+          // Clear localStorage credentials if any
+          localStorage.removeItem('bakery_credentials');
+          
+          // Redirect to login page
+          window.location.href = '../../login/index.html';
+        });
+      }
+
+      // Auto-highlight current page
+      const here = window.location.pathname;
+      sidebar.querySelectorAll('.menu-item[data-href]').forEach(item => {
+        const href = item.getAttribute('data-href');
+        if (!href) return;
+        const resolved = new URL(href, window.location).pathname;
+        if (here === resolved || here.endsWith(resolved)) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/recipe/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Recipe Substitution Details | IMDS-BAKERY</title>
+  <link rel="stylesheet" href="../homepage/assets/css/employee-home.css?v=7" />
+  <link rel="stylesheet" href="assets/css/recipe.css?v=7" />
+  <link rel="stylesheet" href="assets/css/recipe-replace.css?v=7" />
+  <link rel="stylesheet" href="../../assets/css/chatbot.css?v=20251111" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body class="recipe-replace-2">
+  <div class="layout-recipe-detail">
+    <aside class="recipe-sidebar">
+      <div class="sidebar-banner"><a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img" /></a></div>
+      <h3 class="recipe-list-title"><span data-en="Recipe List" data-vi="Danh sách công thức">Danh sách công thức</span></h3>
+      <div class="recipe-list-items" id="recipeListItems">
+        <!-- Rendered by JS -->
+      </div>
+    </aside>
+    <main class="main-recipe-detail">
+      <header class="header">
+        <div class="header-left">
+          <div class="user-line"><span class="emoji">👨‍🍳</span><h1 class="user-name">Nguyen Van A</h1></div>
+          <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+        </div>
+        <div class="header-right">
+          <div class="date-block">
+            <div class="date">Loading...</div>
+            <div class="time" id="clock">Loading...</div>
+          </div>
+          <button class="bell">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">8</span>
+          </button>
+        </div>
+      </header>
+      <div class="content-wrap">
+        <div class="breadcrumb">
+          <i class="fa-solid fa-house"></i>
+          <span>/ </span>
+          <a href="../homepage/index.html" class="breadcrumb-link" data-en="IMDS-BAKERY" data-vi="IMDS-BAKERY">IMDS-BAKERY</a>
+          <span> / </span>
+          <a href="recipe-detail.html" class="breadcrumb-link" data-en="Recipe" data-vi="Công thức">Công thức</a>
+          <span> / </span>
+          <a href="recipe-replace-2.html" class="breadcrumb-link" id="recipeBreadcrumb" data-en="Choco Tiramisu" data-vi="Choco Tiramisu">Choco Tiramisu</a>
+        </div>
+        <section class="recipe-detail">
+          <!-- AI-Suggested Alternative Recipe Section -->
+          <div class="ai-suggested-section">
+            <div class="ai-suggested-header">
+              <div class="ai-icon">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <h3 class="ai-suggested-title" data-en="AI-Suggested Alternative Recipe" data-vi="Công thức thay thế do AI đề xuất">Công thức thay thế do AI đề xuất</h3>
+            </div>
+            
+            <div class="ai-suggested-content">
+              <!-- Alternative material list -->
+              <div class="alternative-material-list">
+                <h3 data-en="Alternative material list" data-vi="Danh sách nguyên liệu thay thế">Danh sách nguyên liệu thay thế</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-en="Ingredient" data-vi="Nguyên liệu">Nguyên liệu</th>
+                      <th data-en="Original formula" data-vi="Công thức gốc">Công thức gốc</th>
+                      <th data-en="Replace" data-vi="Thay thế">Thay thế</th>
+                      <th data-en="Warehouse status" data-vi="Trạng thái kho">Trạng thái kho</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Whipping Cream</td>
+                      <td>150 ml</td>
+                      <td>Heavy Cream - 135 ml</td>
+                      <td><span class="status nearly-expired" data-en="Nearly Expired" data-vi="Sắp hết hạn">Sắp hết hạn</span></td>
+                    </tr>
+                    <tr>
+                      <td>Mascarpone Cheese</td>
+                      <td>250 g</td>
+                      <td>250 g</td>
+                      <td><span class="status in-stock" data-en="In Stock" data-vi="Còn hàng">Còn hàng</span></td>
+                    </tr>
+                    <tr>
+                      <td>Coffee Espresso</td>
+                      <td>50 ml</td>
+                      <td>40 ml + Chocolate Syrup 10 ml</td>
+                      <td><span class="status in-stock" data-en="In Stock" data-vi="Còn hàng">Còn hàng</span></td>
+                    </tr>
+                    <tr>
+                      <td>Sugar</td>
+                      <td>70 g</td>
+                      <td>65 g</td>
+                      <td><span class="status in-stock" data-en="In Stock" data-vi="Còn hàng">Còn hàng</span></td>
+                    </tr>
+                    <tr>
+                      <td>Cocoa Powder</td>
+                      <td>20 g</td>
+                      <td>25 g</td>
+                      <td><span class="status in-stock" data-en="In Stock" data-vi="Còn hàng">Còn hàng</span></td>
+                    </tr>
+                    <tr>
+                      <td>Gelatin</td>
+                      <td>5 g</td>
+                      <td>5 g</td>
+                      <td><span class="status in-stock">In Stock</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- AI-tailored instructions -->
+              <div class="ai-tailored-instructions">
+                <h3 data-en="AI-tailored instructions" data-vi="Hướng dẫn điều chỉnh bởi AI">Hướng dẫn điều chỉnh bởi AI</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-en="Step" data-vi="Bước">Bước</th>
+                      <th data-en="Note" data-vi="Ghi chú">Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td data-en="Reduce the amount of coffee to balance the strong flavor of chocolate syrup." data-vi="Giảm lượng cà phê để cân bằng vị đậm của siro chocolate.">Giảm lượng cà phê để cân bằng vị đậm của siro chocolate.</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td data-en="Whip heavy cream with mascarpone until soft peaks form." data-vi="Đánh heavy cream với mascarpone đến khi bông mềm.">Đánh heavy cream với mascarpone đến khi bông mềm.</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td data-en="Reduce sugar to 65g to avoid too sweet taste." data-vi="Giảm đường xuống 65g để tránh quá ngọt.">Giảm đường xuống 65g để tránh quá ngọt.</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td data-en="Cover with 10% more cocoa powder." data-vi="Rắc thêm 10% bột cacao.">Rắc thêm 10% bột cacao.</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td data-en="Refrigerate for at least 3 hours to stabilize the structure." data-vi="Làm lạnh ít nhất 3 giờ để ổn định kết cấu.">Làm lạnh ít nhất 3 giờ để ổn định kết cấu.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Approval Section -->
+              <div class="approval-section">
+                <p data-en="Approved by: Pham Van A (Bakery owner)" data-vi="Phê duyệt bởi: Phạm Văn A (Chủ tiệm)">Phê duyệt bởi: Phạm Văn A (Chủ tiệm)</p>
+                <p data-en="Date: October 4, 2025" data-vi="Ngày: 04/10/2025">Ngày: 04/10/2025</p>
+                <p class="status-approved" data-en="Status: Approved - Actionable" data-vi="Trạng thái: Đã phê duyệt - Có thể thực hiện">Trạng thái: Đã phê duyệt - Có thể thực hiện</p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="ai-suggested-actions">
+                <button class="btn-perform-substitution" data-en="Perform the substitution formula" data-vi="Thực hiện công thức thay thế"><i class="fa-solid fa-play"></i> Thực hiện công thức thay thế</button>
+                <button class="btn-cancel-substitution" data-en="Cancel" data-vi="Hủy"><i class="fa-solid fa-xmark"></i> Hủy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+<!-- AI status panel (inline, tech-style) -->
+<div id="aiApplyStatus" class="ai-status" style="display:none;">
+  <div class="ai-status-row">
+    <span class="ai-dot"></span>
+    <span class="ai-status-title">AI Action Center</span>
+    <span class="ai-status-badge" id="aiApplyBadge">RUNNING</span>
+  </div>
+  <div class="ai-status-msg" id="aiApplyMsg">
+    Processing substitution...
+  </div>
+</div>
+
+  <script src="assets/js/recipe.js?v=7"></script>
+  <script defer src="../../assets/js/chatbot.js?v=20251111"></script>
+  <script src="../../assets/js/language.js"></script>
+
+  <!-- User Info and Real-time Clock Script -->
+  <script>
+      // Get username from sessionStorage (from login) - same as homepage
+      function updateUserInfo() {
+          try {
+              const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+              const userNameEl = document.querySelector('.user-name');
+              if (userInfo && userInfo.username && userNameEl) {
+                  userNameEl.textContent = userInfo.username;
+              } else if (userNameEl) {
+                  userNameEl.textContent = 'Nguyen Van A'; // Fallback
+              }
+          } catch (error) {
+              console.log('Could not get user info from sessionStorage');
+              const userNameEl = document.querySelector('.user-name');
+              if (userNameEl) {
+                  userNameEl.textContent = 'Nguyen Van A'; // Fallback
+              }
+          }
+      }
+
+      // Header realtime date/time - same as homepage
+      function formatHeaderDate(d) {
+          const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+          const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+          return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+      }
+      function formatHeaderTime(d) {
+          let h = d.getHours();
+          const m = String(d.getMinutes()).padStart(2, '0');
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12; if (h === 0) h = 12;
+          return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+      }
+      
+      function updateHeaderTime() {
+          if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+              window.GlobalLanguage.updateDateTime();
+              return;
+          }
+          const now = new Date();
+          const elDate = document.querySelector('.header .date');
+          const elTime = document.querySelector('.header .time');
+          if (elDate) elDate.textContent = formatHeaderDate(now);
+          if (elTime) elTime.textContent = formatHeaderTime(now);
+      }
+
+      // Update user info and time when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+          if (window.GlobalLanguage && GlobalLanguage.initialize) { GlobalLanguage.initialize(); }
+          updateUserInfo();
+          updateHeaderTime();
+          setInterval(updateHeaderTime, 60000); // Update every minute
+      });
+  </script>
+</body>
+</html>
+

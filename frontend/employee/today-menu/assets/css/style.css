@@ -1,0 +1,340 @@
+/* Page-specific styles for Today's Menu Details */
+
+/* Menu Section */
+.menu-section {
+    margin: 16px 32px 24px 32px;
+    padding: 0;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Table Container */
+.table-container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+/* Menu Table */
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.menu-table thead {
+    background: rgba(38, 89, 159, 0.3);
+}
+
+.menu-table thead th {
+    padding: 16px 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #111827;
+    border-bottom: 2px solid #bae6fd;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.menu-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease;
+}
+
+.menu-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.menu-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.menu-table tbody td {
+    padding: 20px;
+    vertical-align: top;
+}
+
+/* Center STATUS column (4th column) */
+.menu-table tbody td:nth-child(4) {
+    text-align: center;
+}
+
+/* Center ACT column (5th column) */
+.menu-table tbody td:nth-child(5) {
+    text-align: center;
+}
+
+/* Product Name */
+.product-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #111827;
+    min-width: 180px;
+}
+
+/* Quantity */
+.quantity {
+    font-weight: 600;
+    font-size: 15px;
+    color: #111827;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* Note */
+.note {
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.note ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.note li {
+    margin-bottom: 8px;
+}
+
+.note li:last-child {
+    margin-bottom: 0;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 100px;
+}
+
+.status-done {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-doing {
+    background-color: #fef9c3;
+    color: #92400e;
+}
+
+.status-havent-done {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+}
+
+.btn-start,
+.btn-complete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-start {
+    background-color: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.btn-start:hover {
+    background-color: #ef4444;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.btn-complete {
+    background-color: transparent;
+    color: #10b981;
+    border: 1px solid #10b981;
+}
+
+.btn-complete:hover {
+    background-color: #10b981;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.btn-start:active,
+.btn-complete:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 980px) {
+    .menu-section {
+        margin: 16px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .menu-table {
+        min-width: 800px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-start,
+    .btn-complete {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .menu-table thead th {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+
+    .menu-table tbody td {
+        padding: 16px;
+    }
+
+    .note {
+        font-size: 13px;
+    }
+
+    .status-badge {
+        font-size: 12px;
+        padding: 5px 12px;
+    }
+}
+/* Ẩn bảng khi đang load */
+.menu-table.loading {
+    display: none;
+}
+
+/* Hiển thị thông báo “Loading...” ở giữa */
+#loadingIndicator {
+    text-align: center;
+    padding: 40px;
+    font-weight: 600;
+    color: #2563eb;
+    font-size: 16px;
+    display: none;
+}
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    width: 420px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    animation: popin 0.2s ease;
+}
+
+@keyframes popin {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.modal .note {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.ingredient-list {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.ingredient-list div {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+.ingredient-list div:last-child {
+    border-bottom: none;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: #e5e7eb;
+    color: #111827;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-confirm {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-confirm:hover { background: #dc2626; }
+

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <base href="/employee/today-menu/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Today's Menu Details - IMDS-BAKERY</title>
+    <link rel="stylesheet" href="../homepage/assets/css/employee-home.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <a href="../homepage/index.html"><img src="assets/img/banner.png" alt="IMDS-BAKERY" class="sidebar-banner-img"></a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item" data-href="../import-raw-materials/index.html"><i class="fa-regular fa-pen-to-square"></i><span data-en="Import raw materials" data-vi="Nhập nguyên liệu">Import raw materials</span></button>
+                <button class="menu-item inv-blue" data-href="../check_inventory/lot-list.html"><i class="fa-solid fa-box"></i><span data-en="Check Inventory" data-vi="Kiểm tra kho">Check Inventory</span></button>
+                <button class="menu-item" data-href="../update/update.html"><i class="fa-solid fa-rotate"></i><span data-en="Update" data-vi="Cập nhật">Update</span></button>
+                <button class="menu-item" data-href="../recipe/recipe-list.html"><i class="fa-solid fa-utensils"></i><span data-en="Recipe" data-vi="Công thức">Recipe</span></button>
+                <button class="menu-item" data-href="../History/history.html"><i class="fa-solid fa-clock-rotate-left"></i><span data-en="History" data-vi="Lịch sử">History</span></button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="menu-item alt" data-href="../help/index.html"><i class="fa-regular fa-circle-question"></i><span data-en="Help" data-vi="Trợ giúp">Help</span></button>
+                <button class="menu-item noborder" data-href="../settings/index.html"><i class="fa-solid fa-gear"></i><span data-en="Settings" data-vi="Cài đặt">Settings</span></button>
+                <button class="menu-item noborder" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i><span data-en="Log out" data-vi="Đăng xuất">Log out</span></button>
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <div class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-line">
+                        <span class="emoji">👨‍🍳</span>
+                        <h1 class="user-name">Nguyen Van A</h1>
+                    </div>
+                    <p class="welcome"><span data-en="Welcome back, check out today's alerts and tasks" data-vi="Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay">Chào mừng trở lại, kiểm tra các cảnh báo và nhiệm vụ hôm nay</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-block">
+                        <div class="date" id="currentDate">Monday, September 25</div>
+                        <div class="time" id="currentTime">08:30 AM</div>
+                    </div>
+                    <button class="bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notificationBadge">1</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i>
+                <span>/ </span>
+                <a href="../homepage/index.html" class="breadcrumb-link">IMDS-BAKERY</a>
+                <span> / </span>
+                <a href="today-menu.html" class="breadcrumb-link"><span data-en="Today Menu" data-vi="Thực đơn hôm nay">Thực đơn hôm nay</span></a>
+            </div>
+
+            <!-- Today's Menu Details Section -->
+            <section class="menu-section">
+                <h2 class="section-title"><span data-en="Today's Menu Details" data-vi="Chi tiết thực đơn hôm nay">Chi tiết thực đơn hôm nay</span></h2>
+                <div id="loadingIndicator">Loading today's menu...</div>
+                <div class="table-container">
+                    <table class="menu-table">
+                        <thead>
+                            <tr>
+                                <th><span data-en="CAKE (PRODUCT)" data-vi="BÁNH (SẢN PHẨM)">BÁNH (SẢN PHẨM)</span></th>
+                                <th><span data-en="QUANTITY" data-vi="SỐ LƯỢNG">SỐ LƯỢNG</span></th>
+                                <th><span data-en="NOTE" data-vi="GHI CHÚ">GHI CHÚ</span></th>
+                                <th><span data-en="STATUS" data-vi="TRẠNG THÁI">TRẠNG THÁI</span></th>
+                                <th><span data-en="ACT" data-vi="HÀNH ĐỘNG">HÀNH ĐỘNG</span></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../assets/js/language.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Sidebar menu navigation handler
+        document.querySelectorAll('.sidebar .menu-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                location.href = this.getAttribute('data-href');
+            });
+        });
+
+        // Logout handler
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                sessionStorage.removeItem('user_info');
+                sessionStorage.removeItem('user_token');
+                sessionStorage.removeItem('auth_token');
+                localStorage.removeItem('bakery_credentials');
+                window.location.href = '../../login/index.html';
+            });
+        }
+
+        // Header date/time update
+        function formatHeaderDate(d) {
+            const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        }
+        function formatHeaderTime(d) {
+            let h = d.getHours();
+            const m = String(d.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12; if (h === 0) h = 12;
+            return `${String(h).padStart(2,'0')}:${m} ${ampm}`;
+        }
+        
+        function updateHeaderTime() {
+            if (window.GlobalLanguage && typeof window.GlobalLanguage.updateDateTime === 'function') {
+                window.GlobalLanguage.updateDateTime();
+                return;
+            }
+            const now = new Date();
+            const elDate = document.getElementById('currentDate');
+            const elTime = document.getElementById('currentTime');
+            if (elDate) elDate.textContent = formatHeaderDate(now);
+            if (elTime) elTime.textContent = formatHeaderTime(now);
+        }
+
+        // Update user info from sessionStorage
+        function updateUserInfo() {
+            try {
+                const userInfo = JSON.parse(sessionStorage.getItem('user_info') || '{}');
+                const userNameEl = document.querySelector('.user-name');
+                if (userInfo && userInfo.username && userNameEl) {
+                    userNameEl.textContent = userInfo.username;
+                }
+            } catch (error) {
+                console.log('Could not get user info from sessionStorage');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserInfo();
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000); // Update every minute
+            
+            if (window.GlobalLanguage && GlobalLanguage.initialize) {
+                GlobalLanguage.initialize();
+            }
+        });
+    </script>
+    <!-- Confirm Modal -->
+<div id="confirmModal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <h3>Confirm Completion & Deduct Stock</h3>
+        <p id="confirmText">
+            Are you sure you want to mark <b></b> as Complete?
+        </p>
+        <p class="note">
+            <b>Note:</b> This action will automatically subtract the following ingredients from inventory:
+        </p>
+
+        <div id="ingredientList" class="ingredient-list"></div>
+
+        <div class="modal-actions">
+            <button id="cancelConfirm" class="btn-cancel">Cancel</button>
+            <button id="confirmBtn" class="btn-confirm">Confirm</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+

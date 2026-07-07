@@ -1,0 +1,423 @@
+/* ======================================= */
+/* Recipe Replace Pages Styles */
+/* ======================================= */
+
+/* AI-Suggested Alternative Recipe Section */
+.ai-suggested-section {
+  display: block !important;
+  background: #EEF2FF !important;
+  border: 1px solid #C7D2FE !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin-top: 30px !important;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Recipe Replace 2 - Move AI section up */
+.recipe-replace-2 .ai-suggested-section {
+  margin-top: -10px !important;
+}
+
+/* AI section styling */
+.ai-suggested-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ai-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  background: none !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.ai-icon i {
+  color: #312E81 !important;
+  font-size: 20px;
+  background: none !important;
+}
+
+.ai-suggested-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #312E81 !important;
+  margin: 0;
+}
+
+.ai-suggested-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Recipe Replace 1 - Reason section */
+.replacement-reason {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.reason-header {
+  margin-bottom: 10px;
+}
+
+.reason-header-text {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.reason-item {
+  padding: 0;
+  background: none;
+  border: none;
+  margin-bottom: 8px;
+}
+
+.reason-item:last-child {
+  margin-bottom: 0;
+}
+
+.reason-item.approved {
+  background: none;
+  border: none;
+}
+
+.reason-text {
+  font-size: 0.9rem;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.reason-text.approved-text {
+  color: #4338CA !important;
+}
+
+/* Recipe Replace 2 - Alternative material list table */
+.alternative-material-list h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.alternative-material-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.alternative-material-list th,
+.alternative-material-list td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E5E7EB;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Replace column styling */
+.alternative-material-list td:nth-child(3) {
+  color: #4338CA !important;
+  font-weight: 500;
+}
+
+/* Replace text styling in table */
+.alternative-material-list td:nth-child(3) {
+  color: #4338CA !important;
+  font-weight: 500;
+}
+
+/* Replace header text styling */
+.alternative-material-list th:nth-child(3) {
+  color: #4338CA !important;
+}
+
+.alternative-material-list th {
+  background-color: #F9FAFB;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.alternative-material-list tr:last-child td {
+  border-bottom: none;
+}
+
+.alternative-material-list .status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.alternative-material-list .nearly-expired {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.alternative-material-list .in-stock {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+/* AI-tailored instructions table */
+.ai-tailored-instructions {
+  margin-top: -15px;
+}
+
+.ai-tailored-instructions h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.ai-tailored-instructions table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ai-tailored-instructions th,
+.ai-tailored-instructions td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E5E7EB;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.ai-tailored-instructions th {
+  background-color: #F9FAFB;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.ai-tailored-instructions tr:last-child td {
+  border-bottom: none;
+}
+
+/* Step column styling */
+.ai-tailored-instructions td:first-child {
+  font-weight: bold;
+  color: #1F2937;
+}
+
+/* Approval Section */
+.approval-section {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.approval-section p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.approval-section p:first-child {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.approval-section .status-approved {
+  font-weight: 600;
+  color: #22C55E;
+}
+
+/* Buttons */
+.ai-suggested-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Recipe Replace 1 buttons */
+.btn-cancel-ai,
+.btn-detail-ai {
+  padding: 12px 24px;
+  min-width: 100px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel-ai {
+  background: transparent !important;
+  color: #000000 !important;
+  border: 1px solid #D1D5DB;
+}
+
+.btn-cancel-ai:hover {
+  background: rgba(209, 213, 219, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.btn-detail-ai {
+  background: #26599F !important;
+  color: #FFFFFF !important;
+  border: 1px solid #26599F;
+}
+
+.btn-detail-ai:hover {
+  background: #1E4A7C !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Recipe Replace 2 buttons */
+.btn-perform-substitution,
+.btn-cancel-substitution {
+  padding: 12px 24px;
+  min-width: 180px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.btn-perform-substitution {
+  background: #26599F !important;
+  color: #FFFFFF !important;
+  border: 1px solid #26599F;
+}
+
+.btn-perform-substitution:hover {
+  background: #1E4A7C !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel-substitution {
+  background: transparent !important;
+  color: #000000 !important;
+  border: 1px solid #D1D5DB;
+}
+
+.btn-cancel-substitution:hover {
+  background: #E5E7EB !important;
+  transform: translateY(-1px);
+}
+/* ======================================= */
+/* AI Status Panel - DOM ở ngoài nhưng neo đúng section */
+/* ======================================= */
+
+#aiApplyStatus.ai-status{
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+
+  width: 360px;
+  max-width: calc(100vw - 32px);
+
+  margin: 0;
+  padding: 14px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(99,102,241,.35);
+  background: linear-gradient(135deg, rgba(17,24,39,.96), rgba(31,41,55,.96));
+  color: #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+
+#aiApplyStatus .ai-status-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 8px;
+}
+
+#aiApplyStatus .ai-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#60a5fa; /* running mặc định */
+  box-shadow: 0 0 12px rgba(96,165,250,.75);
+  animation: aiPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes aiPulse{
+  0%,100%{ transform: scale(1); opacity: .9; }
+  50%{ transform: scale(1.45); opacity: 1; }
+}
+
+#aiApplyStatus .ai-status-title{
+  font-weight: 800;
+  letter-spacing:.3px;
+}
+
+#aiApplyStatus .ai-status-badge{
+  margin-left:auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing:.6px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(99,102,241,.18);
+  color: #c7d2fe;
+}
+
+#aiApplyStatus .ai-status-msg{
+  font-size: 14px;
+  line-height: 1.4;
+  color: #d1d5db;
+}
+
+/* states */
+#aiApplyStatus.success .ai-dot{
+  background:#22c55e;
+  box-shadow:0 0 12px rgba(34,197,94,.8);
+  animation:none;
+}
+#aiApplyStatus.success .ai-status-badge{
+  background: rgba(34,197,94,.18);
+  color:#bbf7d0;
+  border-color: rgba(34,197,94,.25);
+}
+
+#aiApplyStatus.error .ai-dot{
+  background:#ef4444;
+  box-shadow:0 0 12px rgba(239,68,68,.7);
+  animation:none;
+}
+#aiApplyStatus.error .ai-status-badge{
+  background: rgba(239,68,68,.18);
+  color:#fecaca;
+  border-color: rgba(239,68,68,.25);
+}
+
+#aiApplyStatus.running .ai-dot{
+  background:#60a5fa;
+  box-shadow: 0 0 12px rgba(96,165,250,.75);
+}
+#aiApplyStatus.running .ai-status-badge{
+  background: rgba(99,102,241,.18);
+  color:#c7d2fe;
+}

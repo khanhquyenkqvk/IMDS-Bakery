@@ -1,0 +1,300 @@
+/* Tái sử dụng các style chung từ ingredient-list.css */
+body {
+  background: #f5f7fb;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+.history-section {
+  padding: 20px;
+}
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 0.9rem;
+}
+.history-table th, .history-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: middle;
+}
+.history-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Căn lề cột Status (Vẫn căn trái) */
+.history-table th.col-status {
+  text-align: left; 
+}
+
+
+.history-table td {
+  color: #1f2937;
+}
+.history-table td:first-child {
+  color: #6b7280; /* Màu cho cột Time */
+}
+
+/* * *** THAY ĐỔI QUAN TRỌNG ***
+ * Xóa 'width: 125px;' để badge tự co dãn theo nội dung.
+*/
+/* Giữ chữ trong badge status không xuống dòng */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;      /* ✅ KHÔNG XUỐNG DÒNG */
+  word-break: keep-all;     /* ✅ Không cắt từ giữa */
+  line-height: 1.3;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.status .fa-solid {
+  font-size: 0.8rem;
+  width: 12px; 
+  text-align: center;
+}
+
+/* Màu sắc các Status (không đổi) */
+.status.good { background: #dcfce7; color: #15803d; }
+.status.low { background: #fef9c3; color: #92400e; }
+.status.expired { background: #fee2e2; color: #b91c1c; }
+.status.nearly-expired { background: #fef3c7; color: #92400e; }
+.status.complete { background: #dcfce7; color: #15803d; }
+.status.running-low { background: #fef9c3; color: #92400e; }
+.status.report { background: #ffedd5; color: #9a3412; }
+
+
+/* --- CỘT ACT (Dấu chấm màu) --- */
+/* (Không thay đổi phần này) */
+.act-dot-label {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  font-weight: 500;
+  color: #1f2937; 
+}
+.act-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.act-dot-label.enter .act-dot { background-color: #3b82f6; } 
+.act-dot-label.use .act-dot { background-color: #f59e0b; } 
+.act-dot-label.expired .act-dot { background-color: #ef4444; } 
+.act-dot-label.report .act-dot { background-color: #f97316; } 
+.act-dot-label.make-cakes .act-dot { background-color: #22c55e; } 
+.act-dot-label.open .act-dot { background-color: #a855f7; } 
+
+
+/* Style cho link và text trong bảng */
+/* (Không thay đổi phần này) */
+.table-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+.table-link:hover {
+  text-decoration: underline;
+}
+.note-text {
+  font-size: 0.85rem;
+  color: #4b5563;
+  font-style: italic;
+  max-width: 150px; 
+  word-wrap: break-word;
+}
+/* --- THANH FILTER --- */
+/* (Không thay đổi phần này) */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+.filter-group input,
+.filter-group select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9fafb;
+  font-family: "Inter", sans-serif;
+  min-width: 150px;
+  height: 38px;
+  box-sizing: border-box;
+}
+.btn-search {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+}
+.btn-search:hover {
+  background: #2563eb;
+}
+/* --- ACT Column (Cập nhật để khớp tone và layout) --- */
+.act-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.act-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Màu sắc cho từng loại hành động (đồng nhất với tone của file gốc) */
+.act-cell[data-act="Enter"] .act-dot { background-color: #3b82f6; }   /* Xanh dương */
+.act-cell[data-act="Use"] .act-dot { background-color: #f59e0b; }     /* Vàng cam */
+.act-cell[data-act="Expired"] .act-dot { background-color: #ef4444; } /* Đỏ */
+.act-cell[data-act="Report"] .act-dot { background-color: #f97316; }  /* Cam */
+.act-cell[data-act="Make cakes"] .act-dot { background-color: #22c55e; } /* Xanh lá */
+.act-cell[data-act="Open"] .act-dot { background-color: #a855f7; }    /* Tím */
+
+/* --- Time Column (hiển thị gọn, dễ đọc) --- */
+.history-table td:first-child {
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* --- Quantity Column (+/- dấu hiệu) --- */
+.qty-cell {
+  font-weight: 600;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.qty-plus {
+  color: #16a34a; /* xanh lá cho nhập */
+}
+
+.qty-minus {
+  color: #dc2626; /* đỏ cho xuất / giảm */
+}
+
+/* --- Hover subtle effect cho toàn hàng --- */
+.history-table tbody tr:hover {
+  background-color: #f9fafb;
+  transition: background 0.2s ease;
+}
+/* --- ACT Column --- */
+.act-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.act-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* --- Quantity Column --- */
+.qty-cell {
+  font-weight: 600;
+  text-align: left;
+  padding-left: 12px;
+}
+.qty-plus { color: #16a34a; }  /* Xanh lá cho nhập */
+.qty-minus { color: #dc2626; } /* Đỏ cho xuất / giảm */
+.status.good {
+  background: #dcfce7;  /* Xanh lá nhạt */
+  color: #15803d;
+}
+
+.status.nearly-expired {
+  background: #fef3c7;  /* Vàng nhạt */
+  color: #92400e;
+}
+
+.status.expired {
+  background: #fee2e2;  /* Đỏ nhạt */
+  color: #b91c1c;
+}
+
+.status.opened {
+  background: #fef9c3;  /* Vàng nhạt */
+  color: #92400e;
+}
+
+.status.used-up {
+  background: #e5e7eb;  /* Xám nhạt */
+  color: #4b5563;
+}
+
+.pagination-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 4px 0;
+}
+.page-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  min-width: 40px;
+  font-weight: 600;
+}
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page-info {
+  color: #374151;
+  font-weight: 600;
+  min-width: 90px;
+  text-align: center;
+}
+
